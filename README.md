@@ -1,7 +1,7 @@
 ## SJURL
 
 A URL shortener that lets you add custom backends, edit your links, delete your links, view what device, os, and browser your link was opened on, and view a timestamp for each record.
-ENTER PASSWORD "DEMO" [HERE](https://sjurl.repl.co/l/demo) TO CHECK IT OUT
+CLICK [HERE](https://sjurl.repl.co/l/demo) TO CHECK IT OUT
 
 
 [Check Uptime and History Here](https://coolcodersj.github.io/SJPinger/history/sjurl)
