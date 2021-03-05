@@ -1,0 +1,233 @@
+$def with (db, passw, shortwebs, names)
+
+<!DOCTYPE html>
+<html>
+	<link rel="manifest" href="manifest.webmanifest">
+	 
+	<link rel="icon" 
+      type="image/ico" 
+      href="static/images/favicon.ico">
+<style>
+		html {
+			margin-top: 110px;
+		}
+		</style>
+	<head>
+	
+	<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('myInput');
+  filter = input.value.toUpperCase();
+  ul = document.getElementsByTagName("table")[0];
+  li = ul.getElementsByTagName('tr');
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByClassName("filter")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+
+
+// function filter(){
+// 	var input, filter, ul, li, a, i, txtValue;
+//   input = document.getElementById('filterdrop');
+//   filter = input.value;
+//   ul = document.getElementById("filtercont");
+//   li = ul.getElementsByTagName('li');
+
+//   // Loop through all list items, and hide those who don't match the search query
+//   for (i = 0; i < li.length; i++) {
+//     a = li[i].getElementsByTagName("a")[0];
+//     txtValue = a.textContent || a.innerText;
+//     if (txtValue.toUpperCase().indexOf(filter) > -1) {
+//       li[i].style.display = "";
+//     } else {
+//       li[i].style.display = "none";
+//     }
+//   }
+// }
+
+
+</script>
+	<script src="static/js/script.js"></script>
+	<style>
+		/* a, atag, p {
+			color: #7289da !important;
+		}
+		button {
+			color: #7289da !important;
+		} */
+		.add-button {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+}
+html {
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+	padding-top: 50px !important;
+}
+
+.input {
+	padding-left: 10px !important;
+}
+
+button {
+	background-color: #253c8d !important;
+}
+	</style>
+	<head>
+		<link rel="stylesheet" href="https://minimalist.coolcodersj.repl.co/style.css">
+		<link href="static/css/style.css" rel="stylesheet" type="text/css"> 
+		<title>URL Shortener</title>
+		<meta name="description" content="Switch to SJURL today! We have no ads, and will remain free forever. SJURL is a URL shortening service that has numerous features, such as webhook integration, desktop app, tracking your links, discord bot, and much more... https://sjurl.tk/ Join today!">
+
+
+<!-- PUT CODE BETWEEN <HEAD> TAGS -->
+<meta name="theme-color" content="#000EF2">
+<meta content="SJURL" property="og:title">
+<meta name="og:site_name" content="">
+<meta name="twitter:title" content="SJURL">
+<meta name="twitter:description" content="A free URL Shortening service that's better than Bitly, with its own discord bot.">
+<meta name="twitter:image" content="">
+<meta name="og:image" content="">
+<meta content="A free URL Shortening service that's better than Bitly, with its own discord bot." property="og:description">
+<link rel="alternate" type="application/json+oembed" href="https://embeds.ga/oembed/?name=Shuchir+Jain&url=https%3A%2F%2Fcoolcodersj.repl.co&providername=&providerurl=">
+<!-- END OF CODE -->
+
+
+	</head>
+
+	<body>
+		<div class="topnav text">
+		<a class="brand" href="#">SJURL</a>
+		<div class="topnavitem">
+		 <a class="topnavitem active" href="/">Home</a>
+  <a class="topnavitem" href="/add">Add Link</a>
+    <a class="topnavitem" href="/login">Login</a>
+  <a class="topnavitem" href="/signup">Signup</a>
+ 
+  </div>
+</div> 
+
+	 <form class="form-inline my-2 my-lg-0">
+      <input class="input mr-sm-2" type="search" placeholder="Search" id="myInput" onkeyup="myFunction()" style="border: none;" aria-label="Search">
+    </form>
+	<style>
+		.url {
+			width: 550px !important;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+		}
+		.url:hover {
+			overflow: visible;
+		}
+		.urltable {
+			word-wrap: break-word;
+		}
+		</style>
+<table>
+<tr>
+	<th class="text">Name</th>
+	<th class="text">Backend</th>
+	<th class="text urltable">URL</th>
+</tr>
+		$for url in db:
+			<tr>
+			$if url in names:
+				$ name = names[url]
+			$else:
+				$ name = ""
+			<script>
+				function del() {
+					var frm = document.getElementById("$url")
+					token = document.getElementById("token")
+					token2 = document.getElementById("token2")
+					token2.value = token.value
+					frm.submit()
+				}
+			</script>
+					<form method="post" action="namec">
+				<input type="hidden" value="$url" name="short">
+				<td>
+				<input type="text" value="$name" class="input" name="name" style="width: 80%">
+				</td>
+					</form>
+						
+						<td>
+						<h5><a class="filter">$url</a></h5>
+						</td>
+						<td>
+						<p class="url">$db[url]</p>
+						</td>
+						<td style="width: 5%;">
+						<div style="margin-right: 5px;">
+						<a href="/edit/$url"><button class="btn" style="width: 100%">Edit</button></a>
+						</div>
+						</td>
+						<td>
+							<form method="POST" action="delete" id="$url">
+							<input type="hidden" value="$url" name="short">
+						<button class="btn card-link" style="width: 100%;">Delete</button>
+						</td>
+						<input type="hidden" value="" id="token2" name="token2">
+					</form>
+					<form method="POST" action="details">
+						<input type="hidden" value="$url" name="short">
+						<td>
+						<button type="submit" class="btn card-link" style="width: 100%;">View Link Details</button>
+						</td>
+					</form>
+					<form method="POST" action="qrcode">
+						<input type="hidden" value="$url" name="short">
+						<td>
+						<button type="submit" class="btn card-link" style="width: 100%;">Generate QR Code</button>
+						</td>
+					</form>
+					<td>
+						<button type="button" onclick="window.location.replace('/qrcode/view/$url')" class="btn card-link" style="width: 100%;">View QR Code</button>
+						</td>
+						$if url not in shortwebs:
+							$ yep = "Enable"
+						$else:
+							$ yep = "Disable"
+						<form method="POST" name="shortwebform$url" action="shortweb">
+						<input type="hidden" value="$url" name="short">
+						<td>
+						<script>
+							function toggleshow(itemid, typ){
+								if (typ === 'Enable') {
+								var item = document.getElementById("url"+itemid);
+								if (item.style.display === "none") {
+									item.style.display = "block";
+								}
+								else if (item.style.display === "block") {
+									item.style.display = "none";
+								}
+							}
+								else if (typ === 'Disable') {
+									var frm = document.getElementsByName("shortwebform"+itemid)[0]
+									frm.submit()
+									frm.reset()
+								}
+							}
+						</script>
+						<button class="btn card-link" onclick="toggleshow('$url', '$yep')" style="width: 100%;">$yep Webhook Integration</button>
+						<input class="input" id="url$url" name="webhook" placeholder="Enter Discord Webhook URL" style="display: none; width: 100%;" required>
+						</td>
+					</form>
+			</tr>	
+			
+</table>
+
+	</body>
+</html>

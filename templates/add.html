@@ -1,0 +1,54 @@
+$def with (db, passw)
+
+<!DOCTYPE html>
+<html>
+		<link rel="icon" 
+      type="image/ico" 
+      href="https://sjurl.repl.co/static/images/favicon.ico">
+
+	<head>
+		<link rel="stylesheet" href="https://minimalist.coolcodersj.repl.co/style.css">
+		<title>URL Shortener -- Add</title>
+		<style>
+			form {
+				padding: 20px;
+			}
+
+		</style>
+		<style>
+		html {
+			margin-top: 110px;
+		}
+		</style>
+	<head>
+	</head>
+
+	<body>
+				<div class="topnav text">
+		<a class="brand" href="#">SJURL</a>
+		<div class="topnavitem">
+		 <a class="topnavitem" href="/">Home</a>
+  <a class="topnavitem active" href="/add">Add Link</a>
+    <a class="topnavitem" href="/login">Login</a>
+  <a class="topnavitem" href="/signup">Signup</a>
+ 
+  </div>
+</div> 
+<center>
+		<form method="post" action = "add">
+			<input type="text" class="input" id="short" name="name"  aria-describedby="emailHelp" placeholder="Give this link a name...">
+			<br><br>
+  <div class="form-group">
+    <input type="text" class="input" id="short" name="short"  aria-describedby="emailHelp" placeholder="Optional Custom Backend....">
+<br><br>
+    <input type="url" class="input" id="url" name="url" required placeholder="The URL to be shortened...">
+  </div>
+<br><br>
+	<input type="text" class="input" name="webhook" id="customCheck1" placeholder="Enter Discord Webhook URL (Optional)">
+<br><br>
+	<br>
+  <button type="submit" class="btn btn-primary">Shorten Link</button>
+</form>
+</center>
+	</body>
+</html>

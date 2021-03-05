@@ -1,0 +1,15 @@
+{
+  "background_color": "blue",
+  "description": "SJURL, the free URL shortener",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "static/iamges/favicon.ico",
+      "sizes": "192x192",
+      "type": "image/ico"
+    }
+  ],
+  "name": "SJURL, the free URL shortener",
+  "short_name": "SJURl",
+  "start_url": "templates/index.html"
+}

@@ -1,0 +1,61 @@
+$def with (short, url, titles, name)
+
+<!DOCTYPE html>
+<html>
+	<div class="topnav text">
+		<a class="brand" href="#">SJURL</a>
+		<div class="topnavitem">
+		 <a class="topnavitem active" href="/">Home</a>
+  <a class="topnavitem" href="/add">Add Link</a>
+    <a class="topnavitem" href="/login">Login</a>
+  <a class="topnavitem" href="/signup">Signup</a>
+ 
+  </div>
+</div> 
+<style>
+		html {
+			margin-top: 110px;
+		}
+		</style>
+	<head>
+			<link rel="icon" 
+      type="image/ico" 
+      href="https://sjurl.tk/static/images/favicon.ico">
+	<style>
+		a {
+			color: #7289da !important;
+		}
+		button {
+			color: #7289da !important;
+		}
+		body {
+			padding-top: 25px;
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+		table, th, td {
+  border: 1px solid black;
+}
+th, td {
+	padding: 15px;
+}
+	</style>
+	<head>
+		<link rel="stylesheet" href="https://minimalist.coolcodersj.repl.co/style.css">
+		<title>URL Shortener</title>
+	</head>
+
+	<body>
+				
+<br>
+<h4 class="h5">LINK SNEAK PEAK</h4>
+<br>
+<h5 class="h6">Link Backend - $short</h5>	
+<a href="$url" class="h6">Full URL - $url</a>	
+<h5 class="h6">Unshortened Page Title - $titles</h5>	
+<h5 class="h6">Shortened Link Title - $name</h5>
+
+<button class="btn btn-warning" onclick="window.location.replace('$url')">Visit this website</button>
+
+	</body>
+</html>

@@ -1,0 +1,12 @@
+Firefox  85.0  Windows  7    Other    EST TIME:  01/19/2021 09:30:57
+Chrome  87.0.4280  Mac OS X  10.15.7  Apple  Mac  Mac  EST TIME:  01/19/2021 12:18:26
+Firefox  84.0  Windows  10    Other    EST TIME:  01/19/2021 12:18:34
+Chrome  87.0.4280  Windows  7    Other    EST TIME:  01/19/2021 12:18:38
+Chrome  87.0.4280  Windows  10    Other    EST TIME:  01/19/2021 12:19:08
+Chrome  87.0.4280  Mac OS X  10.15.7  Apple  Mac  Mac  EST TIME:  01/19/2021 12:19:23
+Firefox  84.0  Windows  10    Other    EST TIME:  01/19/2021 12:19:25
+Chrome  72.0.3626  Windows  7    Other    EST TIME:  01/19/2021 12:21:14
+Discordbot  2.0  Other    Spider  Spider  Desktop  EST TIME:  01/19/2021 15:54:47
+Chrome  87.0.4280  Chrome OS  13505.73.0    Other    EST TIME:  01/19/2021 16:53:42
+Chrome  87.0.4280  Windows  10    Other    EST TIME:  01/19/2021 22:11:19
+Chrome  87.0.4280  Windows  10    Other    EST TIME:  01/19/2021 22:11:34

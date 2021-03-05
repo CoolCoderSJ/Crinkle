@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+		<link rel="icon" 
+      type="image/ico" 
+      href="https://sjurl.repl.co/static/images/favicon.ico">
+
+	<head>
+		<link rel="stylesheet" href="https://minimalist.coolcodersj.repl.co/style.css">
+		<title>URL Shortener -- DEMO</title>
+		<style>
+			form {
+				padding: 20px;
+			}
+
+		</style>
+		<style>
+		html {
+			margin-top: 110px;
+		}
+		</style>
+	<head>
+	</head>
+
+	<body>
+				<div class="topnav text">
+		<a class="brand" href="#">SJURL</a>
+		<div class="topnavitem">
+		 <a class="topnavitem" href="/">Home</a>
+  <a class="topnavitem" href="/add">Add Link</a>
+    <a class="topnavitem" href="/login">Login</a>
+  <a class="topnavitem" href="/signup">Signup</a>
+ 
+  </div>
+</div> 
+<center>
+		<form method="post" action = "demo">
+			<label class="text">Link Name (Sign up to change this value!)</label><br><br>
+			<input type="text" class="input" id="short" name="name"  aria-describedby="emailHelp" value="Shortened via demo" readonly>
+			<br><br>
+  <div class="form-group">
+    <input type="text" class="input" id="short" name="short"  aria-describedby="emailHelp" placeholder="Optional Custom Backend....">
+<br><br>
+    <input type="url" class="input" id="url" name="url" required placeholder="The URL to be shortened...">
+  </div>
+<br><br>
+<label class="text">Discord Webhook URL (Optional) (Sign up to change this value!)</label><br><br>
+	<input type="text" class="input" name="webhook" id="customCheck1" placeholder="None" readonly>
+<br><br>
+	<br>
+  <button type="submit" class="btn btn-primary">Shorten Link</button>
+</form>
+</center>
+	</body>
+</html>
