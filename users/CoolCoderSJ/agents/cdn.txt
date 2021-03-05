@@ -1,3 +1,0 @@
-Firefox  85.0  Windows  7    Other    EST TIME:  01/20/2021 17:51:50
-Safari  14.0  Mac OS X  10.15.6  Apple  Mac  Mac  EST TIME:  01/21/2021 18:51:30
-Firefox  85.0  Windows  7    Other    EST TIME:  01/22/2021 11:00:59
