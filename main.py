@@ -626,8 +626,17 @@ class edit:
 	def GET(self, short):
 		#os.system("clear")	
 		if web.cookies().get("logged_in"):
-			passw = ""
-			return render.edit(db, short, passw)
+			user = web.cookies().get("user")
+			conn = sqlite3.connect('database.db')
+			db2 = conn.cursor()
+			query = db2.execute(f"SELECT * from backends WHERE short = '{short}'").fetchall()
+			user2 = query[0][-1]
+			print(user, user2)
+			if user2 == user:
+				passw = ""
+				return render.edit(db, short, passw)
+			else:
+				raise web.seeother('/')
 		else:
 			raise web.seeother("https://promo.sjurl.repl.co")
 		#os.system("clear")	
