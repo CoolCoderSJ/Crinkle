@@ -1,4 +1,4 @@
-$def with (agent, clicks, dev)
+$def with (agent, clicks, dev, s)
 
 <!DOCTYPE html>
 <html>
@@ -6,14 +6,7 @@ $def with (agent, clicks, dev)
       type="image/ico" 
       href="https://sjurl.repl.co/static/images/favicon.ico">
 	<style>
-		a {
-			color: #7289da !important;
-		}
-		button {
-			color: #7289da !important;
-		}
 		body {
-			padding-top: 25px;
 			padding-left: 15px;
 			padding-right: 15px;
 		}
@@ -24,11 +17,33 @@ th, td {
 	padding: 15px;
 }
 	</style>
-	<style>
-		html {
-			margin-top: 110px;
+
+	<script>
+		function generate() {
+			clicks = document.getElementById('clicks').checked
+			table = document.getElementById('table').checked
+			agents = document.getElementById('agents').checked
+			times = document.getElementById('times').checked
+			clickval = ""
+			tableval = ""
+			agentsval = ""
+			timesval = ""
+			if (clicks) {
+				clickval = "221"
+			}
+			if (table) {
+				tableval = "324"
+			}
+			if (agents) {
+				agentsval = "239"
+			}
+			if (times) {
+				timesval = "692"
+			}
+			url = "https://sjurl.tk/info/" + "$s" + "/" + clickval + tableval + agentsval + timesval
+			document.getElementById('link').value = url
 		}
-	</style>
+	</script>
 	<head>
 	<head>
 		<link rel="stylesheet" href="https://minimalist.coolcodersj.repl.co/style.css">
@@ -47,9 +62,26 @@ th, td {
   </div>
 </div> 
 <br>
+<h3>Share this page</h3>
+<p>Generate a URL by selecting the options below.</p>
+<input type='checkbox' id='clicks'></input>
+<label class="text">Show total clicks</label>
+<br>
+<input type='checkbox' id='table'></input>
+<label class="text">Show table overview</label>
+<br>
+<input type='checkbox' id='agents'></input>
+<label class="text">Show user agents</label>
+<br>
+<input type='checkbox' id='times'></input>
+<label class="text">Show times clicked</label>
+<br><br>
+<button onclick="generate()">Generate Link to share</button>
+<input id='link' class="input" value="" readonly>
+<br><br>
 <h4 class="h5">Clicks Received - $clicks</h4>
 <br>
-<table>
+<table class="text">
 	<caption>Device Overview</caption>
 	<tr>
 		<th>Chrome</th>

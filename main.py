@@ -19,15 +19,14 @@ render = web.template.render('templates/')
 urls = (
 	'/l/(.*)', 'short',
 	'/add', 'add',
-	'/__logs', 'index',
 	'/', 'index',
 	'/dash', 'index',
 	'/edit/(.*)', 'edit',
 	'/edit', 'edit2',
 	'/delete', 'delete',
 	'/details', 'url_info',
+	'/info/(.*)/(.*)', 'public_info',
   	'/demo', 'demo',
-	'/badtry', 'badtry',
 	'/qrcode', 'qrcode',
 	'/qrcode/view/(.*)', 'qrcodeview',
 	'/shortweb', 'shortweb',
@@ -38,6 +37,7 @@ urls = (
 	'/bot/dm', 'botd',
 	'/bot_info', "bot_info",
 	'/bmlet', 'bmlet',
+	'/sitemap', 'sitemap',
 	'/(.*)', 'short2'
 	)
 
@@ -47,6 +47,10 @@ app = web.application(urls, locals())
 session = web.session.Session(app, web.session.DiskStore('sessions'))  
 def notfound():
 	return web.notfound(render.notfound())
+
+class sitemap:
+	def GET(self):
+		return render.sitemap()
 
 class bmlet:
 	def GET(self):
@@ -679,7 +683,10 @@ class url_info:
 			conn.commit()
 			db2.close()
 			import ast
-			query = ast.literal_eval(query[0][4])
+			if query[0][4] == "NONE":
+					query = []
+			else:
+				query = ast.literal_eval(query[0][4])
 			if query != 'NONE':
 				clicks = 0
 				chrome = 0
@@ -701,7 +708,10 @@ class url_info:
 				conn.commit()
 				db2.close()
 				import ast
-				query = ast.literal_eval(query[0][4])
+				if query[0][4] == "NONE":
+					query = []
+				else:
+					query = ast.literal_eval(query[0][4])
 				for line in query:
 					agent.append(line)
 					clicks += 1
@@ -733,11 +743,100 @@ class url_info:
 						chromeos += 1
 				dev = [chrome, ff, safari, opera, edge, mac, ipad, android, windows7, windows10, apple, 
 				linux, chromeos]
-			return render.details(agent, clicks, dev)
+			return render.details(agent, clicks, dev, s)
 		else:
 			raise web.seeother("https://promo.sjurl.repl.co")
 		#os.system("clear")	
-		 
+
+class public_info:
+	def GET(self, s, option):
+		#os.system("clear")	
+		options = []
+		if "221" in option:
+			options.append("clicks")
+		if "324" in option:
+			options.append("table")
+		if "239" in option:
+			options.append("agents")
+		if "692" in option:
+			options.append("times")
+		user = web.cookies().get("user")
+		agent = []
+		i = web.input()
+		conn = sqlite3.connect('database.db')
+		db2 = conn.cursor()
+		query = db2.execute(f"SELECT * from backends WHERE short = '{s}'").fetchall()
+		conn.commit()
+		db2.close()
+		import ast
+		if query[0][4] == "NONE":
+				query = []
+		else:
+			query = ast.literal_eval(query[0][4])
+		if query != 'NONE':
+			clicks = 0
+			chrome = 0
+			ff = 0
+			safari = 0
+			opera = 0
+			edge = 0
+			mac = 0
+			ipad = 0
+			android = 0
+			windows7 = 0
+			windows10 = 0
+			apple = 0
+			linux = 0
+			chromeos= 0 
+			conn = sqlite3.connect('database.db')
+			db2 = conn.cursor()
+			query = db2.execute(f"SELECT * from backends WHERE short = '{s}'").fetchall()
+			conn.commit()
+			db2.close()
+			import ast
+			if query[0][4] == "NONE":
+				query = []
+			else:
+				query = ast.literal_eval(query[0][4])
+			for line in query:
+				agent.append(line)
+				clicks += 1
+				if "Chrome" in line:
+					chrome += 1
+				if "Firefox" in line:
+					ff += 1
+				if "Safari" in line:
+					safari += 1
+				if "Opera" in line:
+					opera += 1
+				if "Edge" in line:
+					edge += 1
+				if "Mac" in line:
+					mac += 1
+				if "iPad" in line:
+					ipad += 1
+				if "Android" in line:
+					android += 1
+				if "Windows  10" in line:
+					windows10 += 1
+				if "Windows  7" in line:
+					windows7 += 1
+				if "Apple" in line:
+					apple += 1
+				if "Linux" in line:
+					linux += 1
+				if "Chrome OS" in line:
+					chromeos += 1
+			dev = [chrome, ff, safari, opera, edge, mac, ipad, android, windows7, windows10, apple, 
+			linux, chromeos]
+			if not "times" in options:
+				agent = []
+				for line in query:
+					e = line.split("EST")[0]
+					agent.append(e)
+		return render.public(agent, clicks, dev, options)
+
+		#os.system("clear")	 	 
 
 class demo:
 	def GET(self):

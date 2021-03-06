@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+			<link rel="icon" 
+      type="image/ico" 
+      href="https://sjurl.tk/static/images/favicon.ico">
+
+	<head>
+		<link rel="stylesheet" href="https://minimalist.coolcodersj.repl.co/style.css">
+		<title>URL Shortener -- Signup</title>
+		<style>
+			form {
+				padding: 20px;
+			}
+		</style>
+	<head>
+	</head>
+<div class="topnav text">
+		<a class="brand" href="#">SJURL</a>
+		<div class="topnavitem">
+		 <a class="topnavitem active" href="/">Home</a>
+  <a class="topnavitem" href="/add">Add Link</a>
+    <a class="topnavitem" href="/login">Login</a>
+  <a class="topnavitem" href="/signup">Signup</a>
+ 
+  </div>
+</div> 
+	<body>
+<h1>Sitemap</h1>
+<br><br>
+
+<ul>
+	<li>Home Page
+		<ul style="list-style-type: none;">
+			<li>
+				<ul>
+					<li>Method Name: short</li>
+					<li>Method URL: /l/(.*)</li>
+					<li>Method Description: Unshortening method.</li>
+					<li>Allowed methods: GET</li>
+				</ul>
+			</li>
+			<br>
+			<li>
+				<ul>
+					<li>Method Name: add</li>
+					<li>Method URL: /add</li>
+					<li>Method Description: Link to shorten a new link.</li>
+					<li>Allowed methods: GET, POST</li>
+				</ul>
+			</li>
+			<br>
+			<li>
+				<ul>
+					<li>Method Name: index</li>
+					<li>Method URL: /</li>
+					<li>Method Description: Homepage.</li>
+					<li>Allowed methods: GET</li>
+				</ul>
+			</li>
+			<br>
+			<li>
+				<ul>
+					<li>Method Name: index</li>
+					<li>Method URL: /dash</li>
+					<li>Method Description: Homepage.</li>
+					<li>Allowed methods: GET</li>
+				</ul>
+			</li>
+			<br>
+			<li>
+				<ul>
+					<li>Method Name: edit</li>
+					<li>Method URL: /edit/(.*)</li>
+					<li>Method Description: Page to render when editing URLs.</li>
+					<li>Allowed methods: GET</li>
+				</ul>
+			</li>
+			<br>
+			<li>
+				<ul>
+					<li>Method Name: edit2</li>
+					<li>Method URL: /edit</li>
+					<li>Method Description: Method to edit URLs.</li>
+					<li>Allowed methods: POST</li>
+				</ul>
+			</li>
+			<br>
+			<li>
+				<ul>
+					<li>Method Name: delete</li>
+					<li>Method URL: /delete</li>
+					<li>Method Description: Method to delete URLs.</li>
+					<li>Allowed methods: POST</li>
+				</ul>
+			</li>
+			<br>
+			<li>
+				<ul>
+					<li>Method Name: demo</li>
+					<li>Method URL: /demo</li>
+					<li>Method Description: Demo page for users without an account.</li>
+					<li>Allowed methods: GET, POST</li>
+				</ul>
+			</li>
+			<br>
+			<li>
+				<ul>
+					<li>Method Name: qrcode</li>
+					<li>Method URL: /qrcode</li>
+					<li>Method Description: Method for generating a QR Code.</li>
+					<li>Allowed methods: POST</li>
+				</ul>
+			</li>
+			<br>
+			<li>
+				<ul>
+					<li>Method Name: qrcodeview</li>
+					<li>Method URL: /qrcode/view/(.*)</li>
+					<li>Method Description: Page to show generated QR Code.</li>
+					<li>Allowed methods: GET</li>
+				</ul>
+			</li>
+			<br>
+			<li>
+				<ul>
+					<li>Method Name: shortweb</li>
+					<li>Method URL: /shortweb</li>
+					<li>Method Description: Method to edit webhook integration.</li>
+					<li>Allowed methods: POST</li>
+				</ul>
+			</li>
+			<br>
+			<li>
+				<ul>
+					<li>Method Name: namec</li>
+					<li>Method URL: /namec</li>
+					<li>Method Description: Method to edit URL names.</li>
+					<li>Allowed methods: POST</li>
+				</ul>
+			</li>
+			<br>
+			<li>
+				<ul>
+					<li>Method Name: login</li>
+					<li>Method URL: /login</li>
+					<li>Method Description: Login Page.</li>
+					<li>Allowed methods: GET, POST</li>
+				</ul>
+			</li>
+			<br>
+			<li>
+				<ul>
+					<li>Method Name: signup</li>
+					<li>Method URL: /signup</li>
+					<li>Method Description: Signup Page.</li>
+					<li>Allowed methods: GET, POST</li>
+				</ul>
+			</li>
+			<br>
+			<ul>
+					<li>Method Name: sitemap</li>
+					<li>Method URL: /sitemap</li>
+					<li>Method Description: Sitemap.</li>
+					<li>Allowed methods: GET</li>
+				</ul>
+			</li>
+			<br>
+			<li>
+				<ul>
+					<li>Method Name: short2</li>
+					<li>Method URL: /(.*)</li>
+					<li>Method Description: Redirection to /l/(.*). This is the last method listed so that it does not override existing pages.</li>
+					<li>Allowed methods: GET</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<br><br>
+	<li>APIs
+		<ul style="list-style-type: none;">
+			<li>
+				<ul>
+					<li>Method Name: botg</li>
+					<li>Method URL: /bot/guild</li>
+					<li>Method Description: Method for Discord Bot  in guilds.</li>
+					<li>Allowed methods: GET, POST</li>
+				</ul>
+			</li>
+			<br>
+			<li>
+				<ul>
+					<li>Method Name: botd</li>
+					<li>Method URL: /bot/dm</li>
+					<li>Method Description: Method for Discord Bot  in direct messages.</li>
+					<li>Allowed methods: GET, POST</li>
+				</ul>
+			</li>
+			<br>
+			<li>
+				<ul>
+					<li>Method Name: bmlet</li>
+					<li>Method URL: /bmlet</li>
+					<li>Method Description: Method for custom made Bookmarklets.</li>
+					<li>Allowed methods: GET</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+</ul>
+	</body>
+</html>

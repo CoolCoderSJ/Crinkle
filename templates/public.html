@@ -1,0 +1,102 @@
+$def with (agent, clicks, dev, options)
+
+<!DOCTYPE html>
+<html>
+			<link rel="icon" 
+      type="image/ico" 
+      href="https://sjurl.repl.co/static/images/favicon.ico">
+	<style>
+		a {
+			color: #7289da !important;
+		}
+		button {
+			color: #7289da !important;
+		}
+		body {
+			padding-top: 25px;
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+		table, th, td {
+  border: 1px solid black;
+}
+th, td {
+	padding: 15px;
+}
+	</style>
+	<style>
+		html {
+			margin-top: 110px;
+		}
+	</style>
+	<head>
+	<head>
+		<link rel="stylesheet" href="https://minimalist.coolcodersj.repl.co/style.css">
+		<title>URL Shortener</title>
+	</head>
+
+	<body>
+				<div class="topnav text">
+		<a class="brand" href="#">SJURL</a>
+		<div class="topnavitem">
+		 <a class="topnavitem active" href="/">Home</a>
+  <a class="topnavitem" href="/add">Add Link</a>
+    <a class="topnavitem" href="/login">Login</a>
+  <a class="topnavitem" href="/signup">Signup</a>
+ 
+  </div>
+</div> 
+<br>
+	$if "clicks" in options:
+		<h4 class="h5">Clicks Received - $clicks</h4>
+		<br>
+
+$if "table" in options:
+	<table class="text">
+		<caption>Device Overview</caption>
+		<tr>
+			<th>Chrome</th>
+			<th>Firefox</th>
+			<th>Safari</th>
+			<th>Opera</th>
+			<th>Edge</th>
+			<th>Mac</th>
+			<th>iPad</th>
+			<th>Android</th>
+			<th>Windows 7</th>
+			<th>Windows 10</th>
+			<th>Apple</th>
+			<th>Linux</th>
+			<th>Chrome OS</th>
+		</tr>
+		<tr>
+			<td>$dev[0]</td>
+			<td>$dev[1]</td>
+			<td>$dev[2]</td>
+			<td>$dev[3]</td>
+			<td>$dev[4]</td>
+			<td>$dev[5]</td>
+			<td>$dev[6]</td>
+			<td>$dev[7]</td>
+			<td>$dev[8]</td>
+			<td>$dev[9]</td>
+			<td>$dev[10]</td>
+			<td>$dev[11]</td>
+			<td>$dev[12]</td>
+		</tr>
+	</table>
+	<br>
+	<br>
+
+$if "agents" in options or "times" in options:
+	<h4 class="h4">User Agents Used When Accessing this Link:</h4>
+	<br>
+	<ul>
+	$for short in agent:
+		<li>
+			<p class="card-text">$short</p>	
+			<br>
+		</li>
+	</ul>				
+</body>
+</html>

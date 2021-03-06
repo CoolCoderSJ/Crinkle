@@ -17,16 +17,20 @@ $def with (db, passw, shortwebs, names)
 	<script>
 function myFunction() {
   // Declare variables
-  var input, filter, ul, li, a, i, txtValue;
+  var input, filter, ul, li, i, txtValue;
   input = document.getElementById('myInput');
   filter = input.value.toUpperCase();
   ul = document.getElementsByTagName("table")[0];
   li = ul.getElementsByTagName('tr');
-
+  console.log(li)
   // Loop through all list items, and hide those who don't match the search query
   for (i = 0; i < li.length; i++) {
-    a = li[i].getElementsByClassName("filter")[0];
-    txtValue = a.textContent || a.innerText;
+	  console.log(li[i])
+	b = li[i].getElementsByTagName("td")[1];
+	c = b.getElementsByTagName("h5")[0];
+    a = c.getElementsByClassName("filter")[0];
+	console.log(a)
+    txtValue = a.innerHTML;
     if (txtValue.toUpperCase().indexOf(filter) > -1) {
       li[i].style.display = "";
     } else {
