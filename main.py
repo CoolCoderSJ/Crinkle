@@ -1,5 +1,4 @@
 import web
-from replit import db
 import os
 from requests import get
 from user_agents import parse
@@ -10,7 +9,7 @@ from discord_webhook import DiscordWebhook
 from bs4 import BeautifulSoup 
 import shutil
 import requests
-import sqlite3
+from replit import db
 
 os.system("clear")
 
@@ -40,6 +39,8 @@ urls = (
 	'/sitemap', 'sitemap',
 	'/(.*)', 'short2'
 	)
+
+
 
 #os.system("clear")	
 
@@ -80,12 +81,13 @@ class bmlet:
 					if tries == total5:
 						num += 1
 			if short not in db:
-				db[short] = url
-				conn = sqlite3.connect('database.db')
-				db2 = conn.cursor()
-				db2.execute(f"INSERT into backends (short, name, webhook, agents, user) VALUES ('{short}', 'NONE', 'NONE', 'NONE', 'CoolCoderSJ')")
-				conn.commit()
-				db2.close()
+				db[short] = {
+					"url": url,
+					"name": "NONE",
+					"webhook": "NONE",
+					"agents": "NONE",
+					"user": "CoolCoderSJ"
+				}
 				import json
 				web.header('Content-Type', 'application/json')
 				web.header('Access-Control-Allow-Origin', '*')
@@ -127,12 +129,13 @@ class botg:
 				if tries == total5:
 					num += 1
 		if short not in db:
-			db[short] = url
-			conn = sqlite3.connect('database.db')
-			db2 = conn.cursor()
-			db2.execute(f"INSERT into backends (short, name, webhook, agents, user) VALUES ('{short}', 'NONE', 'NONE', 'NONE', 'EXTERNAL')")
-			conn.commit()
-			db2.close()
+			db[short] = {
+					"url": url,
+					"name": "NONE",
+					"webhook": "NONE",
+					"agents": "NONE",
+					"user": "EXTERNAL"
+				}
 			return short
 		return False
 
@@ -167,11 +170,13 @@ class botd:
 				if tries == total5:
 					num += 1
 		if short not in db:
-			conn = sqlite3.connect('database.db')
-			db2 = conn.cursor()
-			db2.execute(f"INSERT into backends (short, name, webhook, agents, user) VALUES ('{short}', 'NONE', 'NONE', 'NONE', 'EXTERNAL')")
-			conn.commit()
-			db2.close()
+			db[short] = {
+					"url": url,
+					"name": "NONE",
+					"webhook": "NONE",
+					"agents": "NONE",
+					"user": "EXTERNAL"
+				}
 			return short
 		return False
 
@@ -179,24 +184,16 @@ class botd:
 class bot_info:
 	def POST(self):
 		#os.system("clear")	
-		conn = sqlite3.connect('database.db')
-		db2 = conn.cursor()
-		query = db2.execute(f"SELECT * from backends").fetchall()
-		db2.close()
 		users2 = {}
-		for url in query:
-			users2[url[1]] = url[5]
+		for url in db:
+			users2[url] = db[url]["user"]
 		i = web.input(_method="post")
 		print(i)
 		s = i.short
 		if s in db:
 			user = users2[s]
-			conn = sqlite3.connect('database.db')
-			db2 = conn.cursor()
-			query = db2.execute(f"SELECT * from backends WHERE short = '{s}'").fetchall()
-			db2.close()
 			import ast
-			query = ast.literal_eval(query[0][4])
+			query = ast.literal_eval(str(db[s]["agents"]))
 			if query != 'NONE':
 				clicks = 0
 				chrome = 0
@@ -212,12 +209,8 @@ class bot_info:
 				apple = 0
 				linux = 0
 				chromeos= 0 
-				conn = sqlite3.connect('database.db')
-				db2 = conn.cursor()
-				query = db2.execute(f"SELECT * from backends WHERE short = '{s}'").fetchall()
-				db2.close()
 				import ast
-				query = ast.literal_eval(query[0][4])
+				query = ast.literal_eval(str(db[s]["agents"]))
 				for line in query:
 					clicks += 1
 					if "Chrome" in line:
@@ -319,23 +312,23 @@ class shortweb:
 		#os.system("clear")	
 		i = web.input()
 		short = i.short
-		conn = sqlite3.connect('database.db')
-		db2 = conn.cursor()
-		query = db2.execute(f"SELECT * from backends WHERE short = '{short}'").fetchall()
-		db2.close()
-		query = query[0]
+		query = db[short]
 		if query[3] != 'NONE':
-			conn = sqlite3.connect('database.db')
-			db2 = conn.cursor()
-			db2.execute(f"UPDATE backends SET webhook = 'NONE' WHERE short = '{short}'")
-			conn.commit()
-			db2.close()
+			db[short] = {
+					"url": db[short]['url'],
+					"name": db[short]['name'],
+					"webhook": "NONE",
+					"agents": db[short]['agents'],
+					"user": db[short]['user']
+				}
 		else:
-			conn = sqlite3.connect('database.db')
-			db2 = conn.cursor()
-			db2.execute(f"UPDATE backends SET webhook = '{i.webhook}' WHERE short = '{short}'")
-			conn.commit()
-			db2.close()
+			db[short] = {
+					"url": db[short]['url'],
+					"name": db[short]['name'],
+					"webhook": i.webhook,
+					"agents": db[short]['agents'],
+					"user": db[short]['user']
+				}
 		raise web.seeother("/")
 		#os.system("clear")	
 
@@ -349,23 +342,23 @@ class namec:
 			name = i.name
 			short = i.short
 			user = web.cookies().get("user")
-			conn = sqlite3.connect('database.db')
-			db2 = conn.cursor()
-			query = db2.execute(f"SELECT * from backends WHERE short = '{short}'").fetchall()
-			db2.close()
-			query = query[0]
+			query = db[short]
 			if name == '':
-				conn = sqlite3.connect('database.db')
-				db2 = conn.cursor()
-				db2.execute(f"UPDATE backends SET name = 'NONE' WHERE short = '{short}'")
-				conn.commit()
-				db2.close()
+				db[short] = {
+					"url": db[short]['url'],
+					"name": "NONE",
+					"webhook": db[short]['webhook'],
+					"agents": db[short]['agents'],
+					"user": db[short]['user']
+				}
 			else:
-				conn = sqlite3.connect('database.db')
-				db2 = conn.cursor()
-				db2.execute(f"UPDATE backends SET name = '{name}' WHERE short = '{short}'")
-				conn.commit()
-				db2.close()
+				db[short] = {
+					"url": db[short]['url'],
+					"name": name,
+					"webhook": db[short]['webhook'],
+					"agents": db[short]['agents'],
+					"user": db[short]['user']
+				}
 			raise web.seeother("/")
 		else:
 			raise web.seeother("https://promo.sjurl.repl.co")
@@ -415,13 +408,9 @@ class short:
 	def GET(self, short):
 		if short == "/" or short == "" or short == "favicon.ico":
 			raise web.seeother('/dash')
-		conn = sqlite3.connect('database.db')
-		db2 = conn.cursor()
-		query = db2.execute(f"SELECT * from backends").fetchall()
-		db2.close()
 		user = {}
-		for url in query:
-			user[url[1]] = url[5]
+		for url in db:
+			user[url] = db[url]['user']
 		if short.endswith("+"):
 				short1 = short.split("+")[-2]
 				url = db[short1]
@@ -431,13 +420,11 @@ class short:
 				soup = BeautifulSoup(r.text, 'html.parser') 
 				titles = ""
 				for title in soup.find_all('title'): 
-					titles += str(title)+"\n"
+					title = str(title)
+					titles += str(title.split("<title>")[1].split("</title>")[0])+"\n"
 				user = user[short1]
-				conn = sqlite3.connect('database.db')
-				db2 = conn.cursor()
-				query = db2.execute(f"SELECT * from backends WHERE short = '{short1}'").fetchall()
-				db2.close()
-				name = query[0][2]
+				
+				name = db[short]['name']
 				return render.sneak(short1, url, titles, name)
 		#os.system("clear")	
 		#os.system("clear")	
@@ -445,87 +432,85 @@ class short:
 			if short.split("/")[0] in db:
 				params = short.split(short.split("/")[0])
 				params = "".join(params)
+				short1 = short.split("/")[0]
 			elif short.split("#")[0] in db:
 				params = short.split(short.split("#")[0])
 				params = "".join(params)
+				short1 = short.split("#")[0]
 			elif short.split("?")[0] in db:
 				params = short.split(short.split("?")[0])
 				params = "".join(params)
+				short1 = short.split("?")[0]
 			else:
 				params = ""
-			tz_NY = pytz.timezone('America/New_York') 
-			now = datetime.now(tz_NY)
-			dt_string = now.strftime("%m/%d/%Y %H:%M:%S")
-			short1 = short.split("/")[0]
-			usr_str = web.ctx.env['HTTP_USER_AGENT']
-			usr_agent2 = parse(usr_str)
-			usr_agent = ""
-			if usr_agent2.browser.family != None:
-				bfamily = usr_agent2.browser.family
-			else:
-				bfamily = ""
-			if usr_agent2.browser.version_string != None:
-				bversion = usr_agent2.browser.version_string
-			else:
-				bversion = ""
+				short1 = short.split("/")[0]
+			if short1 in db:
+				
+				tz_NY = pytz.timezone('America/New_York') 
+				now = datetime.now(tz_NY)
+				dt_string = now.strftime("%m/%d/%Y %H:%M:%S")
+				usr_str = web.ctx.env['HTTP_USER_AGENT']
+				usr_agent2 = parse(usr_str)
+				usr_agent = ""
+				if usr_agent2.browser.family != None:
+					bfamily = usr_agent2.browser.family
+				else:
+					bfamily = ""
+				if usr_agent2.browser.version_string != None:
+					bversion = usr_agent2.browser.version_string
+				else:
+					bversion = ""
 
-			if usr_agent2.os.family != None:
-				osfamily = usr_agent2.os.family
-			else:
-				osfamily = ""
-			if usr_agent2.os.version_string != None:
-				osversion = usr_agent2.os.version_string
-			else:
-				osversion = ""
+				if usr_agent2.os.family != None:
+					osfamily = usr_agent2.os.family
+				else:
+					osfamily = ""
+				if usr_agent2.os.version_string != None:
+					osversion = usr_agent2.os.version_string
+				else:
+					osversion = ""
 
-			if usr_agent2.device.brand != None:
-				devbrand = usr_agent2.device.brand
+				if usr_agent2.device.brand != None:
+					devbrand = usr_agent2.device.brand
+				else:
+					devbrand = ""
+				if usr_agent2.device.family != None:
+					devfamily = usr_agent2.device.family
+				else:
+					devfamily = ""
+				if usr_agent2.device.model != None:
+					devmodel = usr_agent2.device.model
+				else:
+					devmodel = ""
+				usr_agent = bfamily + "  " + bversion + "  " + osfamily + "  " + osversion + "  " + devbrand + "  " + devfamily + "  " + devmodel + "  EST TIME:  " + dt_string
+				line = usr_agent
+				import ast
+				if db[short]['agents'] == 'NONE':
+					agents = []
+				else:
+					agents = ast.literal_eval(str(db[short]['agents']))
+				print(len(agents))
+				agents.append(line)
+				print(len(agents))
+				db[short] = {
+					"url": db[short]['url'],
+					"name": db[short]['name'],
+					"webhook": db[short]['webhook'],
+					"agents": agents,
+					"user": db[short]['user']
+				}
+				print(len(ast.literal_eval(str(db[short]['agents']))))
+				url = db[short1]['url']
+				if not url.startswith("https://"):
+					url = "https://"+url
+				
+				if db[short]['webhook'] != 'NONE':
+					webhookurl = db[short]['webhook']
+					webhook = DiscordWebhook(url=webhookurl, content="A Link was visited. \n\nDetails:\nShortened Backend: "+short+"\nFull URL: "+url+"\nDevice details: "+bfamily + "  " + bversion + "  " + osfamily + "  " + osversion + "  " + devbrand + "  " + devfamily + "  " + devmodel+"\n\nTime: "+dt_string)
+					webhook.execute()
+				raise web.seeother(url+params)
 			else:
-				devbrand = ""
-			if usr_agent2.device.family != None:
-				devfamily = usr_agent2.device.family
-			else:
-				devfamily = ""
-			if usr_agent2.device.model != None:
-				devmodel = usr_agent2.device.model
-			else:
-				devmodel = ""
-			usr_agent = bfamily + "  " + bversion + "  " + osfamily + "  " + osversion + "  " + devbrand + "  " + devfamily + "  " + devmodel + "  EST TIME:  " + dt_string
-			line = usr_agent
-			conn = sqlite3.connect('database.db')
-			db2 = conn.cursor()
-			query = db2.execute(f"SELECT * from backends WHERE short = '{short1}'").fetchall()
-			db2.close()
-			query = query[0]
-			import ast
-			if query[4] == 'NONE':
-				agents = []
-			else:
-				agents = ast.literal_eval(query[4])
-			agents.append(line)
-
-			conn = sqlite3.connect('database.db')
-			db2 = conn.cursor()
-			query = db2.execute(f"""UPDATE backends SET agents = "{agents}" WHERE short = '{short1}'""")
-			conn.commit()
-			db2.close()
-		
-
-			url = db[short1]
-			if not url.startswith("https://"):
-				url = "https://"+url
-			conn = sqlite3.connect('database.db')
-			db2 = conn.cursor()
-			query = db2.execute(f"SELECT * from backends WHERE short = '{short}'").fetchall()
-			db2.close()
-			query = query[0]
-			if query[3] != 'NONE':
-				webhookurl = query[3]
-				webhook = DiscordWebhook(url=webhookurl, content="A Link was visited. \n\nDetails:\nShortened Backend: "+short+"\nFull URL: "+url+"\nDevice details: "+bfamily + "  " + bversion + "  " + osfamily + "  " + osversion + "  " + devbrand + "  " + devfamily + "  " + devmodel+"\n\nTime: "+dt_string)
-				webhook.execute()
-			raise web.seeother(url+params)
-		else:
-			raise web.notfound()
+				raise web.notfound()
 		#os.system("clear")	
 		 
     
@@ -562,7 +547,10 @@ class add:
 				if tries == 46656:
 					num += 1
 		if "webhook" in i:
-			webhookurl = i.webhook
+			if i.webhook != '':
+				webhookurl = i.webhook
+			else:
+				webhookurl = "NONE"
 		else:
 			webhookurl = "NONE"
 		url = i.url
@@ -570,12 +558,13 @@ class add:
 		if name == "":
 			name = 'NONE'
 		if short not in db:
-			conn = sqlite3.connect('database.db')
-			db2 = conn.cursor()
-			query = db2.execute(f"INSERT into backends (short, name, webhook, agents, user) VALUES ('{short}', '{name}', '{webhookurl}', 'NONE', '{user}')")
-			conn.commit()
-			db2.close()
-			db[short] = url
+			db[short] = {
+					"url": url,
+					"name": name,
+					"webhook": webhookurl,
+					"agents": "NONE",
+					"user": user
+				}
 			return render.success(short, url)
 		else:
 			return render.alert()
@@ -592,32 +581,20 @@ class index:
 			names = {}
 			userlinks = {}
 			for short in db:
-				if short != "/":
+				if short != "/" and short != "x":
 					name = ""
-					conn = sqlite3.connect('database.db')
-					db2 = conn.cursor()
-					query = db2.execute(f"SELECT * from backends WHERE short = '{short}'").fetchall()
-					db2.close()
-					query = query[0]
-					if query[3] != 'NONE':
+					if db[short]['webhook'] != 'NONE':
 						shortwebs.append(short)
-					conn = sqlite3.connect('database.db')
-					db2 = conn.cursor()
-					query = db2.execute(f"SELECT * from backends WHERE short = '{short}'").fetchall()
-					db2.close()
-					query = query[0]
-					if query[2] != 'NONE':
-						name = query[2]
+					
+					if db[short]['name'] != 'NONE':
+						name = db[short]['name']
 					else:
 						name = ""
 					names[short] = name
-
-			conn = sqlite3.connect('database.db')
-			db2 = conn.cursor()
-			query = db2.execute(f"SELECT short from backends WHERE user = '{user}'").fetchall()
-			db2.close()
-			for link in query:
-				userlinks[link[0]] = db[link[0]]
+			
+			for short in db:
+				if db[short]['user'] == user:
+					userlinks[short] = db[short]['url']
 			return render.index(userlinks, passw, shortwebs, names)
 		else:
 			raise web.seeother("https://promo.sjurl.repl.co")
@@ -627,11 +604,7 @@ class edit:
 		#os.system("clear")	
 		if web.cookies().get("logged_in"):
 			user = web.cookies().get("user")
-			conn = sqlite3.connect('database.db')
-			db2 = conn.cursor()
-			query = db2.execute(f"SELECT * from backends WHERE short = '{short}'").fetchall()
-			user2 = query[0][-1]
-			print(user, user2)
+			user2 = db[short]['user']
 			if user2 == user:
 				passw = ""
 				return render.edit(db, short, passw)
@@ -649,7 +622,13 @@ class edit2:
 			i = web.input()
 			newurl = i.newurl
 			short = i.short
-			db[short] = newurl
+			db[short] = {
+					"url": newurl,
+					"name": db[short]['name'],
+					"webhook": db[short]['webhook'],
+					"agents": db[short]['agents'],
+					"user": db[short]['user']
+				}
 			raise web.seeother('/')
 		else:
 			raise web.seeother("https://promo.sjurl.repl.co")
@@ -666,11 +645,6 @@ class delete:
 			
 			if os.path.exists("static/images/qr/"+short+".png"):
 				os.remove("static/images/qr/"+short+".png")	
-			conn = sqlite3.connect('database.db')
-			db2 = conn.cursor()
-			query = db2.execute(f"DELETE from backends WHERE short = '{short}'")
-			conn.commit()
-			db2.close()
 			del db[short]
 			raise web.seeother('/')
 		else:
@@ -686,16 +660,12 @@ class url_info:
 			agent = []
 			i = web.input()
 			s = i.short
-			conn = sqlite3.connect('database.db')
-			db2 = conn.cursor()
-			query = db2.execute(f"SELECT * from backends WHERE short = '{s}'").fetchall()
-			conn.commit()
-			db2.close()
+			
 			import ast
-			if query[0][4] == "NONE":
+			if db[s]['agents'] == "NONE":
 					query = []
 			else:
-				query = ast.literal_eval(query[0][4])
+				query = ast.literal_eval(str(db[s]['agents']))
 			if query != 'NONE':
 				clicks = 0
 				chrome = 0
@@ -711,16 +681,12 @@ class url_info:
 				apple = 0
 				linux = 0
 				chromeos= 0 
-				conn = sqlite3.connect('database.db')
-				db2 = conn.cursor()
-				query = db2.execute(f"SELECT * from backends WHERE short = '{s}'").fetchall()
-				conn.commit()
-				db2.close()
+				
 				import ast
-				if query[0][4] == "NONE":
+				if db[s]['agents'] == "NONE":
 					query = []
 				else:
-					query = ast.literal_eval(query[0][4])
+					query = ast.literal_eval(str(db[s]['agents']))
 				for line in query:
 					agent.append(line)
 					clicks += 1
@@ -772,16 +738,11 @@ class public_info:
 		user = web.cookies().get("user")
 		agent = []
 		i = web.input()
-		conn = sqlite3.connect('database.db')
-		db2 = conn.cursor()
-		query = db2.execute(f"SELECT * from backends WHERE short = '{s}'").fetchall()
-		conn.commit()
-		db2.close()
 		import ast
-		if query[0][4] == "NONE":
+		if db[s]['agents'] == "NONE":
 				query = []
 		else:
-			query = ast.literal_eval(query[0][4])
+			query = ast.literal_eval(str(db[s]['agents']))
 		if query != 'NONE':
 			clicks = 0
 			chrome = 0
@@ -797,16 +758,11 @@ class public_info:
 			apple = 0
 			linux = 0
 			chromeos= 0 
-			conn = sqlite3.connect('database.db')
-			db2 = conn.cursor()
-			query = db2.execute(f"SELECT * from backends WHERE short = '{s}'").fetchall()
-			conn.commit()
-			db2.close()
 			import ast
-			if query[0][4] == "NONE":
+			if db[s]['agents'] == "NONE":
 				query = []
 			else:
-				query = ast.literal_eval(query[0][4])
+				query = ast.literal_eval(str(db[s]['agents']))
 			for line in query:
 				agent.append(line)
 				clicks += 1
@@ -874,7 +830,10 @@ class demo:
 				if tries == 46656:
 					num += 1
 		if "webhook" in i:
-			webhookurl = i.webhook
+			if i.webhook != '':
+				webhookurl = i.webhook
+			else:
+				webhookurl = "NONE"
 		else:
 			webhookurl = "NONE"
 		url = i.url
@@ -882,12 +841,13 @@ class demo:
 		if name == "":
 			name = 'NONE'
 		if short not in db:
-			conn = sqlite3.connect('database.db')
-			db2 = conn.cursor()
-			query = db2.execute(f"INSERT into backends (short, name, webhook, agents, user) VALUES ('{short}', '{name}', '{webhookurl}', 'NONE', '{user}')")
-			conn.commit()
-			db2.close()
-			db[short] = url
+			db[short] = {
+					"url": url,
+					"name": name,
+					"webhook": webhookurl,
+					"agents": "NONE",
+					"user": user
+				}
 			return render.success(short, url)
 		else:
 			return render.alert()
