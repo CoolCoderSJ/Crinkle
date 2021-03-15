@@ -1,4 +1,4 @@
-$def with (agent, clicks, dev, s)
+$def with (agent, clicks, dev, s, graphurl)
 
 <!DOCTYPE html>
 <html>
@@ -24,10 +24,12 @@ th, td {
 			table = document.getElementById('table').checked
 			agents = document.getElementById('agents').checked
 			times = document.getElementById('times').checked
+			graph = document.getElementById('graph').checked
 			clickval = ""
 			tableval = ""
 			agentsval = ""
 			timesval = ""
+			graphval = ""
 			if (clicks) {
 				clickval = "221"
 			}
@@ -40,7 +42,10 @@ th, td {
 			if (times) {
 				timesval = "692"
 			}
-			url = "https://sjurl.tk/info/" + "$s" + "/" + clickval + tableval + agentsval + timesval
+			if (graph) {
+				graphval = "734"
+			}
+			url = "https://sjurl.tk/info/" + "$s" + "/" + clickval + tableval + agentsval + timesval + graphval
 			document.getElementById('link').value = url
 		}
 	</script>
@@ -75,6 +80,9 @@ th, td {
 <br>
 <input type='checkbox' id='times'></input>
 <label class="text">Show times clicked</label>
+<br>
+<input type='checkbox' id='graph'></input>
+<label class="text">Show graph</label>
 <br><br>
 <button onclick="generate()">Generate Link to share</button>
 <input id='link' class="input" value="" readonly>
@@ -114,6 +122,11 @@ th, td {
 		<td>$dev[12]</td>
 	</tr>
 </table>
+<br>
+<br>
+<center>
+<img src="$graphurl">
+</center>
 <br>
 <br>
 		<h4 class="h4">User Agents Used When Accessing this Link:</h4>

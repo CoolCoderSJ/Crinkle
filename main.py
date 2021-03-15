@@ -7,9 +7,12 @@ from datetime import datetime
 import random
 from discord_webhook import DiscordWebhook
 from bs4 import BeautifulSoup 
-import shutil
 import requests
 from replit import db
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use("Agg")
+
 
 os.system("clear")
 
@@ -595,7 +598,33 @@ class index:
 			for short in db:
 				if db[short]['user'] == user:
 					userlinks[short] = db[short]['url']
-			return render.index(userlinks, passw, shortwebs, names)
+			query = []
+			for short in db:
+				import ast
+				e = str(db[short]['agents'])
+				if e == "NONE":
+					e = "[]"
+				e = ast.literal_eval(e)
+				query2 = e
+				for line in query2:
+					query.append(line)
+			x_axis = []
+			y_axis = []
+			for line in query:
+				line = line.split("2021")[0].split("EST TIME: ")[-1]
+				num = 0
+				for x in query:
+					if line in x:
+						num += 1
+				if line not in x_axis:
+					x_axis.append(line)
+					y_axis.append(num)
+			f = plt.figure()
+			plt.plot(x_axis, y_axis, "r")
+			plt.savefig(f"static/images/graphs/{user}.png", transparent=True, facecolor="w")
+			f.clear()
+			plt.close(f)
+			return render.index(userlinks, passw, shortwebs, names, f"https://sjurl.repl.co/static/images/graphs/{user}.png")
 		else:
 			raise web.seeother("https://promo.sjurl.repl.co")
 		#os.system("clear")	
@@ -718,7 +747,23 @@ class url_info:
 						chromeos += 1
 				dev = [chrome, ff, safari, opera, edge, mac, ipad, android, windows7, windows10, apple, 
 				linux, chromeos]
-			return render.details(agent, clicks, dev, s)
+				x_axis = []
+				y_axis = []
+				for line in query:
+					line = line.split("2021")[0].split("EST TIME: ")[-1]
+					num = 0
+					for x in query:
+						if line in x:
+							num += 1
+					if line not in x_axis:
+						x_axis.append(line)
+						y_axis.append(num)
+				f = plt.figure()
+				plt.plot(x_axis, y_axis, "r")
+				plt.savefig(f"static/images/graphs/{user}{s}.png", transparent=True, facecolor="w")
+				f.clear()
+				plt.close(f)
+			return render.details(agent, clicks, dev, s, f"https://sjurl.repl.co/static/images/graphs/{user}{s}.png")
 		else:
 			raise web.seeother("https://promo.sjurl.repl.co")
 		#os.system("clear")	
@@ -735,6 +780,8 @@ class public_info:
 			options.append("agents")
 		if "692" in option:
 			options.append("times")
+		if "734" in option:
+			options.append("graph")
 		user = web.cookies().get("user")
 		agent = []
 		i = web.input()
@@ -799,7 +846,23 @@ class public_info:
 				for line in query:
 					e = line.split("EST")[0]
 					agent.append(e)
-		return render.public(agent, clicks, dev, options)
+		x_axis = []
+		y_axis = []
+		for line in query:
+			line = line.split("2021")[0].split("EST TIME: ")[-1]
+			num = 0
+			for x in query:
+				if line in x:
+					num += 1
+			if line not in x_axis:
+				x_axis.append(line)
+				y_axis.append(num)
+		f = plt.figure()
+		plt.plot(x_axis, y_axis, "r")
+		plt.savefig(f"static/images/graphs/{user}{s}.png", transparent=True, facecolor="w")
+		f.clear()
+		plt.close(f)
+		return render.public(agent, clicks, dev, options, f"https://sjurl.repl.co/static/images/graphs/{user}{s}.png")
 
 		#os.system("clear")	 	 
 

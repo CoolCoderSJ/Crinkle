@@ -1,4 +1,4 @@
-$def with (db, passw, shortwebs, names)
+$def with (db, passw, shortwebs, names, graphurl)
 
 <!DOCTYPE html>
 <html>
@@ -121,6 +121,24 @@ button {
  
   </div>
 </div> 
+<br>
+<center>
+	<script>
+		function togglegraph() {
+			elem = document.getElementById("graph")
+			if (elem.style.display === 'none') {
+				elem.setAttribute("style", "display: 'block';");
+			}
+			else if (true) {
+				elem.style.display = 'none';
+			}
+		}
+	</script>
+	<button onclick="togglegraph()" style="width: 100%">Toggle Graph View</button><br><br>
+<img src="$graphurl" id="graph" style="display: none;">
+</center>
+<br>
+<br>
 
 	 <form class="form-inline my-2 my-lg-0">
       <input class="input mr-sm-2" type="search" placeholder="Search" id="myInput" onkeyup="myFunction()" style="border: none;" aria-label="Search">

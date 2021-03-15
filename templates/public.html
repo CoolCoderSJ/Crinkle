@@ -1,4 +1,4 @@
-$def with (agent, clicks, dev, options)
+$def with (agent, clicks, dev, options, graphurl)
 
 <!DOCTYPE html>
 <html>
@@ -86,6 +86,12 @@ $if "table" in options:
 		</tr>
 	</table>
 	<br>
+	<br>
+$if "graph" in options:
+	<br>
+	<center>
+		<img src="$graphurl">
+	</center>
 	<br>
 
 $if "agents" in options or "times" in options:
