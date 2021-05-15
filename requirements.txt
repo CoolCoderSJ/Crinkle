@@ -14,8 +14,6 @@ gevent-websocket==0.10.1
 greenlet==0.4.17
 html5lib==1.1
 idna==2.10
-importlib-metadata==3.4.0
-isort==5.7.0
 itsdangerous==1.1.0
 jaraco.functools==3.3.0
 Jinja2==2.11.3
