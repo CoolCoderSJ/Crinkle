@@ -7,6 +7,7 @@ from datetime import datetime
 import random
 from discord_webhook import DiscordWebhook
 from bs4 import BeautifulSoup
+from replit import db
 import requests
 import matplotlib.pyplot as plt
 import matplotlib
@@ -14,12 +15,6 @@ matplotlib.use("Agg")
 
 
 os.system("clear")
-from easypydb import DB
-db=DB("db", os.environ['DB_TOKEN'])
-db.autoload=True
-db.autosave=True
-for key in os.environ:
-	print(key)
 
 render = web.template.render('templates/')
 urls = (

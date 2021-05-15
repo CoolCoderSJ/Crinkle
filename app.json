@@ -1,8 +1,0 @@
-{
-	"buildpacks": [
-		{
-			"url": "heroku/python"
-		}
-	],
-	"description": "A jam packed URL shortener with loads of features."
-}
