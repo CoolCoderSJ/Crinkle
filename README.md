@@ -1,8 +1,6 @@
 ## SJURL
 
-A URL shortener that lets you add custom backends, edit your links, delete your links, view what device, os, and browser your link was opened on, and view a timestamp for each record.
-CLICK [HERE](https://sjurl.tk) TO CHECK IT OUT
-
+Need to quickly shorten that URL? Need to see how your URL is doing, as well as see how your link gets clicked the most? No worries, SJURL has your back. With over 20 features, SJURL is your one-place portal to manage all of your links.
 
 [Check Uptime and History Here](https://stats.uptimerobot.com/Pg4z9C4zAA/787293145)
 
