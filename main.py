@@ -8,14 +8,16 @@ import random
 from discord_webhook import DiscordWebhook
 from bs4 import BeautifulSoup 
 import requests
-from replit import db
 import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use("Agg")
 
 
 os.system("clear")
-
+from easypydb import DB
+db=DB("db", os.environ['DB_TOKEN'])
+db.autoload=True
+db.autosave=True
 
 render = web.template.render('templates/')
 urls = (
