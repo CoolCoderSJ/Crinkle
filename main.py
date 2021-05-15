@@ -6,7 +6,7 @@ import pytz
 from datetime import datetime
 import random
 from discord_webhook import DiscordWebhook
-from bs4 import BeautifulSoup 
+from bs4 import BeautifulSoup
 import requests
 import matplotlib.pyplot as plt
 import matplotlib
@@ -18,6 +18,8 @@ from easypydb import DB
 db=DB("db", os.environ['DB_TOKEN'])
 db.autoload=True
 db.autosave=True
+for key in os.environ:
+	print(key)
 
 render = web.template.render('templates/')
 urls = (
@@ -30,7 +32,7 @@ urls = (
 	'/delete', 'delete',
 	'/details', 'url_info',
 	'/info/(.*)/(.*)', 'public_info',
-  	'/demo', 'demo',
+	  '/demo', 'demo',
 	'/qrcode', 'qrcode',
 	'/qrcode/view/(.*)', 'qrcodeview',
 	'/shortweb', 'shortweb',
@@ -47,10 +49,10 @@ urls = (
 
 
 
-#os.system("clear")	
+#os.system("clear")
 
 app = web.application(urls, locals())
-session = web.session.Session(app, web.session.DiskStore('sessions'))  
+session = web.session.Session(app, web.session.DiskStore('sessions'))
 def notfound():
 	return web.notfound(render.notfound())
 
@@ -149,7 +151,7 @@ class botd:
 		post_input = web.input(_method='post')
 		post_input = list(post_input)
 		print(post_input)
-	
+
 		for item in post_input:
 			if item.split(":")[0] == "URL":
 				url = item.split(":")[-1]
@@ -188,7 +190,7 @@ class botd:
 
 class bot_info:
 	def POST(self):
-		#os.system("clear")	
+		#os.system("clear")
 		users2 = {}
 		for url in db:
 			users2[url] = db[url]["user"]
@@ -213,7 +215,7 @@ class bot_info:
 				windows10 = 0
 				apple = 0
 				linux = 0
-				chromeos= 0 
+				chromeos= 0
 				import ast
 				query = ast.literal_eval(str(db[s]["agents"]))
 				for line in query:
@@ -244,7 +246,7 @@ class bot_info:
 						linux += 1
 					if "Chrome OS" in line:
 						chromeos += 1
-				dev2 = [chrome, ff, safari, opera, edge, mac, ipad, android, windows7, windows10, apple, 
+				dev2 = [chrome, ff, safari, opera, edge, mac, ipad, android, windows7, windows10, apple,
 				linux, chromeos]
 				dev = ""
 				for thing in dev2:
@@ -257,16 +259,16 @@ class bot_info:
 
 class login:
 	def GET(self):
-		##os.system("clear")	
+		##os.system("clear")
 		i = web.input(code=0)
 		msg = ""
 		if i.code == "1":
 			msg = "An error occurred while logging you in. Please try again or contact a deveoper."
 		return render.login(msg)
-		##os.system("clear")	
-		 
+		##os.system("clear")
+
 	def POST(self):
-		##os.system("clear")	
+		##os.system("clear")
 		i = web.input()
 		r = requests.post("https://sjauth.coolcodersj.repl.co/apil", data={"user":i.user, "passw":i.passw, "cn":"SJURL"})
 		if r.text == "True":
@@ -275,8 +277,8 @@ class login:
 			raise web.seeother("/")
 		else:
 			raise web.seeother("/login?code=1")
-		##os.system("clear")	
-		 
+		##os.system("clear")
+
 
 class signup:
 	def GET(self):
@@ -284,12 +286,12 @@ class signup:
 		i = web.input(code=0)
 		msg = ""
 		if i.code == "1":
-			msg = "An error occurred while signing you up. Please try again or contact a deveoper."	
+			msg = "An error occurred while signing you up. Please try again or contact a deveoper."
 		return render.signup(msg)
-		##os.system("clear")	
-		 
+		##os.system("clear")
+
 	def POST(self):
-		##os.system("clear")	
+		##os.system("clear")
 		i = web.input()
 		r = requests.post("https://sjauth.coolcodersj.repl.co/apisi", data={"user":i.user, "passw":i.passw, "cn":"SJURL"})
 		if r.text == "True":
@@ -298,23 +300,23 @@ class signup:
 			raise web.seeother("/")
 		else:
 			raise web.seeother("/signup?code=1")
-		##os.system("clear")	
-		 
+		##os.system("clear")
+
 
 
 class logout:
 	def GET(self):
-		#os.system("clear")	
+		#os.system("clear")
 		web.setcookie('logged_in', '', expires=-1)
 		web.setcookie('user', '', expires=-1)
 		raise web.seeother("/")
-		#os.system("clear")	
-		 
+		#os.system("clear")
+
 
 class shortweb:
 	def POST(self):
 		user = web.cookies().get("user")
-		#os.system("clear")	
+		#os.system("clear")
 		i = web.input()
 		short = i.short
 		query = db[short]
@@ -335,13 +337,13 @@ class shortweb:
 					"user": db[short]['user']
 				}
 		raise web.seeother("/")
-		#os.system("clear")	
+		#os.system("clear")
 
-		 
+
 
 class namec:
 	def POST(self):
-		#os.system("clear")	
+		#os.system("clear")
 		if web.cookies().get("logged_in"):
 			i = web.input()
 			name = i.name
@@ -367,48 +369,48 @@ class namec:
 			raise web.seeother("/")
 		else:
 			raise web.seeother("https://promo.sjurl.repl.co")
-		#os.system("clear")	
+		#os.system("clear")
 
 
-			
+
 
 class short2:
 	def GET(self, short):
-		#os.system("clear")	
+		#os.system("clear")
 		if short != "" and short != "add" and short != "details" and short != "edit" and not short.startswith("edit") and not short.startswith("l") and short != "demo" and short != "qrcode" and not short.startswith("qrcode/view") and short != "unshortr":
 			raise web.seeother("/l/"+short)
-		#os.system("clear")	
+		#os.system("clear")
 
-		 
+
 
 class qrcode:
 	def POST(self):
-		#os.system("clear")	
+		#os.system("clear")
 		if web.cookies().get("logged_in"):
-			import pyqrcode 
-			import png 
-			from pyqrcode import QRCode 
+			import pyqrcode
+			import png
+			from pyqrcode import QRCode
 			i = web.input()
 			short = "https://sjurl.repl.co/l/"+i.short
 			qr = pyqrcode.create(short)
-			qr.png("static/images/qr/"+i.short+'.png', scale = 6) 
+			qr.png("static/images/qr/"+i.short+'.png', scale = 6)
 			raise web.seeother("/")
 		else:
 			raise web.seeother("https://promo.sjurl.repl.co")
-		#os.system("clear")	
-		 
- 
+		#os.system("clear")
+
+
 class qrcodeview:
 	def GET(self, qrcode):
-		#os.system("clear")	
+		#os.system("clear")
 		if web.cookies().get("logged_in"):
 			return render.qrcodeview(qrcode)
 		else:
 			raise web.seeother("https://promo.sjurl.repl.co")
-		#os.system("clear")	
-		 
+		#os.system("clear")
 
-		
+
+
 class short:
 	def GET(self, short):
 		if short == "/" or short == "" or short == "favicon.ico":
@@ -421,18 +423,18 @@ class short:
 				url = db[short1]
 				if not url.startswith("http"):
 					url = "http://"+url
-				r = get(url) 
-				soup = BeautifulSoup(r.text, 'html.parser') 
+				r = get(url)
+				soup = BeautifulSoup(r.text, 'html.parser')
 				titles = ""
-				for title in soup.find_all('title'): 
+				for title in soup.find_all('title'):
 					title = str(title)
 					titles += str(title.split("<title>")[1].split("</title>")[0])+"\n"
 				user = user[short1]
-				
+
 				name = db[short]['name']
 				return render.sneak(short1, url, titles, name)
-		#os.system("clear")	
-		#os.system("clear")	
+		#os.system("clear")
+		#os.system("clear")
 		if short.split("/")[0] in db or short.split("#")[0] in db or short.split("?")[0]:
 			if short.split("/")[0] in db:
 				params = short.split(short.split("/")[0])
@@ -450,8 +452,8 @@ class short:
 				params = ""
 				short1 = short.split("/")[0]
 			if short1 in db:
-				
-				tz_NY = pytz.timezone('America/New_York') 
+
+				tz_NY = pytz.timezone('America/New_York')
 				now = datetime.now(tz_NY)
 				dt_string = now.strftime("%m/%d/%Y %H:%M:%S")
 				usr_str = web.ctx.env['HTTP_USER_AGENT']
@@ -508,7 +510,7 @@ class short:
 				url = db[short1]['url']
 				if not url.startswith("https://"):
 					url = "https://"+url
-				
+
 				if db[short]['webhook'] != 'NONE':
 					webhookurl = db[short]['webhook']
 					webhook = DiscordWebhook(url=webhookurl, content="A Link was visited. \n\nDetails:\nShortened Backend: "+short+"\nFull URL: "+url+"\nDevice details: "+bfamily + "  " + bversion + "  " + osfamily + "  " + osversion + "  " + devbrand + "  " + devfamily + "  " + devmodel+"\n\nTime: "+dt_string)
@@ -516,22 +518,22 @@ class short:
 				raise web.seeother(url+params)
 			else:
 				raise web.notfound()
-		#os.system("clear")	
-		 
-    
+		#os.system("clear")
+
+
 class add:
 	def GET(self):
-		#os.system("clear")	
+		#os.system("clear")
 		if web.cookies().get("logged_in"):
 			idk = ""
 			return render.add(db, idk)
 		else:
 			raise web.seeother("https://promo.sjurl.repl.co")
-		#os.system("clear")	
-		 
+		#os.system("clear")
+
 	def POST(self):
 		user = web.cookies().get("user")
-		#os.system("clear")	
+		#os.system("clear")
 		i = web.input()
 		short=i.short
 		if short == "":
@@ -573,8 +575,8 @@ class add:
 			return render.success(short, url)
 		else:
 			return render.alert()
-		#os.system("clear")	
-		 
+		#os.system("clear")
+
 
 class index:
 	def GET(self):
@@ -590,13 +592,13 @@ class index:
 					name = ""
 					if db[short]['webhook'] != 'NONE':
 						shortwebs.append(short)
-					
+
 					if db[short]['name'] != 'NONE':
 						name = db[short]['name']
 					else:
 						name = ""
 					names[short] = name
-			
+
 			for short in db:
 				if db[short]['user'] == user:
 					userlinks[short] = db[short]['url']
@@ -629,10 +631,10 @@ class index:
 			return render.index(userlinks, passw, shortwebs, names, f"https://sjurl.repl.co/static/images/graphs/{user}.png")
 		else:
 			raise web.seeother("https://promo.sjurl.repl.co")
-		#os.system("clear")	
+		#os.system("clear")
 class edit:
 	def GET(self, short):
-		#os.system("clear")	
+		#os.system("clear")
 		if web.cookies().get("logged_in"):
 			user = web.cookies().get("user")
 			user2 = db[short]['user']
@@ -643,12 +645,12 @@ class edit:
 				raise web.seeother('/')
 		else:
 			raise web.seeother("https://promo.sjurl.repl.co")
-		#os.system("clear")	
-		 
+		#os.system("clear")
+
 
 class edit2:
 	def POST(self):
-		#os.system("clear")	
+		#os.system("clear")
 		if web.cookies().get("logged_in"):
 			i = web.input()
 			newurl = i.newurl
@@ -663,35 +665,35 @@ class edit2:
 			raise web.seeother('/')
 		else:
 			raise web.seeother("https://promo.sjurl.repl.co")
-		#os.system("clear")	
-		 
+		#os.system("clear")
+
 
 class delete:
 	def POST(self):
-		#os.system("clear")	
+		#os.system("clear")
 		user = web.cookies().get("user")
 		if web.cookies().get("logged_in"):
 			i = web.input()
 			short = i.short
-			
+
 			if os.path.exists("static/images/qr/"+short+".png"):
-				os.remove("static/images/qr/"+short+".png")	
+				os.remove("static/images/qr/"+short+".png")
 			del db[short]
 			raise web.seeother('/')
 		else:
 			raise web.seeother("https://promo.sjurl.repl.co")
-		#os.system("clear")	
-		 
+		#os.system("clear")
+
 
 class url_info:
 	def POST(self):
-		#os.system("clear")	
+		#os.system("clear")
 		user = web.cookies().get("user")
 		if web.cookies().get("logged_in"):
 			agent = []
 			i = web.input()
 			s = i.short
-			
+
 			import ast
 			if db[s]['agents'] == "NONE":
 					query = []
@@ -711,8 +713,8 @@ class url_info:
 				windows10 = 0
 				apple = 0
 				linux = 0
-				chromeos= 0 
-				
+				chromeos= 0
+
 				import ast
 				if db[s]['agents'] == "NONE":
 					query = []
@@ -747,7 +749,7 @@ class url_info:
 						linux += 1
 					if "Chrome OS" in line:
 						chromeos += 1
-				dev = [chrome, ff, safari, opera, edge, mac, ipad, android, windows7, windows10, apple, 
+				dev = [chrome, ff, safari, opera, edge, mac, ipad, android, windows7, windows10, apple,
 				linux, chromeos]
 				x_axis = []
 				y_axis = []
@@ -768,11 +770,11 @@ class url_info:
 			return render.details(agent, clicks, dev, s, f"https://sjurl.repl.co/static/images/graphs/{user}{s}.png")
 		else:
 			raise web.seeother("https://promo.sjurl.repl.co")
-		#os.system("clear")	
+		#os.system("clear")
 
 class public_info:
 	def GET(self, s, option):
-		#os.system("clear")	
+		#os.system("clear")
 		options = []
 		if "221" in option:
 			options.append("clicks")
@@ -806,7 +808,7 @@ class public_info:
 			windows10 = 0
 			apple = 0
 			linux = 0
-			chromeos= 0 
+			chromeos= 0
 			import ast
 			if db[s]['agents'] == "NONE":
 				query = []
@@ -841,7 +843,7 @@ class public_info:
 					linux += 1
 				if "Chrome OS" in line:
 					chromeos += 1
-			dev = [chrome, ff, safari, opera, edge, mac, ipad, android, windows7, windows10, apple, 
+			dev = [chrome, ff, safari, opera, edge, mac, ipad, android, windows7, windows10, apple,
 			linux, chromeos]
 			if not "times" in options:
 				agent = []
@@ -866,15 +868,15 @@ class public_info:
 		plt.close(f)
 		return render.public(agent, clicks, dev, options, f"https://sjurl.repl.co/static/images/graphs/{user}{s}.png")
 
-		#os.system("clear")	 	 
+		#os.system("clear")
 
 class demo:
 	def GET(self):
 		return render.demo()
-		#os.system("clear")	
+		#os.system("clear")
 	def POST(self):
 		user = "EXTERNAL"
-		#os.system("clear")	
+		#os.system("clear")
 		i = web.input()
 		short=i.short
 		if short == "":
@@ -916,8 +918,8 @@ class demo:
 			return render.success(short, url)
 		else:
 			return render.alert()
-		#os.system("clear")	
-		 
+		#os.system("clear")
+
 
 
 if __name__ == "__main__":
