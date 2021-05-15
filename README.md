@@ -19,7 +19,7 @@ Check out the folloing comparison with our soon-to-be public full access plan an
 | Link Clicks | ✅ | ✅ |
 | QR Codes | ✅ | ❌ Enterprise only |
 | Link History | ✅ Permanent History | ❌ 2 Years for Enterprise, 30 days for free and pro |
-| Dashboard with graphs | ❌ | ✅ |
+| Dashboard with graphs | ✅ | ✅ |
 | Location | ❌ Because of privacy concerns.... | ✅ |
 | API Rate Limit | ❌ No Limit to use the ComCli API | ✅ Standard |
 | Webhooks | ✅ | ❌ Enterprise only |
