@@ -1,49 +1,127 @@
 $def with (msg)
-<!DOCTYPE html>
-<html>
-			<link rel="icon" 
-      type="image/ico" 
-      href="https://sjurl.tk/static/images/favicon.ico">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
+  <link rel="shortcut icon" href="https://sjurl.tk/static/images/favicon.ico" type="image/x-icon">  
+  <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
+  <link rel="stylesheet" type="text/css" href="static/css/new.css">  
+  <title>SJURL</title>
+</head>
+<body class="bg-white dark:bg-gray-800">
 
-	<head>
-		<link rel="stylesheet" href="https://minimalist.coolcodersj.repl.co/style.css">
-		<title>URL Shortener -- Signup</title>
-		<style>
-			form {
-				padding: 20px;
-			}
-		</style>
-		<style>
-		html {
-			margin-top: 110px;
-		}
-		</style>
-	<head>
-	</head>
-<div class="topnav text">
-		<a class="brand" href="#">SJURL</a>
-		<div class="topnavitem">
-		 <a class="topnavitem active" href="/">Home</a>
-  <a class="topnavitem" href="/add">Add Link</a>
-    <a class="topnavitem" href="/login">Login</a>
-  <a class="topnavitem" href="/signup">Signup</a>
- 
+$if msg != '':
+	<div class="alert alert-error">
+		$msg
+	</div>
+
+<!-- start navbar -->
+<div class="dark:border-gray-800 dark:fixed dark:w-full dark:top-0 dark:z-20 flex flex-row flex-wrap items-center p-6 border-b">
+    
+    <!-- logo -->
+    <div class="flex-none w-56 flex flex-row items-center">
+      <img src="https://sjurl.tk/static/images/favicon.ico" class="w-10 flex-none">
+      <strong class="capitalize ml-1 flex-1">sjurl</strong>
+
+      <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden dark:block">
+        <i class="fad fa-list-ul"></i>
+      </button>
+    </div>
+    <!-- end logo -->   
+    
+    <!-- navbar content toggle -->
+    <button id="navbarToggle" class="hidden dark:block dark:fixed right-0 mr-6">
+      <i class="fad fa-chevron-double-down"></i>
+    </button>
+    <!-- end navbar content toggle -->
+
+    <!-- navbar content -->
+    <div id="navbar" class="animated dark:hidden dark:fixed dark:top-0 dark:w-full dark:left-0 dark:mt-16 dark:border-t dark:border-b bg-white dark:border-gray-200 dark:p-10 dark:bg-gray-800 flex-1 pl-3 flex flex-row flex-wrap justify-between items-center dark:flex-col dark:items-center">     
+    </div>
+    <!-- end navbar content -->
+
   </div>
-</div> 
-	<body>
-$if msg != "":
-	<h4 class="alert">$msg</h4><br><br>
-<form method="post" action = "signup">
+<!-- end navbar -->
 
-<div class="form-group">
-<input type="username" class="input" id="short" name="user"  aria-describedby="emailHelp" placeholder="Username" required>
 
-<input type="password" class="input" id="url" name="passw" required placeholder="Password" required>
+
+<!-- strat wrapper -->
+<div class="h-screen flex flex-row flex-wrap">
+  
+    <!-- start sidebar -->
+  <div id="sideBar" class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 dark:-ml-64 dark:fixed dark:top-0 dark:z-30 dark:h-screen dark:shadow-xl animated faster">
+    
+
+    <!-- sidebar content -->
+    <div class="flex flex-col">
+
+      <!-- sidebar toggle -->
+      <div class="text-right hidden dark:block mb-4">
+        <button id="sideBarHideBtn">
+          <i class="fad fa-times-circle"></i>
+        </button>
+      </div>
+      <!-- end sidebar toggle -->
+
+      <!-- link -->
+      <a href="/" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        Home
+      </a>
+      <!-- end link -->
+	  <!-- link -->
+      <a href="/add" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        add link
+      </a>
+      <!-- end link -->
+
+      <!-- link -->
+      <a href="/login" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        Login
+      </a>
+      <!-- end link -->
+
+      <!-- link -->
+      <a href="/signup" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        Signup
+      </a>
+      <!-- end link -->
+    </div>
+    <!-- end sidebar content -->
+
+  </div>
+  <!-- end sidbar -->   
+
+<div class="bg-gray-100 flex-1 p-6 dark:mt-16"> 
+
+<div class="w-full max-w-xs">
+  <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="post" action="/signup"  style="padding: 30px;">
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="Name">
+        Username
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Name" type="text" name="user" placeholder="Username">
+    </div>
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+        Password
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Password" name="passw">
+    </div>
+
+      <button class="btn-bs-dark" type="submit">
+        Signup
+      </button>
+  </form>
 </div>
+</div>
+</div>
+<!-- end wrapper -->
 
-<br>
-<button type="submit" class="btn btn-primary">Signup</button>
-</form>
-<iframe height="400px" width="100%" src="https://sjauth.coolcodersj.repl.co/badge" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
-	</body>
+<!-- script -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="static/js/new.js"></script>
+<!-- end script -->
+
+</body>
 </html>

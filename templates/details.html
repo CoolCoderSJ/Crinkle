@@ -1,24 +1,315 @@
-$def with (agent, clicks, dev, s, graphurl)
+$def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, name)
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
+  <link rel="shortcut icon" href="https://sjurl.tk/static/images/favicon.ico" type="image/x-icon">  
+  <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/new.css">  
+  <title>SJURL</title>
+</head>
+<body class="bg-white dark:bg-gray-800">
 
-<!DOCTYPE html>
-<html>
-			<link rel="icon" 
-      type="image/ico" 
-      href="https://sjurl.repl.co/static/images/favicon.ico">
-	<style>
-		body {
-			padding-left: 15px;
-			padding-right: 15px;
-		}
-		table, th, td {
-  border: 1px solid black;
-}
-th, td {
-	padding: 15px;
-}
-	</style>
 
-	<script>
+<!-- start navbar -->
+<div class="dark:border-gray-800 dark:fixed dark:w-full dark:top-0 dark:z-20 flex flex-row flex-wrap items-center p-6 border-b">
+    
+    <!-- logo -->
+    <div class="flex-none w-56 flex flex-row items-center">
+      <img src="https://sjurl.tk/static/images/favicon.ico" class="w-10 flex-none">
+      <strong class="capitalize ml-1 flex-1">sjurl</strong>
+
+      <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden dark:block">
+        <i class="fad fa-list-ul"></i>
+      </button>
+    </div>
+    <!-- end logo -->   
+    
+    <!-- navbar content toggle -->
+    <button id="navbarToggle" class="hidden dark:block dark:fixed right-0 mr-6">
+      <i class="fad fa-chevron-double-down"></i>
+    </button>
+    <!-- end navbar content toggle -->
+
+    <!-- navbar content -->
+    <div id="navbar" class="animated dark:hidden dark:fixed dark:top-0 dark:w-full dark:left-0 dark:mt-16 dark:border-t dark:border-b bg-white dark:border-gray-200 dark:p-10 dark:bg-gray-800 flex-1 pl-3 flex flex-row flex-wrap justify-between items-center dark:flex-col dark:items-center">     
+
+      <!-- right -->
+      <div class="flex flex-row-reverse items-center"> 
+
+        <!-- user -->
+        <div class="dropdown relative dark:static">
+
+          <button class="menu-btn focus:outline-none focus:shadow-outline flex flex-wrap items-center">
+            <div class="w-8 h-8 overflow-hidden rounded-full">
+            </div> 
+
+            <div class="ml-2 capitalize flex ">
+              <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">$user</h1>
+              <i class="fad fa-chevron-down ml-2 text-xs leading-none"></i>
+            </div>                        
+          </button>
+
+          <button class="hidden fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
+
+          <div class="text-gray-500 menu hidden dark:mt-10 dark:w-full rounded bg-white shadow-dark absolute z-20 right-0 w-40 mt-5 py-2 animated faster">
+
+            <!-- item -->
+            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="/logout">
+              <i class="fad fa-user-times text-xs mr-1"></i> 
+              log out
+            </a>     
+            <!-- end item -->
+
+          </div>
+        </div>
+        <!-- end user -->
+
+      </div>
+      <!-- end right -->
+    </div>
+    <!-- end navbar content -->
+
+  </div>
+<!-- end navbar -->
+
+
+<!-- strat wrapper -->
+<div class="h-screen flex flex-row flex-wrap">
+  
+    <!-- start sidebar -->
+  <div id="sideBar" class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 dark:-ml-64 dark:fixed dark:top-0 dark:z-30 dark:h-screen dark:shadow-xl animated faster">
+    
+
+    <!-- sidebar content -->
+    <div class="flex flex-col">
+
+      <!-- sidebar toggle -->
+      <div class="text-right hidden dark:block mb-4">
+        <button id="sideBarHideBtn">
+          <i class="fad fa-times-circle"></i>
+        </button>
+      </div>
+      <!-- end sidebar toggle -->
+
+      <!-- link -->
+      <a href="/" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        Home
+      </a>
+      <!-- end link -->
+	  <!-- link -->
+      <a href="/add" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        add link
+      </a>
+      <!-- end link -->
+
+      <!-- link -->
+      <a href="/login" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        Login
+      </a>
+      <!-- end link -->
+
+      <!-- link -->
+      <a href="/signup" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        Signup
+      </a>
+      <!-- end link -->
+    </div>
+    <!-- end sidebar content -->
+
+  </div>
+  <!-- end sidbar -->
+
+  <!-- strat content -->
+  <div class="bg-gray-100 flex-1 p-6 dark:mt-16"> 
+
+    
+    <!-- General Report -->
+    <div class="grid grid-cols-4 gap-6 xl:grid-cols-1">
+
+
+    <!-- card -->
+    <div class="report-card">
+        <div class="card">
+            <div class="card-body flex flex-col">
+                
+                <!-- top -->
+                <div class="flex flex-row justify-between items-center">
+                    <div class="h6 text-indigo-700 fas fa-link"></div>
+                </div>
+                <!-- end top -->
+
+                <!-- bottom -->
+                <div class="mt-8">
+                    <h1 class="h5 num-4">$clicks</h1>
+                    <p>Clicks</p>
+                </div>                
+                <!-- end bottom -->
+    
+            </div>
+        </div>
+        <div class="footer bg-white p-1 mx-4 border border-t-0 rounded rounded-t-none"></div>
+    </div>
+    <!-- end card -->
+
+
+    <!-- card -->
+    <div class="report-card">
+        <div class="card">
+            <div class="card-body flex flex-col">
+                
+                <!-- top -->
+                <div class="flex flex-row justify-between items-center">
+                    <div class="h5 text-red-700 fab fa-apple"></div>
+                </div>
+                <!-- end top -->
+
+                <!-- bottom -->
+                <div class="mt-8">
+                    <h1 class="h5 num-4">$dev[10]</h1>
+                    <p>Clicks from Apple</p>
+                </div>                
+                <!-- end bottom -->
+    
+            </div>
+        </div>
+        <div class="footer bg-white p-1 mx-4 border border-t-0 rounded rounded-t-none"></div>
+    </div>
+    <!-- end card -->
+
+
+    <!-- card -->
+    <div class="report-card">
+        <div class="card">
+            <div class="card-body flex flex-col">
+                
+                <!-- top -->
+                <div class="flex flex-row justify-between items-center">
+                    <div class="h5 text-green-700 fab fa-windows"></div>
+                </div>
+                <!-- end top -->
+
+                <!-- bottom -->
+                <div class="mt-8">
+					$ win = dev[8] + dev[9]
+                    <h1 class="h5 num-4">$win</h1>
+                    <p>Clicks from Windows</p>
+                </div>                
+                <!-- end bottom -->
+    
+            </div>
+        </div>
+        <div class="footer bg-white p-1 mx-4 border border-t-0 rounded rounded-t-none"></div>
+    </div>
+    <!-- end card -->
+
+
+    <!-- card -->
+    <div class="report-card">
+        <div class="card">
+            <div class="card-body flex flex-col">
+                
+                <!-- top -->
+                <div class="flex flex-row justify-between items-center">
+                    <div class="h5 text-yellow-600 fab fa-linux"></div>
+                </div>
+                <!-- end top -->
+
+                <!-- bottom -->
+                <div class="mt-8">
+                    <h1 class="h5 num-4">$dev[11]</h1>
+                    <p>Clicks from Linux</p>
+                </div>                
+                <!-- end bottom -->
+    
+            </div>
+        </div>
+        <div class="footer bg-white p-1 mx-4 border border-t-0 rounded rounded-t-none"></div>
+    </div>
+    <!-- end card -->
+    
+
+</div>
+    <!-- End General Report -->
+
+    <!-- strat Analytics -->
+    <div class="mt-6 grid grid-cols-2 gap-6 xl:grid-cols-1">
+
+    <!-- update section -->
+    <div class="card bg-teal-400 border-teal-400 shadow-dark text-white">
+        <div class="card-body flex flex-row">
+
+            <!-- info -->
+            <div class="py-2 ml-10">
+                <h1 class="h6">$s</h1>
+                <p class="text-white">$url</p><br>
+				<form class="w-full max-w-sm" method="POST" name="shortwebform$s" action="/shortweb">
+					<input type="hidden" value="$s" name="short">
+  <div class="md:flex md:items-center mb-6">
+				<div class="md:w-1/3">
+      <label class="block text-white font-bold md:text-right mb-1 md:mb-0 pr-4">
+        Discord Webhook URL
+      </label>
+    </div>
+				<div class="md:w-2/3">
+      <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" placeholder="Discord Webhook URL" name="webhook" value="$webhookurl">
+    </div>
+  </div>
+  <button class="btn-bs-primary">Submit</button>
+  </form>
+
+  <br><br>
+  <form class="w-full max-w-sm" method="POST" name="shortwebform$s" action="/namec">
+					<input type="hidden" value="$s" name="short">
+  <div class="md:flex md:items-center mb-6">
+				<div class="md:w-1/3">
+      <label class="block text-white font-bold md:text-right mb-1 md:mb-0 pr-4">
+        URL Name
+      </label>
+    </div>
+				<div class="md:w-2/3">
+      <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" placeholder="Discord Webhook URL" name="name" value="$name">
+    </div>
+  </div>
+  <button class="btn-bs-primary">Change</button>
+  </form>
+
+    <br><br>
+  <form class="w-full max-w-sm" method="POST" name="shortwebform$s" action="/edit">
+					<input type="hidden" value="$s" name="short">
+  <div class="md:flex md:items-center mb-6">
+				<div class="md:w-1/3">
+      <label class="block text-white font-bold md:text-right mb-1 md:mb-0 pr-4">
+        URL
+      </label>
+    </div>
+				<div class="md:w-2/3">
+      <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="url" placeholder="Discord Webhook URL" name="newurl" value="$url">
+    </div>
+  </div>
+  <button class="btn-bs-primary">Change</button>
+  </form>
+            </div>
+            <!-- end info -->
+
+        </div>
+    </div>
+    <!-- end update section -->
+
+    <!-- carts -->
+    <div class="flex flex-col">
+
+        <!-- charts -->
+        <div class="grid grid-cols-2 gap-6 h-full">
+
+            <div class="card">
+                <div class="py-3 px-4">
+                    <h1 class="h6">
+                        <span class="num-4"></span>Public View
+                        <p>Share this data with others</p>
+                    </h1>
+					<script>
 		function generate() {
 			clicks = document.getElementById('clicks').checked
 			table = document.getElementById('table').checked
@@ -49,94 +340,160 @@ th, td {
 			document.getElementById('link').value = url
 		}
 	</script>
-	<head>
-	<head>
-		<link rel="stylesheet" href="https://minimalist.coolcodersj.repl.co/style.css">
-		<title>URL Shortener</title>
-	</head>
-
-	<body>
-				<div class="topnav text">
-		<a class="brand" href="#">SJURL</a>
-		<div class="topnavitem">
-		 <a class="topnavitem active" href="/">Home</a>
-  <a class="topnavitem" href="/add">Add Link</a>
-    <a class="topnavitem" href="/login">Login</a>
-  <a class="topnavitem" href="/signup">Signup</a>
- 
-  </div>
-</div> 
-<br>
-<h3>Share this page</h3>
-<p>Generate a URL by selecting the options below.</p>
-<input type='checkbox' id='clicks'></input>
-<label class="text">Show total clicks</label>
+					<input type='checkbox' id='clicks'></input>
+<span>Show total clicks</span>
 <br>
 <input type='checkbox' id='table'></input>
-<label class="text">Show table overview</label>
+<span>Show table overview</span>
 <br>
 <input type='checkbox' id='agents'></input>
-<label class="text">Show user agents</label>
+<span>Show user agents</span>
 <br>
 <input type='checkbox' id='times'></input>
-<label class="text">Show times clicked</label>
+<span>Show times clicked</span>
 <br>
 <input type='checkbox' id='graph'></input>
-<label class="text">Show graph</label>
-<br><br>
-<button onclick="generate()">Generate Link to share</button>
-<input id='link' class="input" value="" readonly>
-<br><br>
-<h4 class="h5">Clicks Received - $clicks</h4>
+<span>Show graph</span>
 <br>
-<table class="text">
-	<caption>Device Overview</caption>
-	<tr>
-		<th>Chrome</th>
-		<th>Firefox</th>
-		<th>Safari</th>
-		<th>Opera</th>
-		<th>Edge</th>
-		<th>Mac</th>
-		<th>iPad</th>
-		<th>Android</th>
-		<th>Windows 7</th>
-		<th>Windows 10</th>
-		<th>Apple</th>
-		<th>Linux</th>
-		<th>Chrome OS</th>
-	</tr>
-	<tr>
-		<td>$dev[0]</td>
-		<td>$dev[1]</td>
-		<td>$dev[2]</td>
-		<td>$dev[3]</td>
-		<td>$dev[4]</td>
-		<td>$dev[5]</td>
-		<td>$dev[6]</td>
-		<td>$dev[7]</td>
-		<td>$dev[8]</td>
-		<td>$dev[9]</td>
-		<td>$dev[10]</td>
-		<td>$dev[11]</td>
-		<td>$dev[12]</td>
-	</tr>
-</table>
-<br>
-<br>
-<center>
-<img src="$graphurl">
-</center>
-<br>
-<br>
-		<h4 class="h4">User Agents Used When Accessing this Link:</h4>
-		<br>
-		<ul>
-		$for short in agent:
-			<li>
-				<p class="card-text">$short</p>	
-				<br>
-			</li>
-		</ul>				
-	</body>
+<button onclick="generate()" class="btn-bs-dark" style="margin-top: 3px;">Generate Link to share</button>
+<input id='link' class="small" value="" readonly>
+                </div>                
+            </div>
+
+            <div class="card">
+                <div class="py-3 px-4">                    
+                    <h1 class="h6">
+                        <span class="num-2"></span>QR Code
+                        <p></p>
+                    </h1>
+
+					<form method="POST" action="qrcode">
+						<img style="height: 100%" src='$qrcodeurl'>
+						<input type="hidden" value="$s" name="short">
+						<button type="submit" class="btn-bs-dark" style="width: 100%;">Generate QR Code</button>
+					</form>
+                </div>
+            </div>
+
+        </div>     
+        <!-- charts    -->
+
+    </div>
+    <!-- end charts -->
+
+
+</div>
+    <!-- end Analytics -->
+
+    <br><br><br>
+	<div class="">
+
+    <!-- update section -->
+    <div class="card bg-teal-400 border-teal-400 shadow-dark text-white">
+        <div class="card-body flex flex-row">
+
+            <!-- info -->
+            <div class="py-2 ml-10">
+				<img style="width: 100%; height: 100%;" src="$graphurl">
+            </div>
+        </div>
+    </div>
+	</div>
+   
+    <!-- start quick Info -->
+    <div class="grid grid-cols-3 gap-6 mt-6 xl:grid-cols-1">
+
+
+    <!-- Browser Stats -->
+    <div class="card">
+        <div class="card-header">Browser Stats</div>
+
+        <!-- brawser -->
+        <div class="p-6 flex flex-row justify-between items-center text-gray-600 border-b">
+            <div class="flex items-center">
+                <i class="fab fa-chrome mr-4"></i>    
+                <h1>google chrome</h1>
+            </div>                
+            <div>
+                <span class="num-2"></span>$dev[0]
+            </div>
+        </div>
+        <!-- end brawser -->
+
+        <!-- brawser -->
+        <div class="p-6 flex flex-row justify-between items-center text-gray-600 border-b">
+            <div class="flex items-center">
+                <i class="fab fa-firefox mr-4"></i>    
+                <h1>firefox</h1>
+            </div>                
+            <div>
+                <span class="num-2"></span>$dev[1]
+            </div>
+        </div>
+        <!-- end brawser -->
+
+        <!-- brawser -->
+        <div class="p-6 flex flex-row justify-between items-center text-gray-600 border-b">
+            <div class="flex items-center">
+                <i class="fab fa-edge mr-4"></i>    
+                <h1>edge</h1>
+            </div>                
+            <div>
+                <span class="num-2"></span>$dev[4]
+            </div>
+        </div>
+        <!-- end brawser -->
+
+        <!-- brawser -->
+        <div class="p-6 flex flex-row justify-between items-center text-gray-600 border-b-0">
+            <div class="flex items-center">
+                <i class="fab fa-safari mr-4"></i>    
+                <h1>safari</h1>
+            </div>                
+            <div>
+                <span class="num-2"></span>$dev[2]
+            </div>
+        </div>
+        <!-- end brawser -->
+
+    </div>
+    <!-- end Browser Stats -->
+
+    <!-- Start Recent Sales -->
+    <div class="card col-span-2 xl:col-span-1">
+        <div class="card-header">Advanced</div>
+
+        <table class="table-auto w-full text-left">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2 border-r">User Agent</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-600">
+				$for short in agent:
+					<tr>                    
+						<td class="border border-l-0 px-4 py-2">$short</td>
+					</tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- End Recent Sales -->
+
+
+</div>
+    <!-- end quick Info -->
+        
+
+  </div>
+  <!-- end content -->
+
+</div>
+<!-- end wrapper -->
+
+<!-- script -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="/static/js/new.js"></script>
+<!-- end script -->
+
+</body>
 </html>

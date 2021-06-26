@@ -1,0 +1,45 @@
+$def with (typ, platform, url)
+  <head xmlns="http://www.w3.org/1999/xhtml">
+    <meta http-equiv="Content-Security-Policy" content="default-src chrome:; object-src 'none'" />
+    <link rel="stylesheet" href="chrome://browser/skin/blockedSite.css" type="text/css" media="all" />
+    <link rel="icon" id="favicon" href="chrome://global/skin/icons/blocked.svg" />
+    <link rel="localization" href="branding/brand.ftl" />
+    <link rel="localization" href="browser/safebrowsing/blockedSite.ftl" />
+  <title data-l10n-id="safeb-blocked-phishing-page-title">Deceptive site ahead</title></head>
+  <body xmlns="http://www.w3.org/1999/xhtml">
+    <div id="errorPageContainer" class="container">
+
+      <!-- Error Title -->
+      <div id="errorTitle" class="title">
+        <h1 class="title-text" id="errorTitleText" data-l10n-id="safeb-blocked-phishing-page-title">Deceptive site ahead</h1>
+      </div>
+
+      <div id="errorLongContent">
+
+        <!-- Short Description -->
+        <div id="errorShortDesc">
+          <p id="errorShortDescText" data-l10n-id="safeb-blocked-phishing-page-short-desc">SJURL blocked this page because it may trick you into doing something dangerous like installing software or revealing personal information like passwords or credit cards.</p>
+        </div>
+
+        <!-- Advisory -->
+        <div id="advisoryDesc">
+          <p id="advisoryDescText" data-l10n-id="safeb-palm-advisory-desc" data-l10n-args="{&quot;advisoryname&quot;:&quot;Google Safe Browsing&quot;}">Advisory provided by <a id="advisory_provider" data-l10n-name="advisory_provider" href="https://developers.google.com/safe-browsing/v4/advisory">Google Safe Browsing</a>.</p>
+        </div>
+
+        <!-- Action buttons -->
+        <div id="buttons" class="button-container">
+          <!-- Commands handled in browser.js -->
+          <button id="goBackButton" class="primary" data-l10n-id="safeb-palm-accept-label">Go back</button>
+          <button id="seeDetailsButton" data-l10n-id="safeb-palm-see-details-label">See details</button>
+        </div>
+      </div>
+      <div id="errorDescriptionContainer" hidden="true">
+        <!-- Error Descriptions Handled in blockedSite.js -->
+        <div class="error-description" id="errorLongDesc">
+          <p id="errorInnerDescription" data-l10n-id="safeb-blocked-phishing-page-error-desc-override" data-l10n-args="{&quot;sitename&quot;:&quot;htmaill.hotmill.repl.co&quot;}"><span id="error_desc_sitename" data-l10n-name="sitename" class="sitename">$url['url']</span> has been <a id="error_desc_link" data-l10n-name="error_desc_link" href="https://safebrowsing.google.com/safebrowsing/diagnostic?site=$url['url']">reported as a deceptive site</a>. You can <a id="report_detection" data-l10n-name="report_detection" href="https://en-US.phish-error.mozilla.com/?url=$url['url']">report a detection problem</a> or <a id="ignore_warning_link" data-l10n-name="ignore_warning_link" href="$url['url']">ignore the risk</a> and go to this unsafe site.</p>
+          <p id="learn_more" data-l10n-id="safeb-blocked-phishing-page-learn-more">Learn more about deceptive sites and phishing at <a id="learn_more_link" data-l10n-name="learn_more_link" href="https://www.antiphishing.org//">www.antiphishing.org</a>.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script xmlns="http://www.w3.org/1999/xhtml" src="chrome://browser/content/blockedSite.js"></script>

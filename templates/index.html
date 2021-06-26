@@ -1,35 +1,86 @@
-$def with (db, passw, shortwebs, names, graphurl)
+$def with (db, user)
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- PUT CODE BETWEEN <HEAD> TAGS -->
+<meta name="theme-color" content="#000EF2">
+<meta content="SJURL" property="og:title">
+<meta name="og:site_name" content="">
+<meta name="twitter:title" content="SJURL">
+<meta name="description" content="Switch to SJURL today! We have no ads, and will remain free forever. SJURL is a URL shortening service that has numerous features, such as webhook integration, desktop app, tracking your links, discord bot, and much more... https://sjurl.tk/ Join today!">
+<meta name="twitter:description" content="A free URL Shortening service that's better than Bitly, with its own discord bot.">
+<meta name="twitter:image" content="">
+<meta name="og:image" content="">
+<meta content="A free URL Shortening service that's better than Bitly, with its own discord bot." property="og:description">
+<link rel="alternate" type="application/json+oembed" href="https://embeds.ga/oembed/?name=Shuchir+Jain&url=https%3A%2F%2Fcoolcodersj.repl.co&providername=&providerurl=">
+<!-- END OF CODE -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
+  <link rel="shortcut icon" href="https://sjurl.tk/static/images/favicon.ico" type="image/x-icon">  
+  <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
+  <link rel="stylesheet" type="text/css" href="static/css/new.css">  
+  <title>SJURL</title>
 
-<!DOCTYPE html>
-<html>
-	<link rel="manifest" href="manifest.webmanifest">
-	 
-	<link rel="icon" 
-      type="image/ico" 
-      href="static/images/favicon.ico">
-<style>
-		html {
-			margin-top: 110px;
+  <style>
+		#page {
+			display: none;
+		}	
+		#spinner {
+			display: block;
+			position: fixed;
 		}
-		</style>
-	<head>
-	
+
+		.url {
+			width: 250px;
+			height: 100px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+	</style>
+	<script>
+		function onReady(callback) {
+  var intervalId = window.setInterval(function() {
+    if (document.getElementsByTagName('body')[0] !== undefined) {
+      window.clearInterval(intervalId);
+      callback.call(this);
+    }
+  }, 1000);
+}
+
+function setVisible(selector, visible) {
+  document.querySelector(selector).style.display = visible ? 'block' : 'none';
+}
+
+onReady(function() {
+  setVisible('#page', true);
+  setVisible('#spinner', false);
+});
+	</script>
+	    <link href="https://fraileagercubase.coolcodersj.repl.co/spinkit.min.css" rel="stylesheet" type="text/css" />
+		<center>
+<div id="spinner" style="margin-top: 100px;">
+	  <div class="sk-grid sk-center" style="--sk-color: white; --sk-size: 70px;">
+  <div class="sk-grid-cube"></div>
+  <div class="sk-grid-cube"></div>
+  <div class="sk-grid-cube"></div>
+  <div class="sk-grid-cube"></div>
+  <div class="sk-grid-cube"></div>
+  <div class="sk-grid-cube"></div>
+  <div class="sk-grid-cube"></div>
+  <div class="sk-grid-cube"></div>
+  <div class="sk-grid-cube"></div>
+</div>
+  </div>
+  </center>
 	<script>
 function myFunction() {
-  // Declare variables
   var input, filter, ul, li, i, txtValue;
   input = document.getElementById('myInput');
   filter = input.value.toUpperCase();
-  ul = document.getElementsByTagName("table")[0];
-  li = ul.getElementsByTagName('tr');
-  console.log(li)
-  // Loop through all list items, and hide those who don't match the search query
+  li = document.getElementsByClassName('report-card');  
   for (i = 0; i < li.length; i++) {
-	  console.log(li[i])
-	b = li[i].getElementsByTagName("td")[1];
-	c = b.getElementsByTagName("h5")[0];
-    a = c.getElementsByClassName("filter")[0];
-	console.log(a)
+    a = li[i].getElementsByClassName("backend")[0];
     txtValue = a.innerHTML;
     if (txtValue.toUpperCase().indexOf(filter) > -1) {
       li[i].style.display = "";
@@ -38,218 +89,177 @@ function myFunction() {
     }
   }
 }
-
-
-// function filter(){
-// 	var input, filter, ul, li, a, i, txtValue;
-//   input = document.getElementById('filterdrop');
-//   filter = input.value;
-//   ul = document.getElementById("filtercont");
-//   li = ul.getElementsByTagName('li');
-
-//   // Loop through all list items, and hide those who don't match the search query
-//   for (i = 0; i < li.length; i++) {
-//     a = li[i].getElementsByTagName("a")[0];
-//     txtValue = a.textContent || a.innerText;
-//     if (txtValue.toUpperCase().indexOf(filter) > -1) {
-//       li[i].style.display = "";
-//     } else {
-//       li[i].style.display = "none";
-//     }
-//   }
-// }
-
-
 </script>
-	<script src="static/js/script.js"></script>
-	<style>
-		/* a, atag, p {
-			color: #7289da !important;
-		}
-		button {
-			color: #7289da !important;
-		} */
-		.add-button {
-  position: absolute;
-  top: 1px;
-  left: 1px;
-}
-html {
-	padding-left: 10px !important;
-	padding-right: 10px !important;
-	padding-top: 50px !important;
-}
+</head>
+<body class="bg-white dark:bg-gray-800">
 
-.input {
-	padding-left: 10px !important;
-}
+<div id="page">
+<!-- start navbar -->
+<div class="dark:border-gray-800 dark:fixed dark:w-full dark:top-0 dark:z-20 flex flex-row flex-wrap items-center p-6 border-b">
+    
+    <!-- logo -->
+    <div class="flex-none w-56 flex flex-row items-center">
+      <img src="https://sjurl.tk/static/images/favicon.ico" class="w-10 flex-none">
+      <strong class="capitalize ml-1 flex-1">sjurl</strong>
 
-button {
-	background-color: #253c8d !important;
-}
-	</style>
-	<head>
-		<link rel="stylesheet" href="https://minimalist.coolcodersj.repl.co/style.css">
-		<link href="static/css/style.css" rel="stylesheet" type="text/css"> 
-		<title>URL Shortener</title>
-		<meta name="description" content="Switch to SJURL today! We have no ads, and will remain free forever. SJURL is a URL shortening service that has numerous features, such as webhook integration, desktop app, tracking your links, discord bot, and much more... https://sjurl.tk/ Join today!">
+      <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden dark:block">
+        <i class="fad fa-list-ul"></i>
+      </button>
+    </div>
+    <!-- end logo -->   
+    
+    <!-- navbar content toggle -->
+    <button id="navbarToggle" class="hidden dark:block dark:fixed right-0 mr-6">
+      <i class="fad fa-chevron-double-down"></i>
+    </button>
+    <!-- end navbar content toggle -->
 
+    <!-- navbar content -->
+    <div id="navbar" class="animated dark:hidden dark:fixed dark:top-0 dark:w-full dark:left-0 dark:mt-16 dark:border-t dark:border-b bg-white dark:border-gray-200 dark:p-10 dark:bg-gray-800 flex-1 pl-3 flex flex-row flex-wrap justify-between items-center dark:flex-col dark:items-center">     
 
-<!-- PUT CODE BETWEEN <HEAD> TAGS -->
-<meta name="theme-color" content="#000EF2">
-<meta content="SJURL" property="og:title">
-<meta name="og:site_name" content="">
-<meta name="twitter:title" content="SJURL">
-<meta name="twitter:description" content="A free URL Shortening service that's better than Bitly, with its own discord bot.">
-<meta name="twitter:image" content="">
-<meta name="og:image" content="">
-<meta content="A free URL Shortening service that's better than Bitly, with its own discord bot." property="og:description">
-<link rel="alternate" type="application/json+oembed" href="https://embeds.ga/oembed/?name=Shuchir+Jain&url=https%3A%2F%2Fcoolcodersj.repl.co&providername=&providerurl=">
-<!-- END OF CODE -->
+      <!-- right -->
+      <div class="flex flex-row-reverse items-center"> 
 
+        <!-- user -->
+        <div class="dropdown relative dark:static">
 
-	</head>
+          <button class="menu-btn focus:outline-none focus:shadow-outline flex flex-wrap items-center">
+            <div class="w-8 h-8 overflow-hidden rounded-full">
+            </div> 
 
-	<body>
-		<div class="topnav text">
-		<a class="brand" href="#">SJURL</a>
-		<div class="topnavitem">
-		 <a class="topnavitem active" href="/">Home</a>
-  <a class="topnavitem" href="/add">Add Link</a>
-    <a class="topnavitem" href="/login">Login</a>
-  <a class="topnavitem" href="/signup">Signup</a>
- 
+            <div class="ml-2 capitalize flex ">
+              <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">$user</h1>
+              <i class="fad fa-chevron-down ml-2 text-xs leading-none"></i>
+            </div>                        
+          </button>
+
+          <button class="hidden fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
+
+          <div class="text-gray-500 menu hidden dark:mt-10 dark:w-full rounded bg-white shadow-dark absolute z-20 right-0 w-40 mt-5 py-2 animated faster">
+
+            <!-- item -->
+            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="/logout">
+              <i class="fad fa-user-times text-xs mr-1"></i> 
+              log out
+            </a>     
+            <!-- end item -->
+
+          </div>
+        </div>
+        <!-- end user -->
+
+      </div>
+      <!-- end right -->
+    </div>
+    <!-- end navbar content -->
+
   </div>
-</div> 
-<br>
-<center>
-	<script>
-		function togglegraph() {
-			elem = document.getElementById("graph")
-			if (elem.style.display === 'none') {
-				elem.setAttribute("style", "display: 'block';");
-			}
-			else if (true) {
-				elem.style.display = 'none';
-			}
-		}
-	</script>
-	<button onclick="togglegraph()" style="width: 100%">Toggle Graph View</button><br><br>
-<img src="$graphurl" id="graph" style="display: none;">
-</center>
-<br>
-<br>
+<!-- end navbar -->
 
-	 <form class="form-inline my-2 my-lg-0">
-      <input class="input mr-sm-2" type="search" placeholder="Search" id="myInput" onkeyup="myFunction()" style="border: none;" aria-label="Search">
-    </form>
-	<style>
-		.url {
-			width: 550px !important;
-   white-space: nowrap;
-   overflow: hidden;
-   text-overflow: ellipsis;
-		}
-		.url:hover {
-			overflow: visible;
-		}
-		.urltable {
-			word-wrap: break-word;
-		}
-		</style>
-<table>
-<tr>
-	<th class="text">Name</th>
-	<th class="text">Backend</th>
-	<th class="text urltable">URL</th>
-</tr>
-		$for url in db:
-			<tr>
-			$if url in names:
-				$ name = names[url]
-			$else:
-				$ name = ""
-			<script>
-				function del() {
-					var frm = document.getElementById("$url")
-					token = document.getElementById("token")
-					token2 = document.getElementById("token2")
-					token2.value = token.value
-					frm.submit()
-				}
-			</script>
-					<form method="post" action="namec">
-				<input type="hidden" value="$url" name="short">
-				<td>
-				<input type="text" value="$name" class="input" name="name" style="width: 80%">
-				</td>
-					</form>
+
+<!-- strat wrapper -->
+<div class="h-screen flex flex-row flex-wrap">
+  
+    <!-- start sidebar -->
+  <div id="sideBar" class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 dark:-ml-64 dark:fixed dark:top-0 dark:z-30 dark:h-screen dark:shadow-xl animated faster">
+    
+
+    <!-- sidebar content -->
+    <div class="flex flex-col">
+
+      <!-- sidebar toggle -->
+      <div class="text-right hidden dark:block mb-4">
+        <button id="sideBarHideBtn">
+          <i class="fad fa-times-circle"></i>
+        </button>
+      </div>
+      <!-- end sidebar toggle -->
+
+      <!-- link -->
+      <a href="/" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        Home
+      </a>
+      <!-- end link -->
+	  <!-- link -->
+      <a href="/add" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        add link
+      </a>
+      <!-- end link -->
+
+      <!-- link -->
+      <a href="/login" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        Login
+      </a>
+      <!-- end link -->
+
+      <!-- link -->
+      <a href="/signup" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        Signup
+      </a>
+      <!-- end link -->
+    </div>
+    <!-- end sidebar content -->
+
+  </div>
+  <!-- end sidbar -->
+
+  <!-- strat content -->
+  <div class="bg-gray-100 flex-1 p-6 dark:mt-16"> 
+<input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="myInput" type="text" name="name" placeholder="Search..." onkeyup="myFunction()">
+		<br><br><br>
+    
+    <!-- General Report -->
+    <div class="grid grid-cols-4 gap-6 xl:grid-cols-1">
+
+    
+	$for short in db:
+		$if db[short]['user'] == user:
+			<!-- card -->
+			<div class="report-card">
+				<a href="/details/$short">
+				<div class="card">
+					<div class="card-body flex flex-col">
 						
-						<td>
-						<h5><a class="filter">$url</a></h5>
-						</td>
-						<td>
-						<p class="url">$db[url]</p>
-						</td>
-						<td style="width: 5%;">
-						<div style="margin-right: 5px;">
-						<a href="/edit/$url"><button class="btn" style="width: 100%">Edit</button></a>
+						<!-- top -->
+						<div class="flex flex-row justify-between items-center">
+							<div class="h6 text-indigo-700 fas fa-link"></div>
 						</div>
-						</td>
-						<td>
-							<form method="POST" action="delete" id="$url">
-							<input type="hidden" value="$url" name="short">
-						<button class="btn card-link" style="width: 100%;">Delete</button>
-						</td>
-						<input type="hidden" value="" id="token2" name="token2">
-					</form>
-					<form method="POST" action="details">
-						<input type="hidden" value="$url" name="short">
-						<td>
-						<button type="submit" class="btn card-link" style="width: 100%;">View Link Details</button>
-						</td>
-					</form>
-					<form method="POST" action="qrcode">
-						<input type="hidden" value="$url" name="short">
-						<td>
-						<button type="submit" class="btn card-link" style="width: 100%;">Generate QR Code</button>
-						</td>
-					</form>
-					<td>
-						<button type="button" onclick="window.location.replace('/qrcode/view/$url')" class="btn card-link" style="width: 100%;">View QR Code</button>
-						</td>
-						$if url not in shortwebs:
-							$ yep = "Enable"
-						$else:
-							$ yep = "Disable"
-						<form method="POST" name="shortwebform$url" action="shortweb">
-						<input type="hidden" value="$url" name="short">
-						<td>
-						<script>
-							function toggleshow(itemid, typ){
-								if (typ === 'Enable') {
-								var item = document.getElementById("url"+itemid);
-								if (item.style.display === "none") {
-									item.style.display = "block";
-								}
-								else if (item.style.display === "block") {
-									item.style.display = "none";
-								}
-							}
-								else if (typ === 'Disable') {
-									var frm = document.getElementsByName("shortwebform"+itemid)[0]
-									frm.submit()
-									frm.reset()
-								}
-							}
-						</script>
-						<button class="btn card-link" onclick="toggleshow('$url', '$yep')" style="width: 100%;">$yep Webhook Integration</button>
-						<input class="input" id="url$url" name="webhook" placeholder="Enter Discord Webhook URL" style="display: none; width: 100%;" required>
-						</td>
-					</form>
-			</tr>	
-			
-</table>
+						<!-- end top -->
 
-	</body>
+						<!-- bottom -->
+						<div class="mt-8">
+							<h1 class="h5 num-4 backend">$short</h1>
+							<h3 class="lowercase">$db[short]['name']</h3>
+							<p class="url">$db[short]['url']</p>
+							<a href='/details/$short' ><button class="btn-bs-dark" style="width: 150px; margin-bottom: 5px;">See More</button></a>
+							<form method="POST" action="delete">
+								<input type="hidden" value="$short" name="short">
+							<button class="btn-bs-danger" style="width: 150px;">Delete</button>
+							</form>
+						</div>                
+						<!-- end bottom -->
+			
+					</div>
+				</div>
+				<div class="footer bg-white p-1 mx-4 border border-t-0 rounded rounded-t-none"></div>
+				</a>
+			</div>
+			<!-- end card -->
+
+</div>
+    <!-- end quick Info -->
+        
+
+  </div>
+  <!-- end content -->
+
+</div>
+<!-- end wrapper -->
+
+<!-- script -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="static/js/new.js"></script>
+<!-- end script -->
+</div>
+</body>
 </html>

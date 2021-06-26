@@ -1,45 +1,110 @@
 $def with (short, url)
-<!DOCTYPE html>
-<html>
-		<link rel="icon" 
-      type="image/ico" 
-      href="https://sjurl.tk/static/images/favicon.ico">
-	<style>
-		a {
-			color: #7289da !important;
-		}
-		button {
-			color: #7289da !important;
-		}
-		body {
-			padding-top: 25px;
-			padding-left: 15px;
-			padding-right: 15px;
-		}
-	</style>
-	<style>
-		html {
-			margin-top: 110px;
-		}
-		</style>
-	<head>
-	<head>
-		<link rel="stylesheet" href="https://minimalist.coolcodersj.repl.co/style.css">
-		<title>URL Shortener</title>
-	</head>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
+  <link rel="shortcut icon" href="https://sjurl.tk/static/images/favicon.ico" type="image/x-icon">  
+  <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
+  <link rel="stylesheet" type="text/css" href="static/css/new.css">  
+  <title>SJURL</title>
+</head>
+<body class="bg-white dark:bg-gray-800">
 
-	<body>
-				<div class="topnav text">
-		<a class="brand" href="#">SJURL</a>
-		<div class="topnavitem">
-		 <a class="topnavitem" href="/">Home</a>
-  <a class="topnavitem" href="/add">Add Link</a>
-    <a class="topnavitem" href="/login">Login</a>
-  <a class="topnavitem" href="/signup">Signup</a>
- 
+<!-- start navbar -->
+<div class="dark:border-gray-800 dark:fixed dark:w-full dark:top-0 dark:z-20 flex flex-row flex-wrap items-center p-6 border-b">
+    
+    <!-- logo -->
+    <div class="flex-none w-56 flex flex-row items-center">
+      <img src="https://sjurl.tk/static/images/favicon.ico" class="w-10 flex-none">
+      <strong class="capitalize ml-1 flex-1">sjurl</strong>
+
+      <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden dark:block">
+        <i class="fad fa-list-ul"></i>
+      </button>
+    </div>
+    <!-- end logo -->   
+    
+    <!-- navbar content toggle -->
+    <button id="navbarToggle" class="hidden dark:block dark:fixed right-0 mr-6">
+      <i class="fad fa-chevron-double-down"></i>
+    </button>
+    <!-- end navbar content toggle -->
+
+    <!-- navbar content -->
+    <div id="navbar" class="animated dark:hidden dark:fixed dark:top-0 dark:w-full dark:left-0 dark:mt-16 dark:border-t dark:border-b bg-white dark:border-gray-200 dark:p-10 dark:bg-gray-800 flex-1 pl-3 flex flex-row flex-wrap justify-between items-center dark:flex-col dark:items-center">     
+    </div>
+    <!-- end navbar content -->
+
   </div>
+<!-- end navbar -->
+
+
+
+<!-- strat wrapper -->
+<div class="h-screen flex flex-row flex-wrap">
+  
+    <!-- start sidebar -->
+  <div id="sideBar" class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 dark:-ml-64 dark:fixed dark:top-0 dark:z-30 dark:h-screen dark:shadow-xl animated faster">
+    
+
+    <!-- sidebar content -->
+    <div class="flex flex-col">
+
+      <!-- sidebar toggle -->
+      <div class="text-right hidden dark:block mb-4">
+        <button id="sideBarHideBtn">
+          <i class="fad fa-times-circle"></i>
+        </button>
+      </div>
+      <!-- end sidebar toggle -->
+
+      <!-- link -->
+      <a href="/" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        Home
+      </a>
+      <!-- end link -->
+	  <!-- link -->
+      <a href="/add" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        add link
+      </a>
+      <!-- end link -->
+
+      <!-- link -->
+      <a href="/login" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        Login
+      </a>
+      <!-- end link -->
+
+      <!-- link -->
+      <a href="/signup" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        Signup
+      </a>
+      <!-- end link -->
+    </div>
+    <!-- end sidebar content -->
+
   </div>
-  <h4 class="success">Success! Your URL is https://sjurl.tk/$short and your website that was shortened was $url.</h4>
-<button type="button" class="form-control" onclick="window.open('https://sjurl.tk')">Go home</button>
-	</body>
+  <!-- end sidbar -->   
+
+<div class="bg-gray-100 flex-1 p-6 dark:mt-16"> 
+
+<div class="w-full max-w-xs">
+  
+<div class="alert alert-success mb-5">
+    URL successfully shortened!<br>
+	Shortened URL: <a href="https://sjurl.tk/$short">https://sjurl.tk/$short</a><br>
+	Long URL: <a href="$url">$url</a>
+</div>
+</div>
+</div>
+</div>
+<!-- end wrapper -->
+
+<!-- script -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="static/js/new.js"></script>
+<!-- end script -->
+
+</body>
 </html>
