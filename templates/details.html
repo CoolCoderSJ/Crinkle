@@ -4,27 +4,16 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
-  <link rel="shortcut icon" href="https://sjurl.tk/static/images/favicon.ico" type="image/x-icon">  
+  <link rel="shortcut icon" href="https://sjurl.tk/static/images/favicon.svg" type="image/x-icon">  
   <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/new.css">  
+  <link rel="stylesheet" type="text/css" href="https://sjurl.tk/static/css/new.css?yeetcachev4">  
   <title>SJURL</title>
 </head>
-<body class="bg-white dark:bg-gray-800">
+<body class="bg-gray-800">
 
 
 <!-- start navbar -->
-<div class="dark:border-gray-800 dark:fixed dark:w-full dark:top-0 dark:z-20 flex flex-row flex-wrap items-center p-6 border-b">
-    
-    <!-- logo -->
-    <div class="flex-none w-56 flex flex-row items-center">
-      <img src="https://sjurl.tk/static/images/favicon.ico" class="w-10 flex-none">
-      <strong class="capitalize ml-1 flex-1">sjurl</strong>
-
-      <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden dark:block">
-        <i class="fad fa-list-ul"></i>
-      </button>
-    </div>
-    <!-- end logo -->   
+<div class="dark:border-gray-800 dark:fixed dark:w-full dark:top-0 dark:z-20 flex flex-row flex-wrap items-center p-6 bg-gray-800" style="margin-left: 250px;"> 
     
     <!-- navbar content toggle -->
     <button id="navbarToggle" class="hidden dark:block dark:fixed right-0 mr-6">
@@ -33,10 +22,10 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
     <!-- end navbar content toggle -->
 
     <!-- navbar content -->
-    <div id="navbar" class="animated dark:hidden dark:fixed dark:top-0 dark:w-full dark:left-0 dark:mt-16 dark:border-t dark:border-b bg-white dark:border-gray-200 dark:p-10 dark:bg-gray-800 flex-1 pl-3 flex flex-row flex-wrap justify-between items-center dark:flex-col dark:items-center">     
+    <div id="navbar" class="animated dark:hidden dark:fixed dark:top-0 dark:w-full dark:left-0 dark:mt-16 dark:p-10 bg-gray-800 flex-1 pl-3 flex flex-row flex-wrap justify-between items-center dark:flex-col dark:items-center">     
 
       <!-- right -->
-      <div class="flex flex-row-reverse items-center"> 
+      <div class="flex flex-row-reverse items-center bg-gray-800"> 
 
         <!-- user -->
         <div class="dropdown relative dark:static">
@@ -46,8 +35,8 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
             </div> 
 
             <div class="ml-2 capitalize flex ">
-              <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">$user</h1>
-              <i class="fad fa-chevron-down ml-2 text-xs leading-none"></i>
+              <h1 class="text-sm text-white font-semibold m-0 p-0 leading-none">$user</h1>
+              <i class="fad fa-chevron-down ml-2 text-xs leading-none text-white"></i>
             </div>                        
           </button>
 
@@ -57,7 +46,7 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
 
             <!-- item -->
             <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="/logout">
-              <i class="fad fa-user-times text-xs mr-1"></i> 
+              <i class="fad fa-user-times text-xs mr-1 text-white"></i> 
               log out
             </a>     
             <!-- end item -->
@@ -79,7 +68,7 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
 <div class="h-screen flex flex-row flex-wrap">
   
     <!-- start sidebar -->
-  <div id="sideBar" class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 dark:-ml-64 dark:fixed dark:top-0 dark:z-30 dark:h-screen dark:shadow-xl animated faster">
+  <div id="sideBar" class="relative flex flex-col flex-wrap p-6 flex-none w-64 dark:-ml-64 dark:fixed dark:top-0 dark:z-30 dark:h-screen dark:shadow-xl animated faster" style="top: 0; bottom: 0; position: fixed; background: #262f3c;">
     
 
     <!-- sidebar content -->
@@ -92,27 +81,41 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
         </button>
       </div>
       <!-- end sidebar toggle -->
+	  <!-- logo -->
+    <div class="flex-none w-56 flex flex-row items-center">
+      <img src="https://sjurl.tk/static/images/favicon.svg" class="w-10 flex-none">
+      <strong class="capitalize ml-1 flex-1 text-white">SJURL</strong>
 
+      <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden dark:block">
+        <i class="fad fa-list-ul"></i>
+      </button>
+    </div>
+    <!-- end logo -->  
       <!-- link -->
-      <a href="/" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="/" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500" style="margin-top: 30px;">
         Home
       </a>
       <!-- end link -->
 	  <!-- link -->
-      <a href="/add" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="/add" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         add link
       </a>
       <!-- end link -->
 
       <!-- link -->
-      <a href="/login" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="/login" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         Login
       </a>
       <!-- end link -->
 
       <!-- link -->
-      <a href="/signup" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="/signup" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         Signup
+      </a>
+      <!-- end link -->
+	  <!-- link -->
+      <a href="/bookmarklet" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        Bookmarklet
       </a>
       <!-- end link -->
     </div>
@@ -122,7 +125,7 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
   <!-- end sidbar -->
 
   <!-- strat content -->
-  <div class="bg-gray-100 flex-1 p-6 dark:mt-16"> 
+  <div class="bg-gray-900 flex-1 p-6 dark:mt-16" style="margin-left: 250px;"> 
 
     
     <!-- General Report -->
@@ -131,101 +134,101 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
 
     <!-- card -->
     <div class="report-card">
-        <div class="card">
+        <div class="card bg-blue-700">
             <div class="card-body flex flex-col">
                 
                 <!-- top -->
                 <div class="flex flex-row justify-between items-center">
-                    <div class="h6 text-indigo-700 fas fa-link"></div>
+                    <div class="h6 text-white fas fa-link"></div>
                 </div>
                 <!-- end top -->
 
                 <!-- bottom -->
                 <div class="mt-8">
-                    <h1 class="h5 num-4">$clicks</h1>
-                    <p>Clicks</p>
+                    <h1 class="h5 num-4 text-white">$clicks</h1>
+                    <p class="text-white">Clicks</p>
                 </div>                
                 <!-- end bottom -->
     
             </div>
         </div>
-        <div class="footer bg-white p-1 mx-4 border border-t-0 rounded rounded-t-none"></div>
+        <div class="footer bg-blue-800 p-1 mx-4 rounded rounded-t-none"></div>
     </div>
     <!-- end card -->
 
 
     <!-- card -->
     <div class="report-card">
-        <div class="card">
+        <div class="card bg-blue-700">
             <div class="card-body flex flex-col">
                 
                 <!-- top -->
                 <div class="flex flex-row justify-between items-center">
-                    <div class="h5 text-red-700 fab fa-apple"></div>
+                    <div class="h5 text-white fab fa-apple"></div>
                 </div>
                 <!-- end top -->
 
                 <!-- bottom -->
                 <div class="mt-8">
-                    <h1 class="h5 num-4">$dev[10]</h1>
-                    <p>Clicks from Apple</p>
+                    <h1 class="h5 num-4 text-white">$dev[10]</h1>
+                    <p class=" text-white">Clicks from Apple</p>
                 </div>                
                 <!-- end bottom -->
     
             </div>
         </div>
-        <div class="footer bg-white p-1 mx-4 border border-t-0 rounded rounded-t-none"></div>
+        <div class="footer bg-blue-800 p-1 mx-4 rounded rounded-t-none"></div>
     </div>
     <!-- end card -->
 
 
     <!-- card -->
     <div class="report-card">
-        <div class="card">
+        <div class="card bg-blue-700">
             <div class="card-body flex flex-col">
                 
                 <!-- top -->
                 <div class="flex flex-row justify-between items-center">
-                    <div class="h5 text-green-700 fab fa-windows"></div>
+                    <div class="h5 text-white fab fa-windows"></div>
                 </div>
                 <!-- end top -->
 
                 <!-- bottom -->
                 <div class="mt-8">
 					$ win = dev[8] + dev[9]
-                    <h1 class="h5 num-4">$win</h1>
-                    <p>Clicks from Windows</p>
+                    <h1 class="h5 num-4 text-white">$win</h1>
+                    <p class=" text-white">Clicks from Windows</p>
                 </div>                
                 <!-- end bottom -->
     
             </div>
         </div>
-        <div class="footer bg-white p-1 mx-4 border border-t-0 rounded rounded-t-none"></div>
+        <div class="footer bg-blue-800 p-1 mx-4 rounded rounded-t-none"></div>
     </div>
     <!-- end card -->
 
 
     <!-- card -->
     <div class="report-card">
-        <div class="card">
+        <div class="card bg-blue-700">
             <div class="card-body flex flex-col">
                 
                 <!-- top -->
                 <div class="flex flex-row justify-between items-center">
-                    <div class="h5 text-yellow-600 fab fa-linux"></div>
+                    <div class="h5 text-white fab fa-linux"></div>
                 </div>
                 <!-- end top -->
 
                 <!-- bottom -->
                 <div class="mt-8">
-                    <h1 class="h5 num-4">$dev[11]</h1>
-                    <p>Clicks from Linux</p>
+                    <h1 class="h5 num-4 text-white">$dev[11]</h1>
+                    <p class=" text-white">Clicks from Linux</p>
                 </div>                
                 <!-- end bottom -->
     
             </div>
         </div>
-        <div class="footer bg-white p-1 mx-4 border border-t-0 rounded rounded-t-none"></div>
+        <div class="footer bg-blue-800 p-1 mx-4 rounded rounded-t-none"></div>
     </div>
     <!-- end card -->
     
@@ -237,13 +240,13 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
     <div class="mt-6 grid grid-cols-2 gap-6 xl:grid-cols-1">
 
     <!-- update section -->
-    <div class="card bg-teal-400 border-teal-400 shadow-dark text-white">
+    <div class="card bg-purple-600 shadow-dark text-white overflow-auto" style="height: 21rem;">
         <div class="card-body flex flex-row">
 
             <!-- info -->
             <div class="py-2 ml-10">
                 <h1 class="h6">$s</h1>
-                <p class="text-white">$url</p><br>
+                <p class="text-white lowercase" style="text-transform: lowercase !important;">$url</p><br>
 				<form class="w-full max-w-sm" method="POST" name="shortwebform$s" action="/shortweb">
 					<input type="hidden" value="$s" name="short">
   <div class="md:flex md:items-center mb-6">
@@ -303,12 +306,12 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
         <!-- charts -->
         <div class="grid grid-cols-2 gap-6 h-full">
 
-            <div class="card">
+            <div class="card bg-purple-600 text-white">
                 <div class="py-3 px-4">
                     <h1 class="h6">
                         <span class="num-4"></span>Public View
                         <p>Share this data with others</p>
-                    </h1>
+                    </h1><br>
 					<script>
 		function generate() {
 			clicks = document.getElementById('clicks').checked
@@ -354,24 +357,20 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
 <br>
 <input type='checkbox' id='graph'></input>
 <span>Show graph</span>
-<br>
-<button onclick="generate()" class="btn-bs-dark" style="margin-top: 3px;">Generate Link to share</button>
-<input id='link' class="small" value="" readonly>
+<br><br>
+<button onclick="generate()" class="btn-bs-dark" style="margin-top: 3px;">Generate Link to share</button><br>
+<input id='link' class="small bg-purple-600" value="" readonly>
                 </div>                
             </div>
 
-            <div class="card">
+            <div class="card bg-purple-600 text-white">
                 <div class="py-3 px-4">                    
                     <h1 class="h6">
                         <span class="num-2"></span>QR Code
                         <p></p>
                     </h1>
-
-					<form method="POST" action="qrcode">
-						<img style="height: 100%" src='$qrcodeurl'>
-						<input type="hidden" value="$s" name="short">
-						<button type="submit" class="btn-bs-dark" style="width: 100%;">Generate QR Code</button>
-					</form>
+					<br>
+					<img style="height: 100%" src='$qrcodeurl'>
                 </div>
             </div>
 
@@ -389,7 +388,7 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
 	<div class="">
 
     <!-- update section -->
-    <div class="card bg-teal-400 border-teal-400 shadow-dark text-white">
+    <div class="card bg-purple-600 shadow-dark text-white">
         <div class="card-body flex flex-row">
 
             <!-- info -->
@@ -405,17 +404,17 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
 
 
     <!-- Browser Stats -->
-    <div class="card">
+    <div class="card bg-blue-700 text-white">
         <div class="card-header">Browser Stats</div>
 
         <!-- brawser -->
         <div class="p-6 flex flex-row justify-between items-center text-gray-600 border-b">
             <div class="flex items-center">
-                <i class="fab fa-chrome mr-4"></i>    
-                <h1>google chrome</h1>
+                <i class="fab fa-chrome mr-4 text-white"></i>    
+                <h1 class="text-white">google chrome</h1>
             </div>                
-            <div>
-                <span class="num-2"></span>$dev[0]
+            <div class="text-white">
+                <span class="num-2 text-white"></span>$dev[0]
             </div>
         </div>
         <!-- end brawser -->
@@ -423,11 +422,11 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
         <!-- brawser -->
         <div class="p-6 flex flex-row justify-between items-center text-gray-600 border-b">
             <div class="flex items-center">
-                <i class="fab fa-firefox mr-4"></i>    
-                <h1>firefox</h1>
+                <i class="fab fa-firefox mr-4 text-white"></i>    
+                <h1 class="text-white">firefox</h1>
             </div>                
-            <div>
-                <span class="num-2"></span>$dev[1]
+            <div class="text-white">
+                <span class="num-2 text-white"></span>$dev[1]
             </div>
         </div>
         <!-- end brawser -->
@@ -435,11 +434,11 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
         <!-- brawser -->
         <div class="p-6 flex flex-row justify-between items-center text-gray-600 border-b">
             <div class="flex items-center">
-                <i class="fab fa-edge mr-4"></i>    
-                <h1>edge</h1>
+                <i class="fab fa-edge mr-4 text-white"></i>    
+                <h1 class="text-white">edge</h1>
             </div>                
-            <div>
-                <span class="num-2"></span>$dev[4]
+            <div class="text-white">
+                <span class="num-2 text-white"></span>$dev[4]
             </div>
         </div>
         <!-- end brawser -->
@@ -447,11 +446,11 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
         <!-- brawser -->
         <div class="p-6 flex flex-row justify-between items-center text-gray-600 border-b-0">
             <div class="flex items-center">
-                <i class="fab fa-safari mr-4"></i>    
-                <h1>safari</h1>
+                <i class="fab fa-safari mr-4 text-white"></i>    
+                <h1 class="text-white">safari</h1>
             </div>                
-            <div>
-                <span class="num-2"></span>$dev[2]
+            <div class="text-white">
+                <span class="num-2 text-white"></span>$dev[2]
             </div>
         </div>
         <!-- end brawser -->
@@ -460,7 +459,7 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
     <!-- end Browser Stats -->
 
     <!-- Start Recent Sales -->
-    <div class="card col-span-2 xl:col-span-1">
+    <div class="card col-span-2 xl:col-span-1 text-white bg-blue-700">
         <div class="card-header">Advanced</div>
 
         <table class="table-auto w-full text-left">
@@ -472,7 +471,7 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
             <tbody class="text-gray-600">
 				$for short in agent:
 					<tr>                    
-						<td class="border border-l-0 px-4 py-2">$short</td>
+						<td class="border border-l-0 px-4 py-2 text-gray-300">$short</td>
 					</tr>
             </tbody>
         </table>
@@ -491,7 +490,6 @@ $def with (agent, clicks, dev, s, graphurl, url, webhookurl, qrcodeurl, user, na
 <!-- end wrapper -->
 
 <!-- script -->
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="/static/js/new.js"></script>
 <!-- end script -->
 

@@ -4,26 +4,17 @@ $def with (short, url)
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
-  <link rel="shortcut icon" href="https://sjurl.tk/static/images/favicon.ico" type="image/x-icon">  
+  <link rel="shortcut icon" href="https://sjurl.tk/static/images/favicon.svg" type="image/x-icon">  
   <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
-  <link rel="stylesheet" type="text/css" href="static/css/new.css">  
+  <link rel="stylesheet" type="text/css" href="/static/css/new.css?yeetcache">  
   <title>SJURL</title>
 </head>
-<body class="bg-white dark:bg-gray-800">
+<body class="bg-gray-800">
+
+
 
 <!-- start navbar -->
-<div class="dark:border-gray-800 dark:fixed dark:w-full dark:top-0 dark:z-20 flex flex-row flex-wrap items-center p-6 border-b">
-    
-    <!-- logo -->
-    <div class="flex-none w-56 flex flex-row items-center">
-      <img src="https://sjurl.tk/static/images/favicon.ico" class="w-10 flex-none">
-      <strong class="capitalize ml-1 flex-1">sjurl</strong>
-
-      <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden dark:block">
-        <i class="fad fa-list-ul"></i>
-      </button>
-    </div>
-    <!-- end logo -->   
+<div class="dark:border-gray-800 dark:fixed dark:w-full dark:top-0 dark:z-20 flex flex-row flex-wrap items-center p-6 bg-gray-800" style="margin-left: 250px;"> 
     
     <!-- navbar content toggle -->
     <button id="navbarToggle" class="hidden dark:block dark:fixed right-0 mr-6">
@@ -32,7 +23,7 @@ $def with (short, url)
     <!-- end navbar content toggle -->
 
     <!-- navbar content -->
-    <div id="navbar" class="animated dark:hidden dark:fixed dark:top-0 dark:w-full dark:left-0 dark:mt-16 dark:border-t dark:border-b bg-white dark:border-gray-200 dark:p-10 dark:bg-gray-800 flex-1 pl-3 flex flex-row flex-wrap justify-between items-center dark:flex-col dark:items-center">     
+    <div id="navbar" class="animated dark:hidden dark:fixed dark:top-0 dark:w-full dark:left-0 dark:mt-16 dark:p-10 bg-gray-800 flex-1 pl-3 flex flex-row flex-wrap justify-between items-center dark:flex-col dark:items-center">
     </div>
     <!-- end navbar content -->
 
@@ -40,12 +31,11 @@ $def with (short, url)
 <!-- end navbar -->
 
 
-
 <!-- strat wrapper -->
 <div class="h-screen flex flex-row flex-wrap">
   
     <!-- start sidebar -->
-  <div id="sideBar" class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 dark:-ml-64 dark:fixed dark:top-0 dark:z-30 dark:h-screen dark:shadow-xl animated faster">
+  <div id="sideBar" class="relative flex flex-col flex-wrap p-6 flex-none w-64 dark:-ml-64 dark:fixed dark:top-0 dark:z-30 dark:h-screen dark:shadow-xl animated faster" style="top: 0; bottom: 0; position: fixed; background: #262f3c;">
     
 
     <!-- sidebar content -->
@@ -58,44 +48,69 @@ $def with (short, url)
         </button>
       </div>
       <!-- end sidebar toggle -->
+	  <!-- logo -->
+    <div class="flex-none w-56 flex flex-row items-center">
+      <img src="https://sjurl.tk/static/images/favicon.svg" class="w-10 flex-none">
+      <strong class="capitalize ml-1 flex-1 text-white">SJURL</strong>
 
+      <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden dark:block">
+        <i class="fad fa-list-ul"></i>
+      </button>
+    </div>
+    <!-- end logo -->  
       <!-- link -->
-      <a href="/" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="/" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500" style="margin-top: 30px;">
         Home
       </a>
       <!-- end link -->
 	  <!-- link -->
-      <a href="/add" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="/add" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         add link
       </a>
       <!-- end link -->
 
       <!-- link -->
-      <a href="/login" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="/login" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         Login
       </a>
       <!-- end link -->
 
       <!-- link -->
-      <a href="/signup" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="/signup" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         Signup
+      </a>
+      <!-- end link -->
+	  <!-- link -->
+      <a href="/bookmarklet" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        Bookmarklet
       </a>
       <!-- end link -->
     </div>
     <!-- end sidebar content -->
 
   </div>
-  <!-- end sidbar -->   
+  <!-- end sidbar -->
 
-<div class="bg-gray-100 flex-1 p-6 dark:mt-16"> 
-
-<div class="w-full max-w-xs">
+  <!-- strat content -->
+  <div class="bg-gray-900 flex-1 p-6 dark:mt-16" style="margin-left: 250px;">
+<div class="w-full">
+	<style>
+		.alert, a {
+			width: 100%;
+			text-transform: none !important;
+		}
+		.fa:hover {
+			cursor: pointer;
+		}
+	</style>
   
-<div class="alert alert-success mb-5">
+<div class="alert alert-success mb-5" style="text-transform: none !important;">
     URL successfully shortened!<br>
-	Shortened URL: <a href="https://sjurl.tk/$short">https://sjurl.tk/$short</a><br>
+	Shortened URL: <a href="https://sjurl.tk/$short">https://sjurl.tk/$short</a> <i class="fa fa-copy" onclick="copy()"></i><br>
 	Long URL: <a href="$url">$url</a>
 </div>
+
+<div id="ok"></div>
 </div>
 </div>
 </div>
@@ -104,6 +119,19 @@ $def with (short, url)
 <!-- script -->
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="static/js/new.js"></script>
+<script>
+	function copy() {
+		try {		
+		navigator.clipboard.writeText("https://sjurl.tk/$short")
+		document.getElementById('ok').innerHTML += `<div class="alert alert-success mb-5" style="text-transform: none !important;">
+    Copied!
+</div>`
+		} catch(err) {
+		console.error(`Unable to copy, $${err}`);
+		}
+	}
+</script>
+
 <!-- end script -->
 
 </body>

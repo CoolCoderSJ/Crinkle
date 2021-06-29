@@ -16,9 +16,9 @@ $def with (db, user)
 <!-- END OF CODE -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
-  <link rel="shortcut icon" href="https://sjurl.tk/static/images/favicon.ico" type="image/x-icon">  
+  <link rel="shortcut icon" href="https://sjurl.tk/static/images/favicon.svg" type="image/x-icon">  
   <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
-  <link rel="stylesheet" type="text/css" href="static/css/new.css">  
+  <link rel="stylesheet" type="text/css" href="/static/css/new.css?yeetcache">  
   <title>SJURL</title>
 
   <style>
@@ -59,7 +59,7 @@ onReady(function() {
 	</script>
 	    <link href="https://fraileagercubase.coolcodersj.repl.co/spinkit.min.css" rel="stylesheet" type="text/css" />
 		<center>
-<div id="spinner" style="margin-top: 100px;">
+<div id="spinner" style="top: 45%; left: 45%; position: fixed;">
 	  <div class="sk-grid sk-center" style="--sk-color: white; --sk-size: 70px;">
   <div class="sk-grid-cube"></div>
   <div class="sk-grid-cube"></div>
@@ -91,22 +91,12 @@ function myFunction() {
 }
 </script>
 </head>
-<body class="bg-white dark:bg-gray-800">
+<body class="bg-gray-900">
 
 <div id="page">
-<!-- start navbar -->
-<div class="dark:border-gray-800 dark:fixed dark:w-full dark:top-0 dark:z-20 flex flex-row flex-wrap items-center p-6 border-b">
-    
-    <!-- logo -->
-    <div class="flex-none w-56 flex flex-row items-center">
-      <img src="https://sjurl.tk/static/images/favicon.ico" class="w-10 flex-none">
-      <strong class="capitalize ml-1 flex-1">sjurl</strong>
 
-      <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden dark:block">
-        <i class="fad fa-list-ul"></i>
-      </button>
-    </div>
-    <!-- end logo -->   
+<!-- start navbar -->
+<div class="dark:border-gray-800 dark:fixed dark:w-full dark:top-0 dark:z-20 flex flex-row flex-wrap items-center p-6 bg-gray-800" style="margin-left: 250px;"> 
     
     <!-- navbar content toggle -->
     <button id="navbarToggle" class="hidden dark:block dark:fixed right-0 mr-6">
@@ -115,41 +105,7 @@ function myFunction() {
     <!-- end navbar content toggle -->
 
     <!-- navbar content -->
-    <div id="navbar" class="animated dark:hidden dark:fixed dark:top-0 dark:w-full dark:left-0 dark:mt-16 dark:border-t dark:border-b bg-white dark:border-gray-200 dark:p-10 dark:bg-gray-800 flex-1 pl-3 flex flex-row flex-wrap justify-between items-center dark:flex-col dark:items-center">     
-
-      <!-- right -->
-      <div class="flex flex-row-reverse items-center"> 
-
-        <!-- user -->
-        <div class="dropdown relative dark:static">
-
-          <button class="menu-btn focus:outline-none focus:shadow-outline flex flex-wrap items-center">
-            <div class="w-8 h-8 overflow-hidden rounded-full">
-            </div> 
-
-            <div class="ml-2 capitalize flex ">
-              <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">$user</h1>
-              <i class="fad fa-chevron-down ml-2 text-xs leading-none"></i>
-            </div>                        
-          </button>
-
-          <button class="hidden fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
-
-          <div class="text-gray-500 menu hidden dark:mt-10 dark:w-full rounded bg-white shadow-dark absolute z-20 right-0 w-40 mt-5 py-2 animated faster">
-
-            <!-- item -->
-            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="/logout">
-              <i class="fad fa-user-times text-xs mr-1"></i> 
-              log out
-            </a>     
-            <!-- end item -->
-
-          </div>
-        </div>
-        <!-- end user -->
-
-      </div>
-      <!-- end right -->
+    <div id="navbar" class="animated dark:hidden dark:fixed dark:top-0 dark:w-full dark:left-0 dark:mt-16 dark:p-10 bg-gray-800 flex-1 pl-3 flex flex-row flex-wrap justify-between items-center dark:flex-col dark:items-center">
     </div>
     <!-- end navbar content -->
 
@@ -161,7 +117,7 @@ function myFunction() {
 <div class="h-screen flex flex-row flex-wrap">
   
     <!-- start sidebar -->
-  <div id="sideBar" class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 dark:-ml-64 dark:fixed dark:top-0 dark:z-30 dark:h-screen dark:shadow-xl animated faster">
+  <div id="sideBar" class="relative flex flex-col flex-wrap p-6 flex-none w-64 dark:-ml-64 dark:fixed dark:top-0 dark:z-30 dark:h-screen dark:shadow-xl animated faster" style="top: 0; bottom: 0; position: fixed; background: #262f3c;">
     
 
     <!-- sidebar content -->
@@ -174,27 +130,41 @@ function myFunction() {
         </button>
       </div>
       <!-- end sidebar toggle -->
+	  <!-- logo -->
+    <div class="flex-none w-56 flex flex-row items-center">
+      <img src="https://sjurl.tk/static/images/favicon.svg" class="w-10 flex-none">
+      <strong class="capitalize ml-1 flex-1 text-white">SJURL</strong>
 
+      <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden dark:block">
+        <i class="fad fa-list-ul"></i>
+      </button>
+    </div>
+    <!-- end logo -->  
       <!-- link -->
-      <a href="/" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="/" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500" style="margin-top: 30px;">
         Home
       </a>
       <!-- end link -->
 	  <!-- link -->
-      <a href="/add" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="/add" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         add link
       </a>
       <!-- end link -->
 
       <!-- link -->
-      <a href="/login" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="/login" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         Login
       </a>
       <!-- end link -->
 
       <!-- link -->
-      <a href="/signup" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="/signup" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         Signup
+      </a>
+      <!-- end link -->
+	  <!-- link -->
+      <a href="/bookmarklet" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        Bookmarklet
       </a>
       <!-- end link -->
     </div>
@@ -204,8 +174,8 @@ function myFunction() {
   <!-- end sidbar -->
 
   <!-- strat content -->
-  <div class="bg-gray-100 flex-1 p-6 dark:mt-16"> 
-<input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="myInput" type="text" name="name" placeholder="Search..." onkeyup="myFunction()">
+  <div class="bg-gray-900 flex-1 p-6 dark:mt-16" style="margin-left: 250px;">
+<input class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="myInput" type="text" name="name" placeholder="Search..." onkeyup="myFunction()">
 		<br><br><br>
     
     <!-- General Report -->
@@ -217,12 +187,12 @@ function myFunction() {
 			<!-- card -->
 			<div class="report-card">
 				<a href="/details/$short">
-				<div class="card">
+				<div class="card bg-blue-800 border-none text-white" style="text-transform: none !important;">
 					<div class="card-body flex flex-col">
 						
 						<!-- top -->
 						<div class="flex flex-row justify-between items-center">
-							<div class="h6 text-indigo-700 fas fa-link"></div>
+							<div class="h6 text-blue-200 fas fa-link"></div>
 						</div>
 						<!-- end top -->
 
@@ -230,7 +200,7 @@ function myFunction() {
 						<div class="mt-8">
 							<h1 class="h5 num-4 backend">$short</h1>
 							<h3 class="lowercase">$db[short]['name']</h3>
-							<p class="url">$db[short]['url']</p>
+							<p class="url" style="text-transform: none !important;">$db[short]['url']</p>
 							<a href='/details/$short' ><button class="btn-bs-dark" style="width: 150px; margin-bottom: 5px;">See More</button></a>
 							<form method="POST" action="delete">
 								<input type="hidden" value="$short" name="short">
@@ -241,7 +211,7 @@ function myFunction() {
 			
 					</div>
 				</div>
-				<div class="footer bg-white p-1 mx-4 border border-t-0 rounded rounded-t-none"></div>
+				<div class="footer bg-blue-800 p-1 mx-4 border-t-0 rounded rounded-t-none"></div>
 				</a>
 			</div>
 			<!-- end card -->

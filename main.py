@@ -25,6 +25,10 @@ devdb = DB("dev", os.environ["DB_TOKEN"])
 devdb.autosave = True
 devdb.autoload = True
 
+authtokens = DB("auth", os.environ["DB_TOKEN"])
+authtokens.autosave = True
+authtokens.autoload = True
+
 
 os.system("clear")
 
@@ -43,6 +47,7 @@ urls = (
 	'/namec', 'namec',
 	'/login', 'login',
 	'/signup', 'signup',
+	'/promo', 'promo',
 	'/bot/guild', 'botg',
 	'/bot/dm', 'botd',
 	'/bot_info', "bot_info",
@@ -50,6 +55,7 @@ urls = (
 	'/sitemap', 'sitemap',
 	'/sitemap.xml', 'sitemapxml',
 	'/logout', 'logout',
+	'/bookmarklet', 'bookmarklet',
 	'/api/docs', 'apidocs',
 	'/api/add', 'apiadd',
 	'/api/me', 'apime',
@@ -67,6 +73,10 @@ session = web.session.Session(app, web.session.DiskStore('sessions'))
 def notfound():
 	return web.notfound(render.notfound())
 
+class promo:
+	def GET(self):
+		return render.promo()
+
 class sitemapxml:
 	def GET(self):
 		web.header("Content-Type", 'application/xml')
@@ -75,51 +85,6 @@ class sitemapxml:
 class sitemap:
 	def GET(self):
 		return render.sitemap()
-
-class bmlet:
-	def GET(self):
-		post_input = web.input(_method='post')
-		post_input = list(post_input)
-		i = web.input()
-		short = i.short
-		url = i.url
-		if i.token == "188b28e3da5d553300ceb9203fe65a5ddf83af76e9e591ade809d0848f230b1b":
-			if short == "null" or short == "":
-				letters = ["a","b",	"c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-				#Generate a 6 letter backend, you will only run out of 6 letter backends if you auto generate more than 46656 backends.
-				tries = 0
-				num = 1
-				for l in range(num):
-					letter = random.choice(letters)
-					short = short+letter
-				tries = 1
-				while short in db:
-					for l in range(num):
-						letter = random.choice(letters)
-						short = short+letter
-					tries += 1
-					total5 = 1
-					for x in range(num):
-						total5 = total5*num
-					if tries == total5:
-						num += 1
-			if short not in db:
-				db[short] = {
-					"url": url,
-					"name": "NONE",
-					"webhook": "NONE",
-					"agents": "NONE",
-					"user": "CoolCoderSJ"
-				}
-				import json
-				web.header('Content-Type', 'application/json')
-				web.header('Access-Control-Allow-Origin', '*')
-				web.header('Access-Control-Allow-Credentials', 'true')
-				web.header('Access-Control-Allow-Methods', 'GET')
-				web.header('Access-Control-Allow-Headers', 'Authorization, Content-Type')
-				return json.dumps({"BACKEND":short})
-			return "No."
-
 
 
 class botg:
@@ -285,7 +250,7 @@ class login:
 		i = web.input(code=0)
 		msg = ""
 		if i.code == "1":
-			msg = "An error occurred while logging you in. Please try again or contact a deveoper."
+			msg = "An error occurred while logging you in. Please try again or contact a developer."
 		return render.login(msg)
 		##os.system("clear")
 
@@ -308,7 +273,7 @@ class signup:
 		i = web.input(code=0)
 		msg = ""
 		if i.code == "1":
-			msg = "An error occurred while signing you up. Please try again or contact a deveoper."
+			msg = "An error occurred while signing you up. Please try again or contact a developer."
 		return render.signup(msg)
 		##os.system("clear")
 
@@ -391,7 +356,7 @@ class qrcode:
 			import png
 			from pyqrcode import QRCode
 			i = web.input()
-			short = "https://sjurl.tk/l/"+i.short
+			short = "https://sjurl.tk/"+i.short
 			qr = pyqrcode.create(short)
 			qr.png("static/images/qr/"+i.short+'.png', scale = 6)
 			raise web.seeother(f"/details/{i.short}")
@@ -784,7 +749,14 @@ class url_info:
 				plt.savefig(f"static/images/graphs/{user}{s}.png", transparent=True, facecolor="w")
 				f.clear()
 				plt.close(f)
-			return render.details(agent, clicks, dev, s, f"https://sjurl.tk/static/images/graphs/{user}{s}.png", db[s]['url'], db[s]['webhook'], "static/images/qr/"+s+".png", session.get("user"), db[s]['name'])
+			
+			import pyqrcode
+			import png
+			from pyqrcode import QRCode
+			url = "https://sjurl.tk/"+s
+			qr = pyqrcode.create(url)
+			qr.png("static/images/qr/"+s+'.png', scale = 6)
+			return render.details(agent, clicks, dev, s, f"https://sjurl.tk/static/images/graphs/{user}{s}.png", db[s]['url'], db[s]['webhook'], "/static/images/qr/"+s+".png", session.get("user"), db[s]['name'])
 		else:
 			return render.promo()
 		#os.system("clear")
@@ -889,7 +861,7 @@ class public_info:
 		plt.savefig(f"static/images/graphs/{user}{s}.png", transparent=True, facecolor="w")
 		f.clear()
 		plt.close(f)
-		return render.public(agent, clicks, dev, options, f"https://sjurl.tk/static/images/graphs/{user}{s}.png", s, db[s]['url'], db[s]['webhook'], "static/images/qr/"+s+".png", session.get("user"))
+		return render.public(agent, clicks, dev, options, f"https://sjurl.tk/static/images/graphs/{user}{s}.png", s, db[s]['url'], db[s]['webhook'], "/static/images/qr/"+s+".png", session.get("user"))
 
 		#os.system("clear")
 
@@ -1154,6 +1126,71 @@ class apidetails:
 		plt.close(f)
 		return {"agents": agent, "clicks": clicks, "dev": dev, "graph": f"https://sjurl.tk/static/images/graphs/{user}{s}.png"}
 
+
+def token(num):
+	import random
+	thing = ""
+	letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+	for x in range(num):
+		thing += random.choice(letters)
+	return thing
+
+class bookmarklet:
+	def GET(self):
+		web.header('Access-Control-Allow-Origin', '*')
+		web.header('Access-Control-Allow-Credentials', 'true')
+		web.header('Access-Control-Allow-Methods', 'GET')
+		web.header('Access-Control-Allow-Headers', '*')
+		i = web.input()
+		if "short" not in i or "url" not in i or "auth" not in i:
+			user = session.get("user")
+			if not user:
+				raise web.seeother("/")
+			if user not in authtokens.data.keys():
+				authtoken = token(60)
+				authtokens[user] = authtoken
+			return render.bmlet(authtokens[user])
+		else:
+			short = i.short
+			if short == "":
+				letters = ["a","b",	"c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+				#Generate a 6 letter backend, you will only run out of 6 letter backends if you auto generate more than 46656 backends.
+				tries = 0
+				num = 1
+				for l in range(num):
+					letter = random.choice(letters)
+					short = short+letter
+				tries = 1
+				while short in db:
+					for l in range(num):
+						letter = random.choice(letters)
+						short = short+letter
+					tries += 1
+					total5 = 1
+					for x in range(num):
+						total5 = total5*num
+					if tries == total5:
+						num += 1
+
+			if short in db:
+				return "INDB"
+
+			user = ""
+			for e in authtokens.data.keys():
+				if authtokens[e] == i.auth:
+					user = e 
+			
+			if user == "":
+				return "404"
+
+			db[short] = {
+				"url": i.url,
+				"name": "Shortened via Bookmarklet",
+				"webhook": "NONE",
+				"agents": "NONE",
+				"user": user
+			}
+			return f'https://sjurl.tk/{short}'
 
 if __name__ == "__main__":
 	app.notfound = notfound
