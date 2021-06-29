@@ -282,7 +282,6 @@ class signup:
 		i = web.input()
 		r = requests.post("https://sjauth.coolcodersj.repl.co/apisi", data={"user":i.user, "passw":i.passw, "cn":"SJURL"})
 		if r.text == "True":
-			web.setcookie("logged_in", True)
 			session.user = i.user
 			raise web.seeother("/")
 		else:
@@ -602,7 +601,8 @@ class index:
 			db2 = {}
 			for key in db:
 				try:
-					db2[key] = db[key]
+					if db[key]['user'] == user:
+						db2[key] = db[key]
 				except:
 					pass
 			return render.index(db2, user)

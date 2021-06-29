@@ -175,15 +175,24 @@ function myFunction() {
 
   <!-- strat content -->
   <div class="bg-gray-900 flex-1 p-6 dark:mt-16" style="margin-left: 250px;">
-<input class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="myInput" type="text" name="name" placeholder="Search..." onkeyup="myFunction()">
-		<br><br><br>
+$if len(db) != 0:
+	<input class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="myInput" type="text" name="name" placeholder="Search..." onkeyup="myFunction()">
+<br><br><br>
     
     <!-- General Report -->
     <div class="grid grid-cols-4 gap-6 xl:grid-cols-1">
+	
 
-    
-	$for short in db:
-		$if db[short]['user'] == user:
+	$if len(db) == 0:
+		<div style="top: 30%; left: 40%; position: fixed; width: auto; height: auto; text-align: center;">
+			<img style="width: 400px;" src="/static/assets/relax.svg">
+			<center>
+			<h2 class="text-white" style="text-transform: none !important;">You don't have any shortened URLs yet!<br>How 'bout shortening a link or two?</h2><br>
+			<a href="/add"><button class="btn-bs-primary">Shorten a URL</button></a>
+			</center>
+		</div>
+    $else:
+		$for short in db:
 			<!-- card -->
 			<div class="report-card">
 				<a href="/details/$short">
