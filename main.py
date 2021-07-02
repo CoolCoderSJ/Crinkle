@@ -744,11 +744,6 @@ class url_info:
 					if line not in x_axis:
 						x_axis.append(line)
 						y_axis.append(num)
-				f = plt.figure()
-				plt.plot(x_axis, y_axis, "r")
-				plt.savefig(f"static/images/graphs/{user}{s}.png", transparent=True, facecolor="w")
-				f.clear()
-				plt.close(f)
 			
 			import pyqrcode
 			import png
@@ -756,7 +751,7 @@ class url_info:
 			url = "https://sjurl.tk/"+s
 			qr = pyqrcode.create(url)
 			qr.png("static/images/qr/"+s+'.png', scale = 6)
-			return render.details(agent, clicks, dev, s, f"https://sjurl.tk/static/images/graphs/{user}{s}.png", db[s]['url'], db[s]['webhook'], "/static/images/qr/"+s+".png", session.get("user"), db[s]['name'])
+			return render.details(agent, clicks, dev, s, x_axis, y_axis, db[s]['url'], db[s]['webhook'], "/static/images/qr/"+s+".png", session.get("user"), db[s]['name'])
 		else:
 			return render.promo()
 		#os.system("clear")
@@ -856,12 +851,7 @@ class public_info:
 			if line not in x_axis:
 				x_axis.append(line)
 				y_axis.append(num)
-		f = plt.figure()
-		plt.plot(x_axis, y_axis, "r")
-		plt.savefig(f"static/images/graphs/{user}{s}.png", transparent=True, facecolor="w")
-		f.clear()
-		plt.close(f)
-		return render.public(agent, clicks, dev, options, f"https://sjurl.tk/static/images/graphs/{user}{s}.png", s, db[s]['url'], db[s]['webhook'], "/static/images/qr/"+s+".png", session.get("user"))
+		return render.public(agent, clicks, dev, options, x_axis, y_axis, s, db[s]['url'], db[s]['webhook'], "/static/images/qr/"+s+".png", session.get("user"))
 
 		#os.system("clear")
 

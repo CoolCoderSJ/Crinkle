@@ -57,6 +57,7 @@ onReady(function() {
   setVisible('#spinner', false);
 });
 	</script>
+	
 	    <link href="https://fraileagercubase.coolcodersj.repl.co/spinkit.min.css" rel="stylesheet" type="text/css" />
 		<center>
 <div id="spinner" style="top: 45%; left: 45%; position: fixed;">
@@ -90,6 +91,16 @@ function myFunction() {
   }
 }
 </script>
+  <style>
+    .modal {
+      transition: opacity 0.25s ease;
+	  z-index: 50;
+    }
+    body.modal-active {
+      overflow-x: hidden;
+      overflow-y: visible !important;
+    }
+  </style>
 </head>
 <body class="bg-gray-900">
 
@@ -196,7 +207,7 @@ $if len(db) != 0:
 			<!-- card -->
 			<div class="report-card">
 				<a href="/details/$short">
-				<div class="card bg-blue-800 border-none text-white" style="text-transform: none !important;">
+				<div class="card bg-blue-900 border-none text-white" style="text-transform: none !important;">
 					<div class="card-body flex flex-col">
 						
 						<!-- top -->
@@ -209,11 +220,47 @@ $if len(db) != 0:
 						<div class="mt-8">
 							<h1 class="h5 num-4 backend">$short</h1>
 							<h3 class="lowercase">$db[short]['name']</h3>
-							<p class="url" style="text-transform: none !important;">$db[short]['url']</p>
+							<p class="url text-white" style="text-transform: none !important;">$db[short]['url']</p>
 							<a href='/details/$short' ><button class="btn-bs-dark" style="width: 150px; margin-bottom: 5px;">See More</button></a>
 							<form method="POST" action="delete">
 								<input type="hidden" value="$short" name="short">
-							<button class="btn-bs-danger" style="width: 150px;">Delete</button>
+							<button class="btn-bs-danger" style="width: 150px;" type="submit" modalid="$short">Delete</button>
+							<div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center" id="$short">
+								<div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+					
+								<div class="modal-container bg-gray-800 w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto text-white" style="width: 50%;">
+								
+								<div class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50" modalid="$short">
+									<svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+									<path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+									</svg>
+									<span class="text-sm"></span>
+								</div>
+
+								<!-- Add margin if you want to see some of the overlay behind the modal-->
+								<div class="modal-content py-4 text-left px-6">
+									<!--Title-->
+									<div class="flex justify-between items-center pb-3">
+									<p class="text-2xl font-bold">Confirm</p>
+									<div class="modal-close cursor-pointer z-50" modalid="$short">
+										<svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+										<path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+										</svg>
+									</div>
+									</div>
+
+									<!--Body-->
+									<p>Are you sure you want to delete this link?</p>
+
+									<!--Footer-->
+									<div class="flex justify-end pt-2">
+									<button class="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2 modal-close" type="button" modalid="$short">Close</button>
+									<button class="btn-bs-danger" style="width: 150px;" type="submit">Delete</button>
+									</div>
+									
+								</div>
+								</div>
+							</div>
 							</form>
 						</div>                
 						<!-- end bottom -->
@@ -224,6 +271,37 @@ $if len(db) != 0:
 				</a>
 			</div>
 			<!-- end card -->
+<script>
+					var openmodal = document.querySelectorAll('.modal-open')
+					for (var i = 0; i < openmodal.length; i++) {
+						modalid = openmodal[i].getAttribute("modalid")
+					openmodal[i].addEventListener('click', function(event){
+						event.preventDefault()
+						toggleModal(modalid)
+					})
+					}
+					
+
+					var closemodal = document.querySelectorAll('.modal-close')
+					for (var i = 0; i < closemodal.length; i++) {
+						modalid = closemodal[i].getAttribute("modalid")
+					closemodal[i].addEventListener('click', function(event) {
+						toggleModal(modalid)
+					})
+					}					
+					
+					function toggleModal (id) {
+					const body = document.querySelector('body')
+					const modal = document.getElementById(id)
+					modal.classList.toggle('opacity-0')
+					modal.classList.toggle('pointer-events-none')
+					body.classList.toggle('modal-active')
+					}
+					
+					
+				</script>
+
+  
 
 </div>
     <!-- end quick Info -->

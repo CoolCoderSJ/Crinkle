@@ -1,4 +1,4 @@
-$def with (agent, clicks, dev, options, graphurl, s, url, webhookurl, qrcodeurl, user)
+$def with (agent, clicks, dev, options, x, y, s, url, webhookurl, qrcodeurl, user)
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,6 +7,8 @@ $def with (agent, clicks, dev, options, graphurl, s, url, webhookurl, qrcodeurl,
   <link rel="shortcut icon" href="https://sjurl.tk/static/images/favicon.svg" type="image/x-icon">  
   <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
   <link rel="stylesheet" type="text/css" href="https://sjurl.tk/static/css/new.css?yeetcachev4">  
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
   <title>SJURL</title>
 </head>
 <body class="bg-gray-800">
@@ -259,7 +261,53 @@ $def with (agent, clicks, dev, options, graphurl, s, url, webhookurl, qrcodeurl,
 
 				<!-- info -->
 				<div class="py-2 ml-10">
-					<img style="width: 100%; height: 100%;" src="$graphurl">
+					<script>
+						google.charts.load('current', {'packages':['corechart']});
+				google.charts.setOnLoadCallback(drawChart);
+
+				function drawChart() {
+					var data = google.visualization.arrayToDataTable([
+					['Date', 'Link Clicks'],
+					$for xval in x:
+						$ yval = y[x.index(xval)]
+						['$xval',  Number('$yval')],
+					]);
+
+					var options = {
+					colors: ['#1E40AF'],
+					title: 'Link Clicks over Time',
+					hAxis: {
+						title: 'Date',  
+						titleTextStyle: {
+							color: '#fff'
+						}, 
+						textStyle: {
+							color: '#fff'
+						}
+					},
+					vAxis: {
+						minValue: 0,
+						textStyle: {
+							color: '#fff'
+						}
+					},
+					backgroundColor: '#805ad5',
+					titleTextStyle: {
+						color: '#fff'
+					},
+					'legend': {
+						position: 'top-right', 
+						textStyle: {
+							color: 'white'
+						}
+					}
+					};
+
+					var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+					chart.draw(data, options);
+				}
+				</script>
+				<div id="chart_div" style="width: 900px; height: 500px;"></div>
 				</div>
 			</div>
 		</div>
