@@ -14,7 +14,9 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from replit import db 
 from easypydb import DB
-import urllib
+from threading import Thread
+import time
+
 
 
 authdb = DB("sso_tokens", os.environ["DB_TOKEN"])
@@ -257,7 +259,7 @@ class login:
 	def POST(self):
 		##os.system("clear")
 		i = web.input()
-		r = requests.post("https://sjauth.coolcodersj.repl.co/apil", data={"user":i.user, "passw":i.passw, "cn":"SJURL"})
+		r = requests.post("https://sjauth.coolcodersj.repl.co/apil", data={"user":i.user, "passw":i.passw, "cn":"Crinkle"})
 		print(r.text)
 		if r.text == "True":
 			session.user = i.user
@@ -280,7 +282,7 @@ class signup:
 	def POST(self):
 		##os.system("clear")
 		i = web.input()
-		r = requests.post("https://sjauth.coolcodersj.repl.co/apisi", data={"user":i.user, "passw":i.passw, "cn":"SJURL"})
+		r = requests.post("https://sjauth.coolcodersj.repl.co/apisi", data={"user":i.user, "passw":i.passw, "cn":"Crinkle"})
 		if r.text == "True":
 			session.user = i.user
 			raise web.seeother("/")
@@ -355,7 +357,7 @@ class qrcode:
 			import png
 			from pyqrcode import QRCode
 			i = web.input()
-			short = "https://sjurl.tk/"+i.short
+			short = "https://crkl.ml/"+i.short
 			qr = pyqrcode.create(short)
 			qr.png("static/images/qr/"+i.short+'.png', scale = 6)
 			raise web.seeother(f"/details/{i.short}")
@@ -363,8 +365,71 @@ class qrcode:
 			return render.promo()
 		#os.system("clear")
 
+def safebrowse(url):
+	safecheck = requests.post(f"https://safebrowsing.googleapis.com/v4/threatMatches:find?key={os.environ['SAFE_BROWSING_KEY']}", headers={"Content-Type": "application/json"}, data="""{
+		"client": {
+		"clientId": "Crinkle",
+		"clientVersion": "5.2"
+		},
+		"threatInfo": {
+		"threatTypes": ["MALWARE", "SOCIAL_ENGINEERING", "UNWANTED_SOFTWARE"],
+		"platformTypes": ["ANY_PLATFORM"],
+		"threatEntryTypes": ["URL"],
+		"threatEntries": [
+			{"url": '"""+url+"""'}
+		]
+		}
+	}"""
+	)
+	safecheck = safecheck.json()
+	if url in str(safecheck):
+		short1 = ""
+		for key in db:
+			try:
+				if db[key]['url'] == url:
+					short1 = key
+			except:
+				pass
+		typ = safecheck['matches'][0]['threatType']
+		platform = safecheck['matches'][0]['platformType']
+		return render.dangerous(typ, platform, short1)
+
+def collectagent(short1, usr_str):
+	tz_NY = pytz.timezone('America/New_York')
+	now = datetime.now(tz_NY)
+	dt_string = now.strftime("%m/%d/%Y %H:%M:%S")
+	usr_agent2 = parse(usr_str)
+	usr_agent = ""
+	bfamily = str(usr_agent2.browser.family).replace("None", "")
+	bversion = str(usr_agent2.browser.version_string).replace("None", "")
+
+	osfamily = str(usr_agent2.os.family).replace("None", "")
+	osversion = str(usr_agent2.os.version_string).replace("None", "")
+	
+	devbrand = str(usr_agent2.device.brand).replace("None", "")
+	devfamily = str(usr_agent2.device.family).replace("None", "")
+	devmodel = str(usr_agent2.device.model).replace("None", "")
+
+	usr_agent = f"""{bfamily}  {bversion}  {osfamily}  {osversion}  {devbrand}  {devfamily}  {devmodel}   EST TIME:  {dt_string}"""
+
+	if db[short1]['agents'] == 'NONE':
+		agents = []
+	else:
+		agents = db[short1]['agents']
+
+	agents.append(usr_agent)
+
+	db[short1] = {
+		"url": db[short1]['url'],
+		"name": db[short1]['name'],
+		"webhook": db[short1]['webhook'],
+		"agents": agents,
+		"user": db[short1]['user']
+	}
+
 class short:
 	def GET(self, short):
+		start = time.time()
 		if short == "/" or short == "" or short == "favicon.ico":
 			raise web.seeother('/dash')
 
@@ -403,74 +468,27 @@ class short:
 				params = ""
 				short1 = short.split("/")[0]
 			
-			safecheck = requests.post(f"https://safebrowsing.googleapis.com/v4/threatMatches:find?key={os.environ['SAFE_BROWSING_KEY']}", headers={"Content-Type": "application/json"}, data="""{
-				"client": {
-				"clientId": "SJURL",
-				"clientVersion": "5.2"
-				},
-				"threatInfo": {
-				"threatTypes": ["MALWARE", "SOCIAL_ENGINEERING", "UNWANTED_SOFTWARE"],
-				"platformTypes": ["ANY_PLATFORM"],
-				"threatEntryTypes": ["URL"],
-				"threatEntries": [
-					{"url": '"""+db[short1]['url']+"""'}
-				]
-				}
-			}"""
-			)
-			safecheck = safecheck.json()
-			if db[short1]['url'] in str(safecheck):
-				typ = safecheck['matches'][0]['threatType']
-				platform = safecheck['matches'][0]['platformType']
-				return render.dangerous(typ, platform, db[short1])
+		safecheck = Thread(target=safebrowse, args=(db[short1]['url'],))
+		safecheck.start()
+		usr_str = web.ctx.env['HTTP_USER_AGENT']
+		usrcollect = Thread(target=collectagent, args=(short1, usr_str,))
+		usrcollect.start()	
 
+		
+		url = db[short1]['url']
+		if not url.startswith("https://"):
+			url = "https://"+url
+		url = url.replace("http:////", "http://")
 
-			if short1 in db:
-				print("here")
-				tz_NY = pytz.timezone('America/New_York')
-				now = datetime.now(tz_NY)
-				dt_string = now.strftime("%m/%d/%Y %H:%M:%S")
-				usr_str = web.ctx.env['HTTP_USER_AGENT']
-				usr_agent2 = parse(usr_str)
-				usr_agent = ""
-				bfamily = str(usr_agent2.browser.family).replace("None", "")
-				bversion = str(usr_agent2.browser.version_string).replace("None", "")
-
-				osfamily = str(usr_agent2.os.family).replace("None", "")
-				osversion = str(usr_agent2.os.version_string).replace("None", "")
-				
-				devbrand = str(usr_agent2.device.brand).replace("None", "")
-				devfamily = str(usr_agent2.device.family).replace("None", "")
-				devmodel = str(usr_agent2.device.model).replace("None", "")
-
-				usr_agent = f"""{bfamily}  {bversion}  {osfamily}  {osversion}  {devbrand}  {devfamily}  {devmodel}   EST TIME:  {dt_string}"""
-
-				if db[short1]['agents'] == 'NONE':
-					agents = []
-				else:
-					agents = db[short1]['agents']
-
-				agents.append(usr_agent)
-
-				db[short1] = {
-					"url": db[short1]['url'],
-					"name": db[short1]['name'],
-					"webhook": db[short1]['webhook'],
-					"agents": agents,
-					"user": db[short1]['user']
-				}
-				url = db[short1]['url']
-				if not url.startswith("https://"):
-					url = "https://"+url
-				url = url.replace("http:////", "http://")
-
-				if db[short1]['webhook'] != 'NONE':
-					webhookurl = db[short]['webhook']
-					webhook = DiscordWebhook(url=webhookurl, content="A Link was visited. \n\nDetails:\nShortened Backend: "+short+"\nFull URL: "+url+"\nDevice details: "+bfamily + "  " + bversion + "  " + osfamily + "  " + osversion + "  " + devbrand + "  " + devfamily + "  " + devmodel+"\n\nTime: "+dt_string)
-					webhook.execute()
-				raise web.seeother(url+params)
-			else:
-				raise web.notfound()
+		if db[short1]['webhook'] != 'NONE':
+			try:
+				webhookurl = db[short]['webhook']
+				webhook = DiscordWebhook(url=webhookurl, content="A Link was visited. \n\nDetails:\nShortened Backend: "+short+"\nFull URL: "+url+"\nDevice details: "+usr_str)
+				webhook.execute()
+			except:
+				pass
+		print(f'--- {time.time() - start} seconds ---')
+		raise web.seeother(url+params)
 		#os.system("clear")
 
 
@@ -543,7 +561,7 @@ class index:
 			# 	short = urllib.parse.quote(short, safe='')
 			# 	try:
 			# 		#DB Glitches from time to time so ignore glitched backends
-			# 		if short != "/" and short != "x" and short != '/money' and short != "/tone" and short != "https://replit.com/@CoolCoderSJ/SJURL":
+			# 		if short != "/" and short != "x" and short != '/money' and short != "/tone" and short != "https://replit.com/@CoolCoderSJ/Crinkle":
 			# 			name = ""
 			# 			if db[short]['webhook'] != 'NONE':
 			# 				shortwebs.append(short)
@@ -556,7 +574,7 @@ class index:
 			# print("a")
 			# for short in db:
 			# 	try:
-			# 		if short != "/" and short != "x" and short != '/money' and short != "/tone" and short != "https://replit.com/@CoolCoderSJ/SJURL":
+			# 		if short != "/" and short != "x" and short != '/money' and short != "/tone" and short != "https://replit.com/@CoolCoderSJ/Crinkle":
 			# 			if db[short]['user'] == user:
 			# 				userlinks[short] = db[short]['url']
 			# 	except:
@@ -565,7 +583,7 @@ class index:
 			# query = []
 			# for short in db:
 			# 	try:
-			# 		if short != "/" and short != "x" and short != '/money' and short != "/tone" and short != "https://replit.com/@CoolCoderSJ/SJURL":
+			# 		if short != "/" and short != "x" and short != '/money' and short != "/tone" and short != "https://replit.com/@CoolCoderSJ/Crinkle":
 			# 			import ast
 			# 			e = str(db[short]['agents'])
 			# 			if e == "NONE":
@@ -748,7 +766,7 @@ class url_info:
 			import pyqrcode
 			import png
 			from pyqrcode import QRCode
-			url = "https://sjurl.tk/"+s
+			url = "https://crkl.ml/"+s
 			qr = pyqrcode.create(url)
 			qr.png("static/images/qr/"+s+'.png', scale = 6)
 			return render.details(agent, clicks, dev, s, x_axis, y_axis, db[s]['url'], db[s]['webhook'], "/static/images/qr/"+s+".png", session.get("user"), db[s]['name'])
@@ -907,7 +925,7 @@ class demo:
 
 class apidocs:
 	def GET(self):
-		raise web.seeother("https://auth.sjurl.tk/api/docs/v2")
+		raise web.seeother("https://auth.crkl.ml/api/docs/v2")
 
 def check(i, scopes):
 	token = i.Authorization
@@ -924,7 +942,7 @@ def check(i, scopes):
 
 class apiadd:
 	def POST(self):
-		authorized = check(web.input(), "sjurl:add")
+		authorized = check(web.input(), "Crinkle:add")
 		if not authorized:
 			return "INVALID AUTHOIRZATION TOKEN PROVIDED"
 		user = authorized
@@ -978,7 +996,7 @@ class apiadd:
 
 class apime:
 	def GET(self):
-		authorized = check(web.input(), "sjurl:me")
+		authorized = check(web.input(), "Crinkle:me")
 		if not authorized:
 			return "INVALID AUTHOIRZATION TOKEN PROVIDED"
 		user = authorized
@@ -991,7 +1009,7 @@ class apime:
 
 class apiedit:
 	def POST(self):
-		authorized = check(web.input(), "sjurl:edit")
+		authorized = check(web.input(), "Crinkle:edit")
 		if not authorized:
 			return "INVALID AUTHOIRZATION TOKEN PROVIDED"
 		i = web.input()
@@ -1008,7 +1026,7 @@ class apiedit:
 
 class apidelete:
     def POST(self):
-        authorized = check(web.input(), "sjurl:delete")
+        authorized = check(web.input(), "Crinkle:delete")
         if not authorized:
             return "INVALID AUTHOIRZATION TOKEN PROVIDED"
         i = web.input()
@@ -1022,7 +1040,7 @@ class apidelete:
 
 class apidetails:
 	def GET(self):
-		authorized = check(web.input(), "sjurl:details")
+		authorized = check(web.input(), "Crinkle:details")
 		if not authorized:
 			return "INVALID AUTHOIRZATION TOKEN PROVIDED"
 		i = web.input()
@@ -1114,7 +1132,7 @@ class apidetails:
 		plt.savefig(f"static/images/graphs/{user}{s}.png", transparent=True, facecolor="w")
 		f.clear()
 		plt.close(f)
-		return {"agents": agent, "clicks": clicks, "dev": dev, "graph": f"https://sjurl.tk/static/images/graphs/{user}{s}.png"}
+		return {"agents": agent, "clicks": clicks, "dev": dev, "graph": f"https://crkl.ml/static/images/graphs/{user}{s}.png"}
 
 
 def token(num):
@@ -1180,7 +1198,7 @@ class bookmarklet:
 				"agents": "NONE",
 				"user": user
 			}
-			return f'https://sjurl.tk/{short}'
+			return f'https://crkl.ml/{short}'
 
 if __name__ == "__main__":
 	app.notfound = notfound
