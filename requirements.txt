@@ -6,7 +6,7 @@ cheroot==8.5.2
 click==7.1.2
 cycler==0.10.0
 discord-webhook==0.13.0
-easypydb==0.1
+easypydb==0.4.4
 eel==0.12.4
 future==0.18.2
 gevent==20.12.1
