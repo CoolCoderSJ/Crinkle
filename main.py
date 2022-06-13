@@ -16,8 +16,9 @@ from replit import db
 from easypydb import DB
 from threading import Thread
 import time
+from hashlib import sha256
 
-
+ipRequestList = {}
 
 authdb = DB("sso_tokens", os.environ["DB_TOKEN"])
 authdb.autosave = True
@@ -72,6 +73,29 @@ urls = (
 
 app = web.application(urls, locals())
 session = web.session.Session(app, web.session.DiskStore('sessions'))
+
+def before_request():
+	ip = web.ctx.env.get("HTTP_X_FORWARDED_FOR")
+	r = requests.get(f"https://check.getipintel.net/check.php?ip={ip}&contact=coolcodersj@gmail.com")
+	guess = float(r.text)
+	if guess >= 0.75:
+		raise web.forbidden("VPNs or proxys are not allowed.")
+		
+	ip = sha256(ip.encode()).hexdigest()
+	if ip not in ipRequestList:
+		ipRequestList[ip] = {
+			"count": 1,
+			"last": int(time.time())
+		}
+	else:
+		if ipRequestList[ip]['count'] >= 3:
+			raise web.forbidden("f you stop spamming")
+		if int(time.time()) - ipRequestList[ip]['last'] > 20:
+			ipRequestList[ip]['count'] = 0
+		ipRequestList[ip]['count'] += 1
+
+	print(ipRequestList)
+
 def notfound():
 	return web.notfound(render.notfound())
 
@@ -1150,6 +1174,7 @@ class bookmarklet:
 		web.header('Access-Control-Allow-Methods', 'GET')
 		web.header('Access-Control-Allow-Headers', '*')
 		i = web.input()
+		print(i)
 		if "short" not in i or "url" not in i or "auth" not in i:
 			user = session.get("user")
 			if not user:
@@ -1198,9 +1223,9 @@ class bookmarklet:
 				"agents": "NONE",
 				"user": user
 			}
-			return f'https://crkl.ml/{short}'
+			return {"url": f'https://crkl.ml/{short}'}
 
 if __name__ == "__main__":
 	app.notfound = notfound
-	print(os.environ['REPLIT_DB_URL'])
+	app.add_processor(web.loadhook(before_request))
 	app.run()
