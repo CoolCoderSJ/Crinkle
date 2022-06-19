@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Crinkle Stuff
+static/images/qr/*.png
+static/images/graphs/*.png
