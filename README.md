@@ -16,9 +16,6 @@ Check out the folloing comparison with our soon-to-be public full access plan an
 | Link History | ✅ Permanent History | ❌ 2 Years for Enterprise, 30 days for free and pro |
 | Dashboard with graphs | ✅ | ✅ |
 | Location | ❌ Because of privacy concerns.... | ✅ |
-| API Rate Limit | ❌ No Limit to use the ComCli API | ✅ Standard |
+| API Rate Limit | ❌ No Limit to use the Oauth2 API | ✅ Standard |
 | Webhooks | ✅ | ❌ Enterprise only |
-| SLA Uptime | Good | 99.9% for Enterprise |
-| Web Browser Extensions | Coming soon | ✅ |
-| Mobile App | ❌ | ✅ |
-| Desktop Client | Coming Soon | ❌ |
+| Safe Browsing by Google | ✅ | ❌ |
