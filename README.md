@@ -1,10 +1,8 @@
 ## Crinkle
 
-Need to quickly shorten that URL? Need to see how your URL is doing, as well as see how your link gets clicked the most? No worries, Crinkle has your back. With over 20 features, Crinkle is your one-place portal to manage all of your links.
+Need to quickly shorten that URL? Need to see how your URL is doing, as well as see how your link gets clicked the most? No worries, Crinkle has your back. Crinkle is your one-place portal to manage all of your links.
 
-## How we compare to leading brands
-Check out the folloing comparison with our soon-to-be public full access plan and bitly.
-
+## Crinkle vs Bitly
 | Feature | Crinkle | Bitly |
 | ------- | ----- | ----- |
 | Branded Links | ❌ | ❌ Paid |
