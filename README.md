@@ -5,7 +5,7 @@ Another URL shortener.
 ## Feature List
 - Custom Aliases
 - Password Protected Links
-- Custom domains (partial)
+- Custom domains
 - Link Analytics
     - Clicks
     - Referrers

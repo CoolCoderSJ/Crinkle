@@ -73,6 +73,9 @@
                 <a href="/" class="sidebar-link"><i class="bi bi-house"></i> <span>Home</span></a>
             </li>
             <li class="sidebar-item ">
+                <a href="/settings" class="sidebar-link"><i class="bi bi-gear"></i> <span>Settings</span></a>
+            </li>
+            <li class="sidebar-item ">
                 <a href="/logout" class="sidebar-link"><i class="bi bi-box-arrow-left"></i> <span>Logout</span></a>
             </li>
 
@@ -143,6 +146,16 @@
     }
 </script>
 <br><br>
+{% with messages = get_flashed_messages()%}
+{% if messages%}
+{% for message in messages%}
+<div class="alert alert-danger alert-dismissible show fade">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{%endfor%}
+{%endif%}
+{%endwith%}
 <div class="page-content">
     <section class="row">
         <div>
@@ -254,9 +267,9 @@
                                 </div>
 
                                 <label for="password">Domain: </label>
-                                <p>Domains are experimental. Set a <code>CNAME</code> record on your domain pointing to <code>url.shuchir.dev.</code> as well as a <code>TXT</code> record with the value <code>crinkle-{{ username }}</code>. Then, <a class="font-bold" href="//shuchir.dev" target="_blank">contact me</a> to activate your domain.</p>
                                 <div class="form-group">
                                   <input type="text" name="domain" placeholder="Domain" value="{{ domain }}" class="form-control">
+                                  <input type="hidden" name="old_domain" value="{{ domain }}">
                                 </div>
                               </div>
                               <div class="modal-footer">
@@ -305,6 +318,7 @@
                                 <p>Are you sure you want to delete? This action is irreversible.</p>
                                 <div class="form-group">
                                   <input type="hidden" name="shortkey" value="{{ slug }}">
+                                  <input type="hidden" name="domain" value="{{ domain }}">
                                 </div>
                               </div>
                               <div class="modal-footer">
