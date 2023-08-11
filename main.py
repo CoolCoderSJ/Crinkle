@@ -267,7 +267,10 @@ def dashboard(shortkey):
         "Samsung": "",
     }
 
-    return render_template('dashboard.html', data=data, iconmap=iconmap, slug=shortkey, url=db.list_documents('data', 'urls', queries=[Query.equal("shortkey", shortkey)])['documents'][0]['url'], domain=db.list_documents('data', 'urls', queries=[Query.equal("shortkey", shortkey)])['documents'][0]['domain'])
+    return render_template('dashboard.html', data=data, iconmap=iconmap, 
+                            slug=shortkey, url=db.list_documents('data', 'urls', queries=[Query.equal("shortkey", shortkey)])['documents'][0]['url'], 
+                            domain=db.list_documents('data', 'urls', queries=[Query.equal("shortkey", shortkey)])['documents'][0]['domain'],
+                            username=users.get(session['user'])['name'])
 
 @app.route('/<shortkey>')
 def redirect_to_url(shortkey):
