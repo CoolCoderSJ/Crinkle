@@ -1,130 +1,56 @@
-$def with (msg)
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
-  <link rel="shortcut icon" href="https://crkl.ml/static/images/favicon.svg" type="image/x-icon">  
-  <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
-  <link rel="stylesheet" type="text/css" href="static/css/new.css">  
-  <title>Crinkle</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Crinkle</title>
+    <link rel="stylesheet" href="/static/assets/css/main/app.css">
+    <link rel="stylesheet" href="/static/assets/css/pages/auth.css">
+    <link rel="shortcut icon" href="/static/assets/images/logo/favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/assets/images/logo/favicon.png" type="image/png">
 </head>
-<body class="bg-white dark:bg-gray-800">
 
+<body>
+    <div id="auth">
+        
+<div class="row h-100">
+    <div class="col-lg-5 col-12">
+        <div id="auth-left">
+            <div class="auth-logo">
+                <a href="/"><img src="/static/assets/images/logo/logo.svg" alt="Logo"></a>
+            </div>
+            <h1 class="auth-title">Log in.</h1>
 
-
-<!-- start navbar -->
-<div class="dark:border-gray-800 dark:fixed dark:w-full dark:top-0 dark:z-20 flex flex-row flex-wrap items-center p-6 bg-gray-800" style="margin-left: 250px;"> 
-    
-    <!-- navbar content toggle -->
-    <button id="navbarToggle" class="hidden dark:block dark:fixed right-0 mr-6">
-      <i class="fad fa-chevron-double-down"></i>
-    </button>
-    <!-- end navbar content toggle -->
-
-    <!-- navbar content -->
-    <div id="navbar" class="animated dark:hidden dark:fixed dark:top-0 dark:w-full dark:left-0 dark:mt-16 dark:p-10 bg-gray-800 flex-1 pl-3 flex flex-row flex-wrap justify-between items-center dark:flex-col dark:items-center">
+            <form action="/login" method="post">
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input name="username" type="text" class="form-control form-control-xl" placeholder="Username">
+                    <div class="form-control-icon">
+                        <i class="bi bi-person"></i>
+                    </div>
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input name="password" type="password" class="form-control form-control-xl" placeholder="Password">
+                    <div class="form-control-icon">
+                        <i class="bi bi-shield-lock"></i>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Log in</button>
+            </form>
+            <div class="text-center mt-5 text-lg fs-4">
+                <p class="text-gray-600">Don't have an account? <a href="/signup" class="font-bold">Sign
+                        up</a>.</p>
+            </div>
+        </div>
     </div>
-    <!-- end navbar content -->
+    <div class="col-lg-7 d-none d-lg-block">
+        <div id="auth-right">
 
-  </div>
-<!-- end navbar -->
-
-
-<!-- strat wrapper -->
-<div class="h-screen flex flex-row flex-wrap">
-  
-    <!-- start sidebar -->
-  <div id="sideBar" class="relative flex flex-col flex-wrap p-6 flex-none w-64 dark:-ml-64 dark:fixed dark:top-0 dark:z-30 dark:h-screen dark:shadow-xl animated faster" style="top: 0; bottom: 0; position: fixed; background: #262f3c;">
-    
-
-    <!-- sidebar content -->
-    <div class="flex flex-col">
-
-      <!-- sidebar toggle -->
-      <div class="text-right hidden dark:block mb-4">
-        <button id="sideBarHideBtn">
-          <i class="fad fa-times-circle"></i>
-        </button>
-      </div>
-      <!-- end sidebar toggle -->
-	  <!-- logo -->
-    <div class="flex-none w-56 flex flex-row items-center">
-      <img src="https://crkl.ml/static/images/favicon.svg" class="w-10 flex-none">
-      <strong class="capitalize ml-1 flex-1 text-white">Crinkle</strong>
-
-      <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden dark:block">
-        <i class="fad fa-list-ul"></i>
-      </button>
+        </div>
     </div>
-    <!-- end logo -->  
-      <!-- link -->
-      <a href="/" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500" style="margin-top: 30px;">
-        Home
-      </a>
-      <!-- end link -->
-	  <!-- link -->
-      <a href="/add" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        add link
-      </a>
-      <!-- end link -->
-
-      <!-- link -->
-      <a href="/login" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        Login
-      </a>
-      <!-- end link -->
-
-      <!-- link -->
-      <a href="/signup" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        Signup
-      </a>
-      <!-- end link -->
-	  <!-- link -->
-      <a href="/bookmarklet" class="mb-3 capitalize text-white font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        Bookmarklet
-      </a>
-      <!-- end link -->
-    </div>
-    <!-- end sidebar content -->
-
-  </div>
-  <!-- end sidbar -->
-
-  <!-- strat content -->
-  <div class="bg-gray-900 flex-1 p-6 dark:mt-16" style="margin-left: 250px;">
-$if msg != '':
-	<div class="alert alert-error" style="text-transform: none !important;">
-		$msg
-	</div>
-<div class="w-full max-w-xs">
-  <form class="bg-gray-700 shadow-md rounded px-8 pt-6 pb-8 mb-4" method="post" action="/login"  style="padding: 30px;">
-    <div class="mb-4">
-      <label class="block text-white text-sm font-bold mb-2" for="Name">
-        Username
-      </label>
-      <input class="shadow appearance-none bg-gray-800 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline" id="Name" type="text" name="user" placeholder="Username">
-    </div>
-    <div class="mb-6">
-      <label class="block text-white text-sm font-bold mb-2" for="password">
-        Password
-      </label>
-      <input class="shadow appearance-none bg-gray-800 rounded w-full py-2 px-3 text-white mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Password" name="passw">
-    </div>
-
-      <button class="btn-bs-dark" type="submit">
-        Login
-      </button>
-  </form>
 </div>
-</div>
-</div>
-<!-- end wrapper -->
 
-<!-- script -->
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<script src="static/js/new.js"></script>
-<!-- end script -->
-
+    </div>
 </body>
+
 </html>
