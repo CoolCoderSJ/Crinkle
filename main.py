@@ -1,5 +1,4 @@
-#url shortener
-from flask import Flask, render_template, request, redirect, session, abort
+from flask import Flask, render_template, request, redirect, session, abort, flash
 from flask_session import Session
 import random, string, datetime, requests, os
 from argon2 import PasswordHasher
@@ -76,7 +75,8 @@ def shorten():
         return abort(400)
     db_results = db.list_documents('data', 'urls', queries=[Query.equal("shortkey", shortkey)])
     if db_results['total'] > 0:
-        return abort(409)
+        flash("The slug you used already exists")
+        return redirect('/')
     data = {
         'url': url,
         'shortkey': shortkey,
@@ -157,12 +157,16 @@ def login():
         return abort(400)
     allusers = users.list(queries=[Query.equal('name', username)])['users']
     if len(allusers) == 0:
-        return abort(404)
+        flash("User does not exist")
+        return redirect("/login")
     user = allusers[0]
-    if ph.verify(user['password'], password):
+    try:
+        ph.verify(user['password'], password)
         session['user'] = user['$id']
         return redirect('/')
-    else: return abort(403)
+    except: 
+        flash("Incorrect password")
+        return redirect("/login")
     
 @app.route('/logout')
 def logout():
@@ -174,12 +178,16 @@ def signup():
     if request.method == "GET": return render_template('signup.html')
     username = request.form['username']
     password = request.form['password']
+    if len(password) < 8: 
+        flash("Password must be at least 8 characters long")
+        return redirect("/signup")
     if not username or not password:
         return abort(400)
     try:
         allusers = users.list(queries=[Query.equal('name', username)])['users']
         if len(allusers) > 0:
-            return abort(409)
+            flash("User already exists")
+            return redirect("/signup")
         session['user'] = users.create('unique()', name=username, password=password)['$id']
     except Exception as e:
         print(e)
@@ -265,7 +273,7 @@ def dashboard(shortkey):
 def redirect_to_url(shortkey):
     db_results = db.list_documents('data', 'urls', queries=[Query.equal("shortkey", shortkey)])
     if db_results['total'] == 0:
-        return abort(404)
+        return render_template("404.html")
 
     data = db_results['documents'][0]
     url = db_results['documents'][0]['url']
@@ -325,9 +333,12 @@ def password(shortkey):
     password = form['password']
     db_results = db.list_documents('data', 'urls', queries=[Query.equal("shortkey", shortkey)])
     if db_results['total'] == 0:
-        return abort(404)
-    if not ph.verify(db_results['documents'][0]['password'], password):
-        return abort(403)
+        return render_template("404.html")
+    try:
+        ph.verify(db_results['documents'][0]['password'], password)
+    except:
+        flash("Incorrect password")
+        return redirect('/'+shortkey)
 
     url = db_results['documents'][0]['url']
 
@@ -346,4 +357,4 @@ def password(shortkey):
     return redirect(url)
     
 
-app.run(host='0.0.0.0', port=24245)
+app.run(host='0.0.0.0', port=24245, debug=True)

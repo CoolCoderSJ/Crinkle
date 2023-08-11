@@ -60,6 +60,16 @@
 <div class="page-heading">
     <h3>Crinkle</h3>
 </div>
+{% with messages = get_flashed_messages()%}
+{% if messages%}
+{% for message in messages%}
+<div class="alert alert-danger alert-dismissible show fade">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{%endfor%}
+{%endif%}
+{%endwith%}
 <div class="page-content">
     <section class="row">
         <div>
