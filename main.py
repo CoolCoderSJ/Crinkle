@@ -404,14 +404,14 @@ def verify_domain():
         flash("You do not own this domain")
         return redirect('/settings')
 
-    a = requests.get("https://dns.google/resolve?name=link.industeeltech.org&type=A").json()
+    a = requests.get(f"https://dns.google/resolve?name={domain}&type=A").json()
     A_records = []
     for ans in a['Answer']: A_records.append(ans['data'])
     if not "132.145.139.96" in A_records:
         flash("Crinkle could not find a valid A record")
         return redirect('/settings')
 
-    txt = a = requests.get("https://dns.google/resolve?name=link.industeeltech.org&type=TXT").json()
+    txt = a = requests.get(f"https://dns.google/resolve?name={domain}&type=TXT").json()
     TXT_records = []
     for ans in txt['Answer']: TXT_records.append(ans['data'])
     print(TXT_records)
