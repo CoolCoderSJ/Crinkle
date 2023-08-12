@@ -10,46 +10,22 @@
     <link rel="stylesheet" href="/static/assets/css/main/app-dark.css">
     <link rel="shortcut icon" href="/static/assets/images/logo/favicon.svg" type="image/x-icon">
     <link rel="shortcut icon" href="/static/assets/images/logo/favicon.png" type="image/png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     
-<link rel="stylesheet" href="/static/assets/css/shared/iconly.css">
-
+    <link rel="stylesheet" href="/static/assets/css/shared/iconly.css">
+    <link rel="stylesheet" href="/static/user.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        img {
+            height: 400px;
+            width: auto !important;
+            margin-bottom: 24px;
+        }
+    </style>
 </head>
 
 <body>
     <div id="app">
-        <div id="sidebar" class="active">
-            <div class="sidebar-wrapper active">
-    <div class="sidebar-header position-relative">
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="logo">
-                <a href="index.html"><img src="/static/assets/images/logo/logo.svg" alt="Logo" srcset=""></a>
-            </div>
-            <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21"><g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 14.5c2.219 0 4-1.763 4-3.982a4.003 4.003 0 0 0-4-4.018c-2.219 0-4 1.781-4 4c0 2.219 1.781 4 4 4zM4.136 4.136L5.55 5.55m9.9 9.9l1.414 1.414M1.5 10.5h2m14 0h2M4.135 16.863L5.55 15.45m9.899-9.9l1.414-1.415M10.5 19.5v-2m0-14v-2" opacity=".3"></path><g transform="translate(-210 -1)"><path d="M220.5 2.5v2m6.5.5l-1.5 1.5"></path><circle cx="220.5" cy="11.5" r="4"></circle><path d="m214 5l1.5 1.5m5 14v-2m6.5-.5l-1.5-1.5M214 18l1.5-1.5m-4-5h2m14 0h2"></path></g></g></svg>
-                <div class="form-check form-switch fs-6">
-                    <input class="form-check-input  me-0" type="checkbox" id="toggle-dark" >
-                    <label class="form-check-label" ></label>
-                </div>
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="m17.75 4.09l-2.53 1.94l.91 3.06l-2.63-1.81l-2.63 1.81l.91-3.06l-2.53-1.94L12.44 4l1.06-3l1.06 3l3.19.09m3.5 6.91l-1.64 1.25l.59 1.98l-1.7-1.17l-1.7 1.17l.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95l2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85c-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14c.4-.4.82-.76 1.27-1.08c.75-.53 1.93.36 1.85 1.19c-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82c-2.81 3.14-2.7 7.96.31 10.98c3.02 3.01 7.84 3.12 10.98.31Z"></path></svg>
-            </div>
-            <div class="sidebar-toggler  x">
-                <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
-            </div>
-        </div>
-    </div>
-    <div class="sidebar-menu">
-        <ul class="menu">            
-            <li class="sidebar-item ">
-                <a href="/login" class="sidebar-link"><i class="bi bi-person-circle"></i> <span>Login</span></a>
-            </li>
-            <li class="sidebar-item ">
-                <a href="/signup" class="sidebar-link"><i class="bi bi-box-arrow-in-right"></i> <span>Signup</span></a>
-            </li>
-
-        </ul>
-    </div>
-</div>
-        </div>
         <div id="main">
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
@@ -57,25 +33,46 @@
                 </a>
             </header>
             
-<div class="page-heading">
-    <h3>Crinkle</h3>
-</div>
+
 <div class="page-content">
     <section class="row">
-        <p>The landing page is still under construction.</p>
+        <div>
+            <div class="row">
+                <h2>Crinkle</h2>
+                <p>Crinkle is a URL shortener that allows you to shorten your links and track them.</p>
+                <p>I don't have enough time/effort to make a pretty landing page, so here's some features and screenshots instead.</p>
+                <a class="btn btn-primary" style="width: fit-content; height: 100%;" href="/signup">Register</a>
+                <br><br><br><br><br>
+                <h3>Simplified Dashboard</h3>
+                <p>The dashboard makes it easy to quickly shorten a URL, with options to set a custom domain, alias, and password. You can also see all of your links at a glance.</p>
+                <img src="https://sharex.shuchir.dev/u/9sCWLQ.png">
+
+                <h3>Password Protect Links</h3>
+                <p>Have sensitive links you want to shorten? Add a password intermediary screen to your link.</p>
+                <img src="https://sharex.shuchir.dev/u/uiMZlE.png">
+
+                <h3>Custom Domains</h3>
+                <p>Want to use your own domain? You can add it to your account and use it for your links.</p>
+                <img src="https://sharex.shuchir.dev/u/ExgtUd.png">
+
+                <h3>Detailed Analytics</h3>
+                <p>Want to see how your links are doing? You can see detailed analytics for each link, including the number of clicks, the referrers, cities, regions, countries, browsers, platforms, and devices.</p>
+                <img src="https://sharex.shuchir.dev/u/0bz6cI.png">
+                <img src="https://sharex.shuchir.dev/u/884ba5.png">
+                <img src="https://sharex.shuchir.dev/u/QwFo2i.png">
+
+                <h3>QR Codes</h3>
+                <p>Need a QR code to put on a flyer or to share with someone easily? Crinkle auto generates QR Codes.</p>
+                <img src="https://sharex.shuchir.dev/u/XAV44V.png">
+
+                <h3>Editing/Deletion</h3>
+                <p>You can edit a QR code or delete it at any time.</p>
+                </div>
+            </div>
+        </div>
     </section>
 </div>
 
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>Design &copy; Mazer - 2021</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crinkle &copy; Shuchir Jain - 2023</p>
-                    </div>
-                </div>
-            </footer>
         </div>
     </div>
     <script src="/static/assets/js/bootstrap.js"></script>
@@ -84,7 +81,57 @@
 <!-- Need: Apexcharts -->
 <script src="/static/assets/extensions/apexcharts/apexcharts.min.js"></script>
 <script src="/static/assets/js/pages/dashboard.js"></script>
-
+<style>.colored-toast.swal2-icon-success {
+    background-color: #a5dc86 !important;
+  }
+  
+  .colored-toast.swal2-icon-error {
+    background-color: #f27474 !important;
+  }
+  
+  .colored-toast.swal2-icon-warning {
+    background-color: #f8bb86 !important;
+  }
+  
+  .colored-toast.swal2-icon-info {
+    background-color: #3fc3ee !important;
+  }
+  
+  .colored-toast.swal2-icon-question {
+    background-color: #87adbd !important;
+  }
+  
+  .colored-toast .swal2-title {
+    color: white;
+  }
+  
+  .colored-toast .swal2-close {
+    color: white;
+  }
+  
+  .colored-toast .swal2-html-container {
+    color: white;
+  }</style>
+<script>
+    function copylink (url) {
+        navigator.clipboard.writeText(url);
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-right',
+        iconColor: 'white',
+        customClass: {
+            popup: 'colored-toast'
+        },
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true
+        })
+        Toast.fire({
+        icon: 'success',
+        title: 'Copied to clipboard'
+        })
+    }
+</script>
 </body>
 
 </html>
